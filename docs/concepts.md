@@ -1,8 +1,8 @@
-# Ubikial Concepts
+# Ubikia Concepts
 ## Operational Glossary for Source-First Derivation
 
-**Status:** Draft v0.1  
-**Repository target:** `ubikial/docs/concepts.md`  
+**Status:** Draft v0.2  
+**Repository target:** `ubikia/docs/concepts.md`  
 **Related documents:** `cogentia/research/personas.md`, `cogentia/research/derived_products.md`  
 **Date:** 2026-05-23  
 
@@ -10,9 +10,9 @@
 
 ## 1. Purpose
 
-This document defines the core operational concepts used by Ubikial.
+This document defines the core operational concepts used by Ubikia.
 
-Ubikial is an editorial derivation infrastructure for versioned corpora.
+Ubikia is an editorial derivation infrastructure for versioned corpora.
 
 Its purpose is not generic content generation. Its purpose is governed derivation:
 
@@ -36,7 +36,23 @@ The central rule is:
 
 ---
 
-## 2. Source Corpus
+## 2. Relation to Cogentia
+
+Cogentia structures thought.
+
+Ubikia structures appearance.
+
+```text
+Cogentia
+  = coherence, cognition, corpus, signatures, continuations
+
+Ubikia
+  = derivation, publication, appearances, provenance
+```
+
+---
+
+## 3. Source Corpus
 
 A **source corpus** is the substance-bearing layer.
 
@@ -67,13 +83,13 @@ Publications are appearances of the corpus, not the corpus itself.
 
 ---
 
-## 3. Source Unit
+## 4. Source Unit
 
 A **source unit** is the smallest source object that can be used for derivation.
 
 Possible source units include repository, branch, commit, file, section, paragraph, concept, quote, issue, discussion, or conversation continuation.
 
-Ubikial should allow different granularities.
+Ubikia should allow different granularities.
 
 ### Example
 
@@ -91,7 +107,7 @@ The source unit should be precise enough to support provenance.
 
 ---
 
-## 4. Derived Product
+## 5. Derived Product
 
 A **derived product** is a situated form generated from a source corpus for a specific audience, platform, persona, and purpose.
 
@@ -117,7 +133,7 @@ A derived product is not a degraded source. It is a situated appearance of the s
 
 ---
 
-## 5. Form
+## 6. Form
 
 A **form** is the editorial shape of a derived product.
 
@@ -152,7 +168,7 @@ Substack and Medium are platforms.
 
 ---
 
-## 6. Platform
+## 7. Platform
 
 A **platform** is the technical and social scene where a derived product appears.
 
@@ -166,7 +182,7 @@ A platform should influence the product, but must not become the source.
 
 ---
 
-## 7. Persona
+## 8. Persona
 
 A **persona** is a situated mode of appearance.
 
@@ -192,7 +208,7 @@ If the persona reshapes the source because it performs better, persona capture h
 
 ---
 
-## 8. Audience
+## 9. Audience
 
 An **audience** is the intended receiver of a derived product.
 
@@ -206,7 +222,7 @@ Audience adaptation is legitimate. Source betrayal is not.
 
 ---
 
-## 9. Purpose
+## 10. Purpose
 
 A **purpose** is the intended function of the derived product.
 
@@ -218,7 +234,7 @@ Purpose should be explicit when stakes are non-trivial.
 
 ---
 
-## 10. Constraint
+## 11. Constraint
 
 A **constraint** is a formal, platform, audience, persona, legal, ethical, or strategic limitation applied to a derived product.
 
@@ -240,7 +256,7 @@ Constraints should be machine-readable when possible.
 
 ---
 
-## 11. Provenance
+## 12. Provenance
 
 **Provenance** is the reconstructible relation between source and derived product.
 
@@ -265,7 +281,7 @@ The higher the stakes, the stronger the provenance requirement.
 
 ---
 
-## 12. Review
+## 13. Review
 
 A **review** is the validation step before publication or use.
 
@@ -291,7 +307,7 @@ Consequential derived products require human review.
 
 ---
 
-## 13. Publication
+## 14. Publication
 
 A **publication** is the act or record of placing a derived product on a platform.
 
@@ -323,7 +339,7 @@ Publication must not erase source provenance.
 
 ---
 
-## 14. Publication Ledger
+## 15. Publication Ledger
 
 A **publication ledger** records appearances of source-derived products.
 
@@ -347,7 +363,7 @@ The ledger prevents dispersion, duplication, and manual drift.
 
 ---
 
-## 15. Return to Corpus
+## 16. Return to Corpus
 
 **Return to corpus** is the process by which feedback from derived products improves the source.
 
@@ -359,9 +375,9 @@ Publication is not the end of the process. It is a scene of testing.
 
 ---
 
-## 16. Ubikial
+## 17. Ubikia
 
-**Ubikial** is the derivation infrastructure.
+**Ubikia** is the derivation infrastructure.
 
 It manages the structured relation between:
 
@@ -379,20 +395,20 @@ ledger
 return to corpus
 ```
 
-Ubikial should remain source-first.
+Ubikia should remain source-first.
 
 ### Rule
 
-Ubikial derives. It does not betray.
+Ubikia derives. It does not betray.
 
 ---
 
 ## 17. Ubikia
 
-**Ubikia** is the publication agent.
+**Ubikia** is the publication layer.
 
-Ubikia is not a writing agent.  
-Ubikia is a publication agent.
+The publication layer is not a writing agent.  
+It is a publication support layer.
 
 It may prepare platform-specific metadata, prepare publication packages, generate announcement drafts, check source links, update the publication ledger, warn about divergence, suggest cross-publication, defer publication when automation is insufficient, and require human approval.
 
@@ -402,7 +418,7 @@ Ubikia serves the corpus. It must not capture it.
 
 ---
 
-## 18. Capture Risks
+## 19. Capture Risks
 
 ### 18.1 Form Capture
 
@@ -428,11 +444,11 @@ Multiple manually edited platform versions become inconsistent.
 
 ### 18.5 Agentic Drift
 
-A publication agent optimizes for reach, engagement, or convenience instead of fidelity.
+A publication layer optimizes for reach, engagement, or convenience instead of fidelity.
 
 ---
 
-## 19. Minimal Workflow Vocabulary
+## 20. Minimal Workflow Vocabulary
 
 ```text
 select_source
@@ -453,7 +469,7 @@ These verbs may later become CLI commands or internal function names.
 
 ---
 
-## 20. Closing Formula
+## 21. Closing Formula
 
 The corpus carries the substance.
 
@@ -465,6 +481,6 @@ The persona governs the appearance.
 
 The ledger preserves the trace.
 
-Ubikia manages publication.
+The publication layer manages publication.
 
-Ubikial derives without betraying.
+Ubikia derives without betraying.
