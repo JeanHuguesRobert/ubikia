@@ -1,7 +1,7 @@
 # Ubikia
 ## Derive without betraying
 
-**Status:** README draft v0.1  
+**Status:** README draft v0.2  
 **Repository:** `JeanHuguesRobert/ubikia`  
 **Related corpus:** Cogentia / Cogentia Commons  
 **Date:** 2026-05-23  
@@ -39,11 +39,33 @@ The source carries the substance.
 The derived product organizes the form.  
 The platform provides the scene of appearance.  
 The persona governs the mode of address.  
-The publication agent manages distribution and traceability.
+The publication layer manages distribution and traceability.
 
 ---
 
-## 2. What Ubikia Is Not
+## 2. Relation to Cogentia
+
+Ubikia is designed as the publication and derivation counterpart of Cogentia.
+
+```text
+Cogentia
+  = coherence, cognition, corpus, signatures, continuations
+
+Ubikia
+  = derivation, publication, appearances, provenance
+```
+
+A shorter formula:
+
+> Cogentia structures thought.  
+> Ubikia structures appearance.
+
+Cogentia helps preserve cognitive coherence.  
+Ubikia helps produce faithful public forms of appearance.
+
+---
+
+## 3. What Ubikia Is Not
 
 Ubikia is not primarily a social media manager.
 
@@ -77,7 +99,7 @@ The goal is to make a corpus appear without losing itself.
 
 ---
 
-## 3. Core Concepts
+## 4. Core Concepts
 
 ### 3.1 Source Corpus
 
@@ -186,15 +208,15 @@ It prevents dispersion, duplication, and manual drift.
 
 ---
 
-## 4. Ubikia
+## 5. The Ubikia Publication Layer
 
-Ubikia is the publication agent of Ubikia.
+Ubikia includes a publication layer.
 
-Ubikia is not a writing agent.
+The publication layer is not a writing agent.
 
-Ubikia is a publication agent.
+It is a publication support layer.
 
-The analogy is an artistic agent.
+The analogy is an artistic or publication agent.
 
 An artistic agent does not create the artist’s work. The agent helps the work appear in the right venues, under the right conditions, to the right audiences, with the right timing and metadata.
 
@@ -219,7 +241,7 @@ Ubikia should reduce manual repetition without becoming autonomous over the corp
 
 ---
 
-## 5. Workflow
+## 6. Workflow
 
 A source-first derivation workflow may follow these steps.
 
@@ -345,7 +367,7 @@ Useful feedback, objections, corrections, and insights should return to the sour
 
 ---
 
-## 6. Minimal File Structure
+## 7. Minimal File Structure
 
 A minimal file-based implementation may use this structure:
 
@@ -355,7 +377,7 @@ ubikia/
   docs/
     concepts.md
     derivation_workflow.md
-    ubikia.md
+    publication_layer.md
     publication_ledger.md
   schemas/
     source.schema.yaml
@@ -390,7 +412,7 @@ The first useful version does not need a full web app.
 
 ---
 
-## 7. Minimal Data Structures
+## 8. Minimal Data Structures
 
 ### 7.1 Source
 
@@ -460,7 +482,7 @@ reason: >
 
 ---
 
-## 8. MVP Strategy
+## 9. MVP Strategy
 
 The first MVP should be simple.
 
@@ -501,7 +523,7 @@ Add AI-assisted generation under human review.
 ubikia draft personas_source_v021 --form blog_essay --persona public_intellectual
 ```
 
-### Phase 4 — Publication Agent
+### Phase 4 — Publication Layer
 
 Introduce Ubikia to prepare platform-specific publication packages.
 
@@ -527,7 +549,7 @@ The web interface may provide:
 
 ---
 
-## 9. Example: `personas.md`
+## 10. Example: `personas.md`
 
 ### Source
 
@@ -557,7 +579,7 @@ All derived products should preserve their relation to that source.
 
 ---
 
-## 10. Example: `machines_apparition.md`
+## 11. Example: `machines_apparition.md`
 
 ### Source
 
@@ -597,7 +619,7 @@ None of these appearances should become the source itself.
 
 ---
 
-## 11. Governance Rules
+## 12. Governance Rules
 
 ### 11.1 Source Primacy Rule
 
@@ -633,7 +655,7 @@ Publication feedback should be able to return to the corpus.
 
 ---
 
-## 12. Risks
+## 13. Risks
 
 ### 12.1 Form Capture
 
@@ -665,11 +687,11 @@ Multiple platform versions are edited manually and become inconsistent.
 
 ### 12.6 Agentic Drift
 
-A publication agent optimizes for reach, engagement, or convenience rather than fidelity.
+A publication layer optimizes for reach, engagement, or convenience rather than fidelity.
 
 ---
 
-## 13. Relation to Cogentia
+## 14. Relation to Cogentia
 
 Cogentia preserves cognitive coherence.
 
@@ -685,7 +707,7 @@ Ubikia
   = derivation infrastructure
 
 Ubikia
-  = publication agent
+  = publication layer
 
 GitHub
   = source infrastructure and provenance
@@ -700,13 +722,13 @@ Ubikia should not replace Cogentia.
 
 Ubikia should not replace the author.
 
-The publication agent serves the corpus.
+The publication layer serves the corpus.
 
 It must not capture it.
 
 ---
 
-## 14. Roadmap
+## 15. Roadmap
 
 ### v0.1 — Conceptual README
 
@@ -770,7 +792,7 @@ Add a simple interface for selecting sources, generating derived products, and t
 
 ---
 
-## 15. Continuation
+## 16. Continuation
 
 Next work should proceed in this order:
 
@@ -789,7 +811,7 @@ The first objective is conceptual and operational clarity.
 
 ---
 
-## 16. Closing Formula
+## 17. Closing Formula
 
 A corpus is not a publication.
 
