@@ -63,6 +63,10 @@ A shorter formula:
 Cogentia helps preserve cognitive coherence.  
 Ubikia helps produce faithful public forms of appearance.
 
+Ubikia is now a public node of the wider Cogentia corpus. Its generated navigation lives in
+[`research/index.md`](research/index.md) and [`research/corpus-status.md`](research/corpus-status.md);
+the conceptual anchor remains Cogentia's source/derived doctrine.
+
 ---
 
 ## 3. What Ubikia Is Not
