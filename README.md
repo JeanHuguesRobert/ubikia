@@ -1,10 +1,16 @@
 # Ubikia
 ## Derive without betraying
 
-**Status:** README draft v0.2  
+**Status:** corpus-facing overview, still evolving  
 **Repository:** `JeanHuguesRobert/ubikia`  
 **Related corpus:** Cogentia / Cogentia Commons  
-**Date:** 2026-05-23  
+**Date:** 2026-06-16  
+
+## Quick Orientation
+
+- [`research/index.md`](research/index.md) — generated document catalog
+- [`research/corpus-status.md`](research/corpus-status.md) — generated status, backlinks, and navigation checks
+- [`README.md`](README.md) — conceptual overview of the derivation and publication layer
 
 ---
 
