@@ -1,3 +1,14 @@
+---
+document_role: "source"
+document_kind: "documentation"
+visibility: "public"
+lifecycle_state: "active"
+classification_source: "cogentia.js"
+classification_version: "1"
+classification_rule: "documentation"
+classification_confidence: "medium"
+---
+
 # Ubikia Publication Layer
 ## Platform Packages, Publication Ledger, and Supervised Distribution
 

@@ -1,3 +1,14 @@
+---
+document_role: "operational"
+document_kind: "agent-mandate"
+visibility: "public"
+lifecycle_state: "active"
+classification_source: "cogentia.js"
+classification_version: "1"
+classification_rule: "agent-mandate"
+classification_confidence: "strong"
+---
+
 # AGENTS.md — Ubikia
 
 ## Status
