@@ -7,6 +7,7 @@ classification_source: "cogentia.js"
 classification_version: "1"
 classification_rule: "agent-mandate"
 classification_confidence: "strong"
+last_stamped_at: 2026-06-26
 ---
 
 # AGENTS.md — Ubikia
@@ -19,9 +20,10 @@ It is not the doctrine itself.
 It is not the corpus itself.  
 It is a governed operational projection of the corpus for this repository.
 
-The source methodological reference is:
+The source methodological references are:
 
 - [`cogentia/research/agent_configuration_layer.md`](https://github.com/JeanHuguesRobert/cogentia/blob/main/research/agent_configuration_layer.md)
+- [`cogentia/research/optimistic_mainline_governance.md`](https://github.com/JeanHuguesRobert/cogentia/blob/main/research/optimistic_mainline_governance.md)
 
 ## Repository role
 
@@ -65,6 +67,16 @@ A derived product must remain reconstructibly linked to:
 - reviewer;
 - publication status;
 - feedback returned to the corpus.
+
+## Direct-main rule
+
+This repository follows **Optimistic Mainline Governance** by reference, not by copying the doctrine here.
+
+Small direct commits to `main` are acceptable when explicitly authorized, scoped, reversible, inspectable by diff, and reported after completion.
+
+Because Ubikia governs derived products and publication support, direct-main work must not turn drafts into publications, remove provenance, alter source claims to fit a platform, optimize for engagement at the expense of fidelity, or expose private material.
+
+Use an issue, checkpoint, branch, PR, staged patch or human validation when a change affects publication status, source-to-product derivation rules, private/public boundaries, persona policy, ledgers, automation that could publish externally, or several repositories at once.
 
 ## What Ubikia is not
 
@@ -294,9 +306,10 @@ Source used:
 Derived products prepared:
 Publication targets:
 Provenance preserved: yes/no
-Human validation needed: yes/no
 Known risks:
+Reversibility:
 Next step:
+Human validation needed: yes/no
 ```
 
 ## Local invariant
