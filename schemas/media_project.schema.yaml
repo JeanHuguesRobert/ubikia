@@ -1,0 +1,659 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+$id: "https://github.com/JeanHuguesRobert/ubikia/schemas/media_project.schema.yaml"
+title: "Ubikia Media Project"
+description: >-
+  Human-authored configuration for deriving approved editorial material into
+  traceable audio, captions, audiovisual masters, and manual publication packages.
+type: object
+additionalProperties: false
+required:
+  - schema_version
+  - project_id
+  - title
+  - language
+  - source
+  - script
+  - tts
+  - audio
+  - captions
+  - visuals
+  - video_profiles
+  - packages
+  - review
+properties:
+  schema_version:
+    type: string
+    const: "0.1"
+  project_id:
+    type: string
+    pattern: "^[a-z0-9][a-z0-9._-]{2,79}$"
+  title:
+    type: string
+    minLength: 1
+    maxLength: 300
+  subtitle:
+    type: [string, "null"]
+    maxLength: 500
+  author:
+    type: string
+    minLength: 1
+  language:
+    type: string
+    pattern: "^[a-z]{2,3}(-[A-Z]{2})?$"
+  purpose:
+    type: string
+    enum:
+      - audio_explanation
+      - spoken_essay
+      - podcast_episode
+      - audiovisual_essay
+      - documentation_demo
+  source:
+    $ref: "#/$defs/sourceReference"
+  intermediate_product:
+    anyOf:
+      - $ref: "#/$defs/intermediateProductReference"
+      - type: "null"
+  public_article_url:
+    type: [string, "null"]
+    format: uri
+  script:
+    $ref: "#/$defs/scriptConfig"
+  tts:
+    $ref: "#/$defs/ttsConfig"
+  audio:
+    $ref: "#/$defs/audioConfig"
+  captions:
+    $ref: "#/$defs/captionConfig"
+  visuals:
+    $ref: "#/$defs/visualConfig"
+  video_profiles:
+    type: object
+    minProperties: 1
+    additionalProperties:
+      $ref: "#/$defs/videoProfile"
+  packages:
+    type: array
+    minItems: 1
+    uniqueItems: true
+    items:
+      type: string
+      enum:
+        - podcast
+        - youtube
+        - facebook_video
+        - linkedin_video
+        - instagram_reel_future
+        - youtube_short_future
+  announcements:
+    type: object
+    additionalProperties: false
+    properties:
+      facebook_text_path:
+        type: [string, "null"]
+      linkedin_text_path:
+        type: [string, "null"]
+      youtube_description_path:
+        type: [string, "null"]
+      podcast_description_path:
+        type: [string, "null"]
+  review:
+    $ref: "#/$defs/reviewStatus"
+  output_policy:
+    type: object
+    additionalProperties: false
+    properties:
+      work_directory:
+        type: string
+        default: "work"
+      output_directory:
+        type: string
+        default: "output"
+      overwrite:
+        type: boolean
+        default: false
+      preserve_provider_audio:
+        type: boolean
+        default: true
+
+$defs:
+  sourceReference:
+    type: object
+    additionalProperties: false
+    required:
+      - repository
+      - path
+      - commit
+      - url
+      - authority
+    properties:
+      repository:
+        type: string
+        pattern: "^[^/\\s]+/[^/\\s]+$"
+      path:
+        type: string
+        minLength: 1
+      commit:
+        type: string
+        anyOf:
+          - pattern: "^[0-9a-f]{40}$"
+          - const: "pending"
+      url:
+        type: string
+        format: uri
+      authority:
+        type: string
+        enum:
+          - sovereign_source
+          - source_document
+          - corpus_section
+      local_path:
+        type: [string, "null"]
+      core_claim:
+        type: [string, "null"]
+        maxLength: 2000
+
+  intermediateProductReference:
+    type: object
+    additionalProperties: false
+    required:
+      - repository
+      - path
+      - commit
+      - url
+      - form
+    properties:
+      repository:
+        type: string
+        pattern: "^[^/\\s]+/[^/\\s]+$"
+      path:
+        type: string
+        minLength: 1
+      commit:
+        type: string
+        anyOf:
+          - pattern: "^[0-9a-f]{40}$"
+          - const: "pending"
+      url:
+        type: string
+        format: uri
+      form:
+        type: string
+        enum:
+          - blog_essay
+          - public_essay
+          - article
+          - approved_script
+      local_path:
+        type: [string, "null"]
+
+  scriptConfig:
+    type: object
+    additionalProperties: false
+    required:
+      - path
+      - form
+      - status
+      - max_utterance_characters
+      - min_utterance_characters
+      - default_pause_ms
+    properties:
+      path:
+        type: string
+        minLength: 1
+      form:
+        type: string
+        enum:
+          - spoken_essay_script
+          - podcast_script
+      status:
+        type: string
+        enum:
+          - draft
+          - approved
+      max_utterance_characters:
+        type: integer
+        minimum: 80
+        maximum: 1000
+        default: 350
+      min_utterance_characters:
+        type: integer
+        minimum: 1
+        maximum: 200
+        default: 30
+      default_pause_ms:
+        type: integer
+        minimum: 0
+        maximum: 10000
+        default: 350
+      chapter_pause_ms:
+        type: integer
+        minimum: 0
+        maximum: 15000
+        default: 900
+      pronunciation_map:
+        type: object
+        additionalProperties:
+          type: string
+      allowed_directives:
+        type: array
+        uniqueItems: true
+        items:
+          type: string
+          enum:
+            - pause
+            - chapter
+            - quote-card
+            - pronounce
+            - exclude-from-speech
+
+  ttsConfig:
+    type: object
+    additionalProperties: false
+    required:
+      - provider
+      - voice
+      - language
+      - rate
+      - pitch
+      - text_left_local_machine
+    properties:
+      provider:
+        type: string
+        enum:
+          - mock
+          - command
+      voice:
+        type: string
+        minLength: 1
+      language:
+        type: string
+        pattern: "^[a-z]{2,3}(-[A-Z]{2})?$"
+      rate:
+        type: number
+        minimum: 0.5
+        maximum: 2.0
+        default: 1.0
+      pitch:
+        type: number
+        minimum: -1.0
+        maximum: 1.0
+        default: 0.0
+      text_left_local_machine:
+        type: boolean
+      command:
+        anyOf:
+          - $ref: "#/$defs/ttsCommandConfig"
+          - type: "null"
+      mock:
+        type: object
+        additionalProperties: false
+        properties:
+          mode:
+            type: string
+            enum: [tone, silence]
+            default: tone
+          milliseconds_per_character:
+            type: integer
+            minimum: 5
+            maximum: 200
+            default: 35
+          minimum_duration_ms:
+            type: integer
+            minimum: 100
+            maximum: 10000
+            default: 600
+    allOf:
+      - if:
+          properties:
+            provider:
+              const: command
+        then:
+          required: [command]
+
+  ttsCommandConfig:
+    type: object
+    additionalProperties: false
+    required:
+      - argv
+      - timeout_seconds
+    properties:
+      argv:
+        type: array
+        minItems: 1
+        items:
+          type: string
+      stdin:
+        type: [string, "null"]
+      environment:
+        type: object
+        additionalProperties:
+          type: string
+      timeout_seconds:
+        type: integer
+        minimum: 1
+        maximum: 3600
+      allow_text_in_argv:
+        type: boolean
+        default: false
+      version_argv:
+        type: [array, "null"]
+        items:
+          type: string
+
+  audioConfig:
+    type: object
+    additionalProperties: false
+    required:
+      - sample_rate_hz
+      - channels
+      - loudness_lufs
+      - true_peak_db
+      - loudness_range_lu
+      - podcast_mp3_kbps
+    properties:
+      sample_rate_hz:
+        type: integer
+        enum: [24000, 44100, 48000]
+        default: 48000
+      channels:
+        type: integer
+        enum: [1, 2]
+        default: 1
+      loudness_lufs:
+        type: number
+        minimum: -24
+        maximum: -12
+        default: -16
+      true_peak_db:
+        type: number
+        minimum: -6
+        maximum: -0.1
+        default: -1.5
+      loudness_range_lu:
+        type: number
+        minimum: 1
+        maximum: 20
+        default: 11
+      podcast_mp3_kbps:
+        type: integer
+        enum: [64, 96, 128, 160, 192]
+        default: 128
+      intro_silence_ms:
+        type: integer
+        minimum: 0
+        maximum: 10000
+        default: 300
+      outro_silence_ms:
+        type: integer
+        minimum: 0
+        maximum: 10000
+        default: 800
+
+  captionConfig:
+    type: object
+    additionalProperties: false
+    required:
+      - enabled
+      - max_lines
+      - target_characters_per_line
+      - hard_max_characters_per_line
+      - minimum_cue_ms
+    properties:
+      enabled:
+        type: boolean
+        default: true
+      max_lines:
+        type: integer
+        minimum: 1
+        maximum: 3
+        default: 2
+      target_characters_per_line:
+        type: integer
+        minimum: 20
+        maximum: 60
+        default: 42
+      hard_max_characters_per_line:
+        type: integer
+        minimum: 25
+        maximum: 100
+        default: 52
+      minimum_cue_ms:
+        type: integer
+        minimum: 250
+        maximum: 5000
+        default: 800
+      burn_into_video:
+        type: boolean
+        default: true
+      sidecar_srt:
+        type: boolean
+        default: true
+      sidecar_vtt:
+        type: boolean
+        default: true
+
+  visualConfig:
+    type: object
+    additionalProperties: false
+    required:
+      - theme
+      - scene_policy
+    properties:
+      theme:
+        $ref: "#/$defs/visualTheme"
+      scene_policy:
+        type: object
+        additionalProperties: false
+        required:
+          - cover_minimum_ms
+          - chapter_minimum_ms
+          - closing_ms
+          - body_max_characters
+          - quote_max_characters
+        properties:
+          cover_minimum_ms:
+            type: integer
+            minimum: 1000
+            maximum: 30000
+            default: 4000
+          chapter_minimum_ms:
+            type: integer
+            minimum: 1000
+            maximum: 30000
+            default: 3000
+          closing_ms:
+            type: integer
+            minimum: 1000
+            maximum: 30000
+            default: 6000
+          body_max_characters:
+            type: integer
+            minimum: 40
+            maximum: 500
+            default: 240
+          quote_max_characters:
+            type: integer
+            minimum: 40
+            maximum: 800
+            default: 320
+      approved_assets:
+        type: array
+        items:
+          $ref: "#/$defs/approvedAsset"
+
+  visualTheme:
+    type: object
+    additionalProperties: false
+    required:
+      - background
+      - foreground
+      - muted
+      - accent
+      - font_family
+      - safe_margin_px
+      - footer_height_px
+    properties:
+      background:
+        $ref: "#/$defs/hexColour"
+      foreground:
+        $ref: "#/$defs/hexColour"
+      muted:
+        $ref: "#/$defs/hexColour"
+      accent:
+        $ref: "#/$defs/hexColour"
+      font_family:
+        type: string
+        minLength: 1
+      title_font_path:
+        type: [string, "null"]
+      body_font_path:
+        type: [string, "null"]
+      safe_margin_px:
+        type: integer
+        minimum: 20
+        maximum: 400
+      footer_height_px:
+        type: integer
+        minimum: 0
+        maximum: 300
+      show_source_footer:
+        type: boolean
+        default: true
+
+  approvedAsset:
+    type: object
+    additionalProperties: false
+    required:
+      - id
+      - path
+      - kind
+      - rights_status
+      - sha256
+    properties:
+      id:
+        type: string
+        pattern: "^[a-z0-9][a-z0-9._-]+$"
+      path:
+        type: string
+      kind:
+        type: string
+        enum: [image, logo, portrait, background, audio]
+      creator:
+        type: [string, "null"]
+      origin_url:
+        type: [string, "null"]
+        format: uri
+      licence:
+        type: [string, "null"]
+      attribution:
+        type: [string, "null"]
+      rights_status:
+        type: string
+        enum:
+          - owned
+          - licensed
+          - public_domain
+          - permission_granted
+          - private_test_only
+      sha256:
+        type: string
+        pattern: "^[0-9a-f]{64}$"
+
+  videoProfile:
+    type: object
+    additionalProperties: false
+    required:
+      - width
+      - height
+      - fps
+      - video_codec
+      - pixel_format
+      - crf
+      - preset
+      - audio_codec
+      - audio_bitrate
+      - captions
+    properties:
+      width:
+        type: integer
+        minimum: 320
+        maximum: 7680
+      height:
+        type: integer
+        minimum: 240
+        maximum: 7680
+      fps:
+        type: integer
+        minimum: 15
+        maximum: 60
+      video_codec:
+        type: string
+      pixel_format:
+        type: string
+      crf:
+        type: integer
+        minimum: 0
+        maximum: 51
+      preset:
+        type: string
+      audio_codec:
+        type: string
+      audio_bitrate:
+        type: string
+        pattern: "^[0-9]+k$"
+      captions:
+        type: string
+        enum:
+          - none
+          - sidecar
+          - burned
+          - burned_and_sidecar
+      movflags_faststart:
+        type: boolean
+        default: true
+
+  reviewStatus:
+    type: object
+    additionalProperties: false
+    required:
+      - script_required
+      - script_status
+      - audio_required
+      - audio_status
+      - video_required
+      - video_status
+      - publication_required
+      - publication_status
+    properties:
+      reviewer:
+        type: [string, "null"]
+      script_required:
+        type: boolean
+      script_status:
+        $ref: "#/$defs/reviewValue"
+      audio_required:
+        type: boolean
+      audio_status:
+        $ref: "#/$defs/reviewValue"
+      video_required:
+        type: boolean
+      video_status:
+        $ref: "#/$defs/reviewValue"
+      publication_required:
+        type: boolean
+      publication_status:
+        $ref: "#/$defs/reviewValue"
+
+  reviewValue:
+    type: string
+    enum:
+      - not_started
+      - pending
+      - approved
+      - rejected
+      - approved_with_minor_edits
+
+  hexColour:
+    type: string
+    pattern: "^#[0-9A-Fa-f]{6}$"
