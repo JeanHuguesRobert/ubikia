@@ -1,0 +1,149 @@
+schema_version: "0.1"
+project_id: "pluralisation-cognitive-media-v1"
+title: "On n’est jamais si bien servi que par soi-même ; demain, cela fera beaucoup de monde"
+subtitle: "Pluraliser la capacité sans dissoudre la responsabilité"
+author: "Jean Hugues Noël Robert, baron Mariani"
+language: "fr-FR"
+purpose: "audiovisual_essay"
+
+source:
+  repository: "JeanHuguesRobert/barons-Mariani"
+  path: "research/pluralisation_cognitive_sous_mandat.md"
+  commit: "19dbb4a4e30dff10d2049730a34ab5a9d62bb7f5"
+  url: "https://github.com/JeanHuguesRobert/barons-Mariani/blob/19dbb4a4e30dff10d2049730a34ab5a9d62bb7f5/research/pluralisation_cognitive_sous_mandat.md"
+  authority: "sovereign_source"
+  local_path: null
+  core_claim: >-
+    Une personne peut pluraliser ses capacités cognitives et opératoires sans
+    dissoudre son unité personnelle ni sa responsabilité, si les agents restent
+    rattachés à un Corpus, à des mandats explicites, à des frontières de confiance
+    et à un ancrage humain.
+
+intermediate_product:
+  repository: "JeanHuguesRobert/barons-Mariani"
+  path: "research/se_demultiplier_pour_explorer_le_possible_blogpost.md"
+  commit: "19dbb4a4e30dff10d2049730a34ab5a9d62bb7f5"
+  url: "https://github.com/JeanHuguesRobert/barons-Mariani/blob/19dbb4a4e30dff10d2049730a34ab5a9d62bb7f5/research/se_demultiplier_pour_explorer_le_possible_blogpost.md"
+  form: "blog_essay"
+  local_path: null
+
+# Fill after the Substack publication URL is known and stable.
+public_article_url: null
+
+script:
+  path: "spoken_script.md"
+  form: "spoken_essay_script"
+  status: "draft"
+  max_utterance_characters: 350
+  min_utterance_characters: 30
+  default_pause_ms: 350
+  chapter_pause_ms: 900
+  pronunciation_map:
+    "JHN": "ji ache enne"
+    "Cogentia": "Co-gèn-tia"
+    "FractaNet": "Fracta Net"
+    "Substack": "Sub-stack"
+  allowed_directives:
+    - "pause"
+    - "chapter"
+    - "quote-card"
+    - "pronounce"
+    - "exclude-from-speech"
+
+tts:
+  # `mock` must work without network access and is the default for tests.
+  # Change to `command` only after configuring a real executable locally.
+  provider: "mock"
+  voice: "fr-FR-generic"
+  language: "fr-FR"
+  rate: 1.0
+  pitch: 0.0
+  text_left_local_machine: false
+  command: null
+  mock:
+    mode: "tone"
+    milliseconds_per_character: 35
+    minimum_duration_ms: 600
+
+audio:
+  sample_rate_hz: 48000
+  channels: 1
+  loudness_lufs: -16
+  true_peak_db: -1.5
+  loudness_range_lu: 11
+  podcast_mp3_kbps: 128
+  intro_silence_ms: 300
+  outro_silence_ms: 800
+
+captions:
+  enabled: true
+  max_lines: 2
+  target_characters_per_line: 42
+  hard_max_characters_per_line: 52
+  minimum_cue_ms: 800
+  burn_into_video: true
+  sidecar_srt: true
+  sidecar_vtt: true
+
+visuals:
+  theme:
+    background: "#111111"
+    foreground: "#F5F5F5"
+    muted: "#B0B0B0"
+    accent: "#D7A84B"
+    font_family: "DejaVu Sans"
+    title_font_path: null
+    body_font_path: null
+    safe_margin_px: 120
+    footer_height_px: 90
+    show_source_footer: true
+  scene_policy:
+    cover_minimum_ms: 4000
+    chapter_minimum_ms: 3000
+    closing_ms: 6000
+    body_max_characters: 240
+    quote_max_characters: 320
+  approved_assets: []
+
+video_profiles:
+  landscape_1080p:
+    width: 1920
+    height: 1080
+    fps: 25
+    video_codec: "libx264"
+    pixel_format: "yuv420p"
+    crf: 20
+    preset: "medium"
+    audio_codec: "aac"
+    audio_bitrate: "192k"
+    captions: "burned_and_sidecar"
+    movflags_faststart: true
+
+packages:
+  - "podcast"
+  - "youtube"
+  - "facebook_video"
+  - "linkedin_video"
+
+announcements:
+  facebook_text_path: null
+  linkedin_text_path: null
+  youtube_description_path: null
+  podcast_description_path: null
+
+review:
+  reviewer: "Jean Hugues Noël Robert"
+  script_required: true
+  script_status: "pending"
+  audio_required: true
+  audio_status: "not_started"
+  video_required: true
+  video_status: "not_started"
+  publication_required: true
+  publication_status: "not_started"
+
+output_policy:
+  work_directory: "work"
+  output_directory: "output"
+  overwrite: false
+  preserve_provider_audio: true
