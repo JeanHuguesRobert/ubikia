@@ -11,6 +11,8 @@ Database services, scheduling, durable job state, shared secret management, medi
 ```text
 written source
   -> spoken adaptation workspace
+  -> spoken draft
+  -> explicit review act
   -> reviewed spoken product
   -> TTS preparation
   -> bounded text segments
@@ -60,17 +62,33 @@ adaptation.json
 
 The generated `spoken.draft.md` is a mechanical baseline. It is not a reviewed adaptation.
 
-## 2. Adapt and review
+## 2. Adapt the spoken draft
 
-Give `adaptation-request.md` and `source.md` to a human editor or governed agent. Preserve the reviewed result as:
+Give `adaptation-request.md` and `source.md` to a human editor or governed agent. The adapted result remains `spoken.draft.md` until an explicit review act is recorded.
 
-```text
-spoken.reviewed.md
+## 3. Record the review
+
+Copy and edit the generic review input:
+
+```powershell
+Copy-Item `
+  examples\audible\review.example.json `
+  artifacts\audible\episode-slug\review-input.json
 ```
+
+Then run:
+
+```powershell
+npm run audible:review -- `
+  artifacts\audible\episode-slug `
+  artifacts\audible\episode-slug\review-input.json
+```
+
+This creates `spoken.reviewed.md` and `review.json`, then changes `adaptation.json` to `status: reviewed`.
 
 See [`audible-adaptation.md`](audible-adaptation.md).
 
-## 3. Render the reviewed spoken product
+## 4. Render the reviewed spoken product
 
 ```powershell
 npm run audible:render -- `
@@ -89,7 +107,7 @@ The audio manifest records separate hashes for:
 - each segment text;
 - each segment audio file.
 
-## 4. Assemble and normalize audio
+## 5. Assemble and normalize audio
 
 ```powershell
 npm run audible:assemble -- artifacts\audible\episode-slug
@@ -105,9 +123,11 @@ segments.ffconcat
 manifest.json
 ```
 
+Assembly follows only the segment list declared in the current manifest, preventing stale segment files from an older adaptation from entering the final audio.
+
 The MP3 is encoded for broad compatibility. The Opus file is suitable for efficient direct delivery. Both are described in the manifest with size, duration when available, and SHA-256.
 
-## 5. Create a YouTube video asset
+## 6. Create a YouTube video asset
 
 Prepare a landscape artwork image, then run:
 
@@ -118,9 +138,9 @@ npm run audible:video -- `
   episode-slug
 ```
 
-The command creates an H.264/AAC MP4 from the static artwork and assembled audio, then records the video asset in `manifest.json`.
+The command creates a 1920×1080, 30 fps H.264/AAC MP4 from the static artwork and assembled audio, then records the video asset in `manifest.json`.
 
-## 6. Create a YouTube publication package
+## 7. Create a YouTube publication package
 
 Copy and edit the generic metadata example:
 
@@ -146,7 +166,9 @@ youtube-title.txt
 youtube-description.md
 ```
 
-The package remains a draft with private visibility and `not_uploaded` status until reviewed and manually uploaded.
+The command requires a reviewed spoken transcript by default. A development-only override may be requested through metadata, and remains visible in the generated package.
+
+The package remains a draft with private visibility and `not_uploaded` status until manually uploaded and reviewed.
 
 See [`audible-youtube.md`](audible-youtube.md).
 
@@ -154,6 +176,7 @@ See [`audible-youtube.md`](audible-youtube.md).
 
 ```text
 npm run audible:adapt
+npm run audible:review
 npm run audible:render
 npm run audible:assemble
 npm run audible:video
@@ -167,18 +190,19 @@ Implemented:
 
 - provider-neutral adaptation workspace;
 - adaptation prompt and mechanical checks;
+- explicit spoken review act and `review.json`;
 - source/spoken/prepared-text provenance;
 - resumable Gradium TTS;
 - safe segment reuse by text hash;
-- FFmpeg assembly and normalization;
+- manifest-controlled FFmpeg assembly and normalization;
 - static YouTube MP4 generation;
 - generic YouTube metadata package;
-- schemas for spoken and YouTube products.
+- schemas for adaptation, review, and YouTube products.
 
 Not yet implemented:
 
 - semantic adaptation by a configured LLM provider;
-- formal review act and `review.json`;
+- semantic review agent;
 - pronunciation dictionaries;
 - sentence-level timing and subtitle generation;
 - artwork generation or templates;
