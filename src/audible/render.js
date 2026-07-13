@@ -71,6 +71,7 @@ export async function renderAudibleProduct({
       ?? sha256(providerAudio);
     const normalization = normalizeProviderAudio(providerAudio, outputFormat);
     const audio = normalization.buffer;
+    const previousNormalization = existingEntry?.container_normalization;
 
     if (!reused || normalization.changed) {
       await writeFile(destination, audio);
@@ -86,8 +87,10 @@ export async function renderAudibleProduct({
       reused,
       container_normalization: {
         recognized: normalization.recognized,
-        applied: normalization.changed,
-        repairs: normalization.repairs,
+        applied: normalization.changed || previousNormalization?.applied === true,
+        repairs: normalization.changed
+          ? normalization.repairs
+          : previousNormalization?.repairs ?? [],
       },
     });
 
