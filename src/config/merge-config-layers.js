@@ -120,7 +120,11 @@ function mergeObject(target, incoming, pathParts, provenance, layer) {
     const dottedPath = nextPath.join(".");
 
     if (isPlainObject(incomingValue)) {
-      if (!isPlainObject(target[key])) target[key] = {};
+      if (!isPlainObject(target[key])) {
+        target[key] = {};
+        delete provenance[dottedPath];
+        deleteDescendantProvenance(provenance, dottedPath);
+      }
       mergeObject(target[key], incomingValue, nextPath, provenance, layer);
       if (Object.keys(incomingValue).length === 0) {
         provenance[dottedPath] = describeProvenance(layer);
