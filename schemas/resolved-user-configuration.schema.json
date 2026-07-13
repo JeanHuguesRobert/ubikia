@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ubikia.example/schemas/resolved-user-configuration.schema.json",
+  "title": "Ubikia resolved user configuration",
+  "type": "object",
+  "required": [
+    "schema",
+    "resolved_at",
+    "config",
+    "provenance",
+    "layers",
+    "invariants",
+    "secret_references",
+    "instructions"
+  ],
+  "properties": {
+    "schema": {
+      "const": "ubikia.resolved-user-configuration.v0.1"
+    },
+    "resolved_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "config": {
+      "type": "object"
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["layer", "source", "commit"],
+        "properties": {
+          "layer": { "type": "string" },
+          "source": { "type": ["string", "null"] },
+          "commit": { "type": ["string", "null"] }
+        }
+      }
+    },
+    "layers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "source", "commit", "precedence"]
+      }
+    },
+    "invariants": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "expected", "reason", "status"]
+      }
+    },
+    "secret_references": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "reference", "kind", "name", "status"],
+        "properties": {
+          "status": {
+            "enum": ["available", "missing", "external_resolver_required"]
+          }
+        }
+      }
+    },
+    "instructions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["layer", "source", "commit", "filename", "sha256"],
+        "properties": {
+          "content": { "type": "string" }
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}
