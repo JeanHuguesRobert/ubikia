@@ -7,11 +7,19 @@ import { segmentText } from "./segment-text.js";
 
 export async function renderAudibleProduct({
   sourceText,
+  speechText = sourceText,
   sourceReference = null,
+  adaptationReference = null,
   outputDirectory,
   provider,
   maxCharacters = 900,
 }) {
+  if (typeof sourceText !== "string" || sourceText.trim() === "") {
+    throw new TypeError("sourceText must be a non-empty string");
+  }
+  if (typeof speechText !== "string" || speechText.trim() === "") {
+    throw new TypeError("speechText must be a non-empty string");
+  }
   if (!provider || typeof provider.synthesize !== "function") {
     throw new TypeError("A TTS provider with synthesize(text) is required");
   }
@@ -19,10 +27,19 @@ export async function renderAudibleProduct({
     throw new Error("outputDirectory is required");
   }
 
-  const preparedText = prepareMarkdownForSpeech(sourceText);
+  const preparedText = prepareMarkdownForSpeech(speechText);
   const segments = segmentText(preparedText, { maxCharacters });
   await mkdir(outputDirectory, { recursive: true });
   await writeFile(path.join(outputDirectory, "prepared.txt"), `${preparedText}\n`, "utf8");
+
+  const existingManifest = await readJsonIfPresent(path.join(outputDirectory, "manifest.json"));
+  const compatibleExistingRun = existingManifest
+    && existingManifest.voice_id === (provider.voiceId ?? null)
+    && existingManifest.output_format === (provider.outputFormat ?? "wav");
+  const existingFiles = new Map(
+    (compatibleExistingRun ? existingManifest.files ?? [] : [])
+      .map((file) => [file.filename, file]),
+  );
 
   const files = [];
   for (const [index, segment] of segments.entries()) {
@@ -30,10 +47,15 @@ export async function renderAudibleProduct({
     const sequence = String(sequenceNumber).padStart(3, "0");
     const filename = `segment-${sequence}.${provider.outputFormat ?? "wav"}`;
     const destination = path.join(outputDirectory, filename);
+    const textSha256 = sha256(Buffer.from(segment, "utf8"));
+    const existingEntry = existingFiles.get(filename);
 
     let audio;
     let reused = false;
-    if (await isNonEmptyFile(destination)) {
+    if (
+      existingEntry?.text_sha256 === textSha256
+      && await isNonEmptyFile(destination)
+    ) {
       audio = await readFile(destination);
       reused = true;
       console.log(`Reuse ${filename}`);
@@ -47,14 +69,17 @@ export async function renderAudibleProduct({
       sequence: sequenceNumber,
       filename,
       characters: segment.length,
+      text_sha256: textSha256,
       sha256: sha256(audio),
       reused,
     });
 
     await writeManifest(outputDirectory, buildManifest({
       sourceText,
+      speechText,
       preparedText,
       sourceReference,
+      adaptationReference,
       provider,
       files,
       expectedSegmentCount: segments.length,
@@ -64,8 +89,10 @@ export async function renderAudibleProduct({
 
   const manifest = buildManifest({
     sourceText,
+    speechText,
     preparedText,
     sourceReference,
+    adaptationReference,
     provider,
     files,
     expectedSegmentCount: segments.length,
@@ -77,19 +104,23 @@ export async function renderAudibleProduct({
 
 function buildManifest({
   sourceText,
+  speechText,
   preparedText,
   sourceReference,
+  adaptationReference,
   provider,
   files,
   expectedSegmentCount,
   status,
 }) {
   return {
-    schema: "ubikia.audible-manifest.v0.2",
+    schema: "ubikia.audible-manifest.v0.3",
     updated_at: new Date().toISOString(),
     status,
     source_reference: sourceReference,
+    adaptation_reference: adaptationReference,
     source_sha256: sha256(Buffer.from(sourceText, "utf8")),
+    spoken_text_sha256: sha256(Buffer.from(speechText, "utf8")),
     prepared_text_sha256: sha256(Buffer.from(preparedText, "utf8")),
     provider: provider.constructor.name,
     voice_id: provider.voiceId ?? null,
@@ -109,6 +140,15 @@ async function writeManifest(outputDirectory, manifest) {
     `${JSON.stringify(manifest, null, 2)}\n`,
     "utf8",
   );
+}
+
+async function readJsonIfPresent(filename) {
+  try {
+    return JSON.parse(await readFile(filename, "utf8"));
+  } catch (error) {
+    if (error?.code === "ENOENT" || error instanceof SyntaxError) return null;
+    throw error;
+  }
 }
 
 async function isNonEmptyFile(filename) {
