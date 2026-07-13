@@ -1,0 +1,15 @@
+{
+  "name": "ubikia",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Governed derivation, publication support, and faithful appearances of versioned corpora.",
+  "scripts": {
+    "audible:render": "node cli/audible-render.js",
+    "audible:test": "node cli/audible-render.js --text \"On n’est jamais si bien servi que par soi-même ; demain, cela fera beaucoup de monde. À condition que tous sachent qui est le mandant.\" --output artifacts/audible/test"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT"
+}
