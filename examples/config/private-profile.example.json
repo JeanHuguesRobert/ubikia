@@ -1,0 +1,11 @@
+{
+  "instructionFiles": [
+    ".ubikia/instructions.private.md"
+  ],
+  "extensions": {
+    "privateContext": {
+      "enabled": true,
+      "description": "Confidential context may be declared here, but credentials still remain outside Git."
+    }
+  }
+}
