@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ubikia.example/schemas/spoken-product.schema.json",
+  "title": "Ubikia spoken product",
+  "type": "object",
+  "required": [
+    "schema",
+    "status",
+    "source",
+    "spoken_product"
+  ],
+  "properties": {
+    "schema": {
+      "const": "ubikia.spoken-adaptation.v0.1"
+    },
+    "status": {
+      "enum": [
+        "draft_unreviewed",
+        "reviewed",
+        "rejected",
+        "superseded"
+      ]
+    },
+    "source": {
+      "type": "object",
+      "required": [
+        "filename",
+        "sha256"
+      ],
+      "properties": {
+        "filename": { "type": "string" },
+        "reference": { "type": ["string", "null"] },
+        "url": { "type": ["string", "null"], "format": "uri" },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      },
+      "additionalProperties": true
+    },
+    "spoken_product": {
+      "type": "object",
+      "required": [
+        "filename",
+        "sha256",
+        "adaptation_method",
+        "human_review_required",
+        "reviewed"
+      ],
+      "properties": {
+        "filename": { "type": "string" },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "language": { "type": ["string", "null"] },
+        "title": { "type": ["string", "null"] },
+        "series": { "type": ["string", "null"] },
+        "author": { "type": ["string", "null"] },
+        "adaptation_method": { "type": "string" },
+        "substantive_changes_allowed": { "type": "boolean" },
+        "human_review_required": { "const": true },
+        "reviewed": { "type": "boolean" }
+      },
+      "additionalProperties": true
+    },
+    "adaptation_request": { "type": "string" },
+    "validation": { "type": "object" }
+  },
+  "additionalProperties": true
+}
