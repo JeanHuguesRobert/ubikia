@@ -1,0 +1,20 @@
+{
+  "title": "Episode title | Series name",
+  "series": "Series name",
+  "author": "Author name",
+  "language": "en",
+  "summary": "A concise listener-facing summary of this episode.",
+  "sourceUrl": "https://example.org/written-source",
+  "canonicalUrl": null,
+  "tags": [
+    "essay",
+    "audio edition"
+  ],
+  "category": "Education",
+  "visibility": "private",
+  "madeForKids": false,
+  "alteredOrSyntheticContent": true,
+  "syntheticVoiceDisclosure": "This episode uses a synthetic custom voice authorized by the represented speaker.",
+  "credits": "Produced as a governed audible derived product with source and adaptation provenance.",
+  "links": []
+}
