@@ -7,7 +7,7 @@ classification_source: "cogentia.js"
 classification_version: "1"
 classification_rule: "agent-mandate"
 classification_confidence: "strong"
-last_stamped_at: 2026-06-26
+last_stamped_at: 2026-07-13
 ---
 
 # AGENTS.md — Ubikia
@@ -20,8 +20,20 @@ It is not the doctrine itself.
 It is not the corpus itself.  
 It is a governed operational projection of the corpus for this repository.
 
+## Shared baseline and read order
+
+Before acting here:
+
+1. read this repository-local `AGENTS.md`;
+2. read the shared [`cogentia/AGENTS.md`](https://github.com/JeanHuguesRobert/cogentia/blob/main/AGENTS.md);
+3. apply this local mandate wherever it is more specific or more restrictive;
+4. consult the linked source doctrine and the relevant source repository before derivation or publication work.
+
+The shared baseline supplies the default corpus workflow. This file specializes it for derivation, personas, publication support, provenance, and private/public boundaries; it does not silently widen permissions.
+
 The source methodological references are:
 
+- [`cogentia/AGENTS.md`](https://github.com/JeanHuguesRobert/cogentia/blob/main/AGENTS.md)
 - [`cogentia/research/agent_configuration_layer.md`](https://github.com/JeanHuguesRobert/cogentia/blob/main/research/agent_configuration_layer.md)
 - [`cogentia/research/optimistic_mainline_governance.md`](https://github.com/JeanHuguesRobert/cogentia/blob/main/research/optimistic_mainline_governance.md)
 
@@ -73,6 +85,8 @@ A derived product must remain reconstructibly linked to:
 This repository follows **Optimistic Mainline Governance** by reference, not by copying the doctrine here.
 
 Small direct commits to `main` are acceptable when explicitly authorized, scoped, reversible, inspectable by diff, and reported after completion.
+
+Do not create a branch or PR by default. Use one only when explicit instruction, collaboration, repository protection, high risk, or genuine isolation value justifies it.
 
 Because Ubikia governs derived products and publication support, direct-main work must not turn drafts into publications, remove provenance, alter source claims to fit a platform, optimize for engagement at the expense of fidelity, or expose private material.
 
