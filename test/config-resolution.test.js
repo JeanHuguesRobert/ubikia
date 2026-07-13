@@ -32,6 +32,7 @@ test("higher-precedence layers replace leaves and preserve provenance", () => {
       name: "public",
       source: "account:.ubikia/profile.json",
       commit: "abc123",
+      sha256: "def456",
       value: {
         defaultLanguage: "fr",
         audio: { defaultFormats: ["mp3"] },
@@ -45,6 +46,7 @@ test("higher-precedence layers replace leaves and preserve provenance", () => {
     layer: "public",
     source: "account:.ubikia/profile.json",
     commit: "abc123",
+    sha256: "def456",
   });
   assert.equal(result.invariants.length, 2);
 });
@@ -124,6 +126,8 @@ test("file-based resolver loads repository-relative instructions and omits conte
   assert.equal(result.instructions.length, 1);
   assert.equal(result.instructions[0].content, "# Public instructions\n");
   assert.equal(result.secret_references[0].status, "missing");
+  assert.match(result.layers[0].sha256, /^[a-f0-9]{64}$/);
+  assert.match(result.layers[1].sha256, /^[a-f0-9]{64}$/);
 
   const serialized = serializeResolvedUserConfiguration(result);
   assert.equal(Object.hasOwn(serialized.instructions[0], "content"), true);
