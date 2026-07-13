@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ubikia.example/schemas/youtube-publication-package.schema.json",
+  "title": "Ubikia YouTube publication package",
+  "type": "object",
+  "required": [
+    "schema",
+    "status",
+    "target",
+    "title",
+    "description",
+    "human_review_required",
+    "upload_status",
+    "video",
+    "provenance"
+  ],
+  "properties": {
+    "schema": {
+      "const": "ubikia.youtube-publication-package.v0.1"
+    },
+    "status": {
+      "enum": [
+        "draft",
+        "reviewed",
+        "publication_ready",
+        "published",
+        "superseded",
+        "withdrawn"
+      ]
+    },
+    "target": {
+      "const": "youtube"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string"
+    },
+    "language": {
+      "type": ["string", "null"]
+    },
+    "series": {
+      "type": ["string", "null"]
+    },
+    "author": {
+      "type": ["string", "null"]
+    },
+    "source_url": {
+      "type": ["string", "null"],
+      "format": "uri"
+    },
+    "canonical_url": {
+      "type": ["string", "null"],
+      "format": "uri"
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "uniqueItems": true
+    },
+    "visibility": {
+      "enum": ["private", "unlisted", "public"]
+    },
+    "made_for_kids": {
+      "type": "boolean"
+    },
+    "altered_or_synthetic_content": {
+      "type": "boolean"
+    },
+    "human_review_required": {
+      "const": true
+    },
+    "upload_status": {
+      "enum": ["not_uploaded", "uploaded_private", "uploaded_unlisted", "published", "failed"]
+    },
+    "video": {
+      "type": "object",
+      "required": ["filename", "sha256", "mime_type"],
+      "properties": {
+        "filename": { "type": "string" },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "mime_type": { "const": "video/mp4" }
+      },
+      "additionalProperties": true
+    },
+    "transcript": {
+      "type": ["object", "null"]
+    },
+    "provenance": {
+      "type": "object"
+    },
+    "publication_result": {
+      "type": ["object", "null"]
+    }
+  },
+  "additionalProperties": true
+}
