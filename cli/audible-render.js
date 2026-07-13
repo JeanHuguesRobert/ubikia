@@ -29,7 +29,7 @@ const manifest = await renderAudibleProduct({
   provider,
   maxCharacters: options.maxCharacters
     ? Number.parseInt(options.maxCharacters, 10)
-    : 2200,
+    : 900,
 });
 
 console.log(JSON.stringify({
