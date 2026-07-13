@@ -4,55 +4,60 @@
 
 This document separates production from publication.
 
-Ubikia prepares the audible product, publication package, metadata, provenance, and publication record. The `inseme` platform layer will eventually provide durable storage, public URLs, job execution, secrets, deployment, and service integration.
+Ubikia prepares the audible product, target-specific assets, metadata, provenance, and publication record. The `inseme` platform layer will eventually provide durable storage, public URLs, job execution, secrets, deployment, and connector integration.
 
-No publication is automatic in this first phase.
+No publication is automatic in this phase.
 
 ## Publication objects
 
-An audible publication should not be reduced to one MP3 file. The publication package should include:
+An audible publication should not be reduced to one MP3 or MP4 file. The publication package should include:
 
-- the normalized MP3 as the broad-compatibility distribution file;
+- the normalized MP3 as a broad-compatibility audio file;
 - optionally an Opus version for efficient direct web delivery;
+- a target-specific video asset when required;
 - the written source URL;
 - the source repository, path, and commit when known;
-- the readable transcript or prepared oral text;
-- title, subtitle, summary, author, language, date, artwork, and duration;
-- a disclosure that the article is read by a synthetic custom voice when applicable;
-- the audio SHA-256 and MIME type;
-- publication targets and their resulting URLs;
+- the reviewed spoken product or readable transcript;
+- title, summary, author, language, date, artwork, and duration;
+- a synthetic custom-voice disclosure when applicable;
+- media SHA-256 hashes and MIME types;
+- publication targets and resulting URLs;
 - feedback and corrections returned to the source corpus.
 
 ## Recommended publication architecture
 
 ```text
 Ubikia source and derivation
+  -> reviewed spoken product
   -> audio segments
   -> normalized publication files
-  -> publication package
+  -> target-specific assets and package
+  -> manual publication checkpoint
   -> durable media hosting in inseme/platform
   -> canonical episode page and RSS feed
-  -> platform syndication
-       - Substack
-       - Apple Podcasts
-       - Spotify
-       - YouTube / YouTube Music
-       - open podcast clients
+  -> wider platform syndication
 ```
 
-The durable media URL and RSS feed should be canonical. Platform entries should point back to the written source and canonical episode page when the platform permits it.
+The durable media URL and future RSS feed should become canonical. Platform entries should point back to the written source and canonical episode page when the platform permits it.
 
-## Phase 1 — manual attachment to the existing article
+## Phase 1 — YouTube-first manual pilot
 
-For the current experiment:
+The first practical target is YouTube because it can provide immediate public discovery while accepting a simple static-artwork video derived from the audio edition.
 
-1. assemble and review the MP3;
-2. upload or attach it manually to the existing Substack publication if the current editor permits audio insertion;
-3. add a short disclosure and link to the written source;
-4. record the publication URL and date in Ubikia;
-5. do not yet create a separate podcast series unless the audible experiment is judged useful.
+For each pilot episode:
 
-This phase tests the product without prematurely defining a complete podcast identity.
+1. create and review the spoken adaptation;
+2. render and review the complete audio;
+3. assemble normalized MP3 and Opus products;
+4. generate a static-artwork MP4;
+5. create the YouTube publication package;
+6. upload manually as private;
+7. review the uploaded result and current platform declarations;
+8. change visibility only through a distinct human publication act;
+9. record the resulting URL, identifier, date, and metadata;
+10. link back to the written source, such as the corresponding Substack article.
+
+The initial series may be presented as the audio edition of an existing written publication, but the underlying data model must remain generic for other authors and series.
 
 ## Phase 2 — canonical Ubikia audio page
 
@@ -60,7 +65,7 @@ The platform should expose a stable page for each audible product with:
 
 - an HTML5 audio player;
 - MP3 and optional Opus URLs;
-- transcript;
+- reviewed transcript;
 - source and provenance links;
 - duration and publication metadata;
 - correction and replacement history;
@@ -87,37 +92,59 @@ Each item should include at least:
 
 The feed should be generated from publication records, not inferred by scanning an artifact directory.
 
-## Phase 4 — directory syndication
+## Phase 4 — directory and platform syndication
 
-Submit the canonical RSS feed to podcast directories and platforms. Directory submission is a publication action and remains human-authorized.
+Submit the canonical feed or target-specific package to relevant directories and platforms. Submission is a publication action and remains human-authorized.
 
-The open RSS feed preserves portability. Platform-specific features may be added, but they must not become the only copy of the publication record or media.
+The open feed preserves portability. Platform-specific features may be added, but they must not become the only copy of the publication record, source relationship, or media provenance.
 
 ## Publication states
 
 Suggested lifecycle:
 
 ```text
-draft
+source_selected
+  -> adaptation_draft
+  -> adaptation_reviewed
   -> rendered
   -> assembled
-  -> reviewed
+  -> media_reviewed
+  -> target_packaged
   -> publication_ready
+  -> uploaded_private
   -> published
   -> superseded | withdrawn
 ```
 
-`assembled` does not imply `reviewed`. `reviewed` does not imply `published`.
-
-## Next implementation files
+Important invariants:
 
 ```text
-src/audible/publication-package.js
-schemas/audible-publication.schema.json
-cli/audible-package.js
+adapted does not imply reviewed
+assembled does not imply media-reviewed
+target-packaged does not imply publication-ready
+uploaded does not imply published
 ```
 
-Later, in `inseme/platform`:
+## Current implementation
+
+```text
+src/audible/adapt.js
+src/audible/render.js
+src/audible/assemble.js
+src/audible/video.js
+src/audible/package-youtube.js
+
+cli/audible-adapt.js
+cli/audible-render.js
+cli/audible-assemble.js
+cli/audible-video.js
+cli/audible-package-youtube.js
+
+schemas/spoken-product.schema.json
+schemas/youtube-publication-package.schema.json
+```
+
+## Later, in `inseme/platform`
 
 ```text
 media storage adapter
@@ -125,4 +152,8 @@ stable public URL service
 publication job and status store
 RSS endpoint
 target-platform connectors
+credential and secret management
+resumable upload execution
 ```
+
+Target-platform policies and UI fields may change. A publication connector or onboarding agent must verify current requirements at execution time rather than treating repository documentation as timeless platform truth.
