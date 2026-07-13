@@ -21,6 +21,18 @@ export async function createYouTubePublicationPackage({
   }
 
   const transcript = await findTranscript(absoluteDirectory);
+  if (!transcript) {
+    throw new Error("No spoken transcript was found in the artifact directory");
+  }
+
+  const reviewOverride = transcript.review_status !== "reviewed"
+    && metadata.allowUnreviewedTranscript === true;
+  if (transcript.review_status !== "reviewed" && !reviewOverride) {
+    throw new Error(
+      "A reviewed spoken transcript is required. Create spoken.reviewed.md through the review step, or set allowUnreviewedTranscript=true for a visible development override.",
+    );
+  }
+
   const disclosure = metadata.syntheticVoiceDisclosure
     ?? "This episode uses a synthetic custom voice authorized by the represented speaker.";
   const description = buildDescription({
@@ -48,8 +60,14 @@ export async function createYouTubePublicationPackage({
     made_for_kids: metadata.madeForKids ?? false,
     altered_or_synthetic_content: metadata.alteredOrSyntheticContent ?? null,
     synthetic_voice_disclosure: disclosure,
-    video,
     transcript,
+    development_override: reviewOverride
+      ? {
+          type: "allow_unreviewed_transcript",
+          requested: true,
+        }
+      : null,
+    video,
     provenance: {
       manifest: "manifest.json",
       source_reference: manifest.source_reference ?? null,
