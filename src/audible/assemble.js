@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 import { spawn } from "node:child_process";
-import { readFile, readdir, stat, writeFile } from "node:fs/promises";
+import { readFile, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 export async function assembleAudibleProduct({
@@ -16,11 +16,7 @@ export async function assembleAudibleProduct({
   const absoluteDirectory = path.resolve(outputDirectory);
   const manifestPath = path.join(absoluteDirectory, "manifest.json");
   const manifest = JSON.parse(await readFile(manifestPath, "utf8"));
-  const segmentFiles = await findOrderedSegments(absoluteDirectory, manifest.output_format ?? "wav");
-
-  if (segmentFiles.length === 0) {
-    throw new Error(`No audio segments found in ${absoluteDirectory}`);
-  }
+  const segmentFiles = await resolveManifestSegments(absoluteDirectory, manifest);
 
   await ensureExecutable(ffmpegPath, ["-version"], "FFmpeg");
 
@@ -78,6 +74,7 @@ export async function assembleAudibleProduct({
     assembly: {
       ffmpeg_path: ffmpegPath,
       concat_file: path.basename(concatFile),
+      segment_source: "manifest.files",
       segment_count: segmentFiles.length,
       loudness_target: {
         integrated_lufs: -16,
@@ -92,12 +89,36 @@ export async function assembleAudibleProduct({
   return updatedManifest;
 }
 
-async function findOrderedSegments(directory, extension) {
-  const names = await readdir(directory);
-  return names
-    .filter((name) => new RegExp(`^segment-\\d+\\.${escapeRegExp(extension)}$`, "i").test(name))
-    .sort((left, right) => left.localeCompare(right, "en", { numeric: true }))
-    .map((name) => path.join(directory, name));
+async function resolveManifestSegments(directory, manifest) {
+  const entries = Array.isArray(manifest.files)
+    ? [...manifest.files].sort((left, right) => left.sequence - right.sequence)
+    : [];
+
+  if (entries.length === 0) {
+    throw new Error("manifest.json does not declare any rendered audio segments");
+  }
+  if (
+    Number.isInteger(manifest.expected_segment_count)
+    && entries.length !== manifest.expected_segment_count
+  ) {
+    throw new Error(
+      `Rendering is incomplete: manifest declares ${entries.length} of ${manifest.expected_segment_count} segments`,
+    );
+  }
+
+  const files = [];
+  for (const entry of entries) {
+    if (!entry?.filename) {
+      throw new Error("A manifest segment entry has no filename");
+    }
+    const filename = path.join(directory, entry.filename);
+    const fileStat = await stat(filename);
+    if (!fileStat.isFile() || fileStat.size === 0) {
+      throw new Error(`Rendered segment is empty or invalid: ${filename}`);
+    }
+    files.push(filename);
+  }
+  return files;
 }
 
 function buildConcatFile(files) {
@@ -166,8 +187,4 @@ function run(command, args, { captureOutput = false } = {}) {
       else reject(new Error(`${command} exited with code ${code}${stderr ? `: ${stderr.trim()}` : ""}`));
     });
   });
-}
-
-function escapeRegExp(value) {
-  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
