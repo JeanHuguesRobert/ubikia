@@ -12,6 +12,10 @@ artifacts/
 *.opus
 *.pcm
 
+# Locally resolved configuration
+.ubikia/resolved*.json
+.ubikia/*.local.json
+
 # Local editor and OS files
 .DS_Store
 Thumbs.db
