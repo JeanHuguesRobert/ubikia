@@ -67,7 +67,7 @@
       "type": "boolean"
     },
     "altered_or_synthetic_content": {
-      "type": "boolean"
+      "type": ["boolean", "null"]
     },
     "human_review_required": {
       "const": true
