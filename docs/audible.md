@@ -2,9 +2,9 @@
 
 ## Scope
 
-This first implementation produces an audible derived product from Markdown while preserving a minimal provenance manifest.
+This implementation produces an audible derived product from Markdown while preserving a provenance manifest.
 
-It belongs to Ubikia because it transforms a corpus-backed written product into a situated form of appearance. Database services, scheduling, deployment, durable job state, and shared secret management remain outside this repository and belong to the `inseme` platform layer.
+It belongs to Ubikia because it transforms a corpus-backed written product into a situated form of appearance. Database services, scheduling, deployment, durable job state, public media hosting, and shared secret management remain outside this repository and belong to the `inseme` platform layer.
 
 ## Current pipeline
 
@@ -13,11 +13,13 @@ Markdown or inline text
   -> oral preparation
   -> bounded text segments
   -> Gradium TTS
-  -> one audio file per segment
+  -> resumable segment files
+  -> FFmpeg lossless WAV assembly
+  -> normalized MP3 and Opus products
   -> manifest.json + prepared.txt
 ```
 
-The segments are deliberately not assembled yet. Audio assembly, normalization, publication, storage, and platform deployment are separate continuations.
+Publication remains a separate, human-authorized stage. See [`audible-publication.md`](audible-publication.md).
 
 ## Environment
 
@@ -30,59 +32,114 @@ GRADIUM_VOICE_ID=...
 
 The real `.env` is ignored by Git.
 
+Optional executable overrides:
+
+```dotenv
+FFMPEG_PATH=C:\path\to\ffmpeg.exe
+FFPROBE_PATH=C:\path\to\ffprobe.exe
+```
+
+These overrides are useful when FFmpeg is unpacked but not added to `PATH`.
+
 ## Test the custom voice
 
 From the root of the `ubikia` checkout:
 
-```bash
+```powershell
 npm run audible:test
-```
-
-Equivalent direct invocation:
-
-```bash
-node --env-file=.env cli/audible-render.js \
-  --text "On n’est jamais si bien servi que par soi-même ; demain, cela fera beaucoup de monde. À condition que tous sachent qui est le mandant." \
-  --output artifacts/audible/test
 ```
 
 ## Render a Markdown article
 
-From the root of `ubikia`, a source file may be outside this repository:
+PowerShell-safe positional invocation:
 
-```bash
-npm run audible:render -- \
-  --input ../barons-Mariani/research/se_demultiplier_pour_explorer_le_possible_blogpost.md \
-  --output artifacts/audible/on-nest-jamais-si-bien-servi
+```powershell
+npm run audible:render -- `
+  ..\barons-Mariani\research\se_demultiplier_pour_explorer_le_possible_blogpost.md `
+  artifacts\audible\on-nest-jamais-si-bien-servi
 ```
 
 Equivalent direct invocation:
 
-```bash
-node --env-file=.env cli/audible-render.js \
-  --input ../barons-Mariani/research/se_demultiplier_pour_explorer_le_possible_blogpost.md \
-  --output artifacts/audible/on-nest-jamais-si-bien-servi
+```powershell
+node --env-file=.env cli/audible-render.js `
+  --input ..\barons-Mariani\research\se_demultiplier_pour_explorer_le_possible_blogpost.md `
+  --output artifacts\audible\on-nest-jamais-si-bien-servi
 ```
 
-Optional arguments:
+Optional argument:
 
 ```text
---format wav|opus|pcm
---max-characters 2200
+--max-characters 900
 ```
+
+The renderer retries transient Gradium failures and reuses existing non-empty segment files.
+
+## Assemble and normalize
+
+After FFmpeg and FFprobe are available:
+
+```powershell
+npm run audible:assemble -- artifacts\audible\on-nest-jamais-si-bien-servi
+```
+
+This produces, by default:
+
+```text
+on-nest-jamais-si-bien-servi.wav
+on-nest-jamais-si-bien-servi.mp3
+on-nest-jamais-si-bien-servi.opus
+segments.ffconcat
+```
+
+The WAV is assembled without re-encoding. MP3 and Opus are normalized for spoken audio with these targets:
+
+```text
+integrated loudness: -16 LUFS
+true peak: -1.5 dB
+loudness range: 11 LU
+MP3 bitrate: 128 kbit/s
+Opus bitrate: 64 kbit/s
+```
+
+Optional assembly arguments:
+
+```text
+--basename article-name
+--formats mp3,opus
+--ffmpeg C:\path\to\ffmpeg.exe
+--ffprobe C:\path\to\ffprobe.exe
+--overwrite false
+```
+
+## Programmatic pipeline
+
+`src/audible/pipeline.js` exposes `runAudiblePipeline()` for a later orchestration layer. It runs rendering and, unless disabled, assembly.
+
+The current CLIs deliberately keep rendering and assembly separate so that synthesis can finish before FFmpeg is installed, and so that already-rendered segments remain reusable.
 
 ## Generated manifest
 
-Each run records:
+Rendering records:
 
 - source reference;
 - source and prepared-text SHA-256 hashes;
 - provider class;
 - voice identifier;
-- output format;
-- segment sequence, size, and SHA-256 hash;
-- explicit non-assembly status;
-- provenance preservation flag.
+- segment sequence, size, SHA-256, and reuse status;
+- rendering progress;
+- provenance preservation status.
+
+Assembly adds:
+
+- assembly status;
+- FFmpeg path;
+- segment count;
+- normalization targets;
+- WAV, MP3, and Opus filenames;
+- byte sizes;
+- durations when FFprobe is available;
+- SHA-256 for every assembled product.
 
 ## Known limits
 
@@ -91,8 +148,8 @@ The oral preparation is intentionally conservative and incomplete. It currently 
 - a governed pronunciation dictionary;
 - semantic handling of footnotes, tables, citations, acronyms, and code excerpts;
 - chapter introductions or editorial transitions;
-- audio concatenation and loudness normalization;
+- artwork or embedded ID3 metadata;
 - publication records or feedback return to the source corpus;
-- database, queues, storage services, scheduling, or deployment.
+- database, queues, public storage, scheduling, or deployment.
 
 These limits must remain visible rather than being hidden behind automatic publication.
