@@ -2,21 +2,9 @@
 
 ## Purpose
 
-Ubikia is intended for multiple authors, organizations, channels, languages, and publication policies. User-specific instructions therefore live outside the Ubikia codebase and remain independently versioned.
+Ubikia is intended for multiple authors, organizations, languages, channels, and publication policies. User-specific instructions therefore live outside the Ubikia codebase and remain independently versioned.
 
 The recommended public source is the GitHub profile repository whose name matches the account:
-
-```text
-<account>/<account>
-```
-
-For example:
-
-```text
-JeanHuguesRobert/JeanHuguesRobert
-```
-
-The initial convention is:
 
 ```text
 <account>/<account>/
@@ -25,52 +13,48 @@ The initial convention is:
     instructions.md
 ```
 
+For example:
+
+```text
+JeanHuguesRobert/JeanHuguesRobert/.ubikia/profile.json
+```
+
 `profile.json` contains structured defaults. `instructions.md` contains human-readable policy, editorial preferences, review requirements, and publication boundaries.
 
-## Three distinct categories
+## Three categories
 
 ### Public instructions
 
 Public instructions should normally live in the public account repository. Examples include:
 
-- author and series names;
+- author, persona, and series names;
 - default language;
 - adaptation principles;
-- public disclosure wording;
-- preferred publication targets;
+- disclosure wording;
+- publication targets;
 - review and publication policy;
-- public source repositories and canonical links;
-- pronunciation guidance that is not sensitive.
+- canonical links;
+- non-sensitive pronunciation guidance.
 
 Publishing these instructions improves auditability, reuse, correction, and trust. Pipeline security must not depend on hiding its rules.
 
 ### Private instructions or context
 
-Some users may need a private repository for confidential context or restricted instructions. Examples include:
+A private repository may contain confidential context or restricted instructions, such as:
 
 - unpublished manuscripts;
 - private biographical context;
-- embargoed publication plans;
-- confidential pronunciation notes;
+- embargoed plans;
 - restricted source mappings;
-- private reviewer identities or internal workflows.
+- private reviewer identities.
 
-A private repository protects confidentiality. It must not be used to conceal a weak security design. The private layer is selected explicitly by the user or by the Inseme platform configuration.
+A private repository protects confidentiality. It must not conceal a weak security design. The layer is selected explicitly by the user or by Inseme.
 
 ### Technical secrets
 
 Credentials are not instructions and must not be committed to Git, including private repositories.
 
-Examples include:
-
-- API keys;
-- OAuth refresh tokens;
-- passwords;
-- signing keys;
-- upload credentials;
-- cloud storage secrets.
-
-These belong in environment variables, an operating-system credential store, or the future Inseme platform secret service. Versioned configuration contains references only:
+This includes API keys, OAuth tokens, passwords, signing keys, upload credentials, and cloud secrets. Versioned configuration contains references only:
 
 ```json
 {
@@ -80,9 +64,9 @@ These belong in environment variables, an operating-system credential store, or 
 }
 ```
 
-The resolver reports whether an environment reference is available, but never reads its value into the resolved JSON.
+The resolver reports whether an environment reference is available. It never copies the secret value into resolved JSON.
 
-## Implemented resolution order
+## Resolution order
 
 Layers are applied from lowest to highest precedence:
 
@@ -103,27 +87,28 @@ Every resolved leaf retains provenance:
   "defaultLanguage": {
     "layer": "public-profile",
     "source": "JeanHuguesRobert/JeanHuguesRobert:.ubikia/profile.json",
-    "commit": "<commit-sha>"
+    "commit": "<commit-sha>",
+    "sha256": "<profile-file-sha256>"
   }
 }
 ```
 
-When the CLI reads local files directly, `source` defaults to the absolute filename and `commit` is `null`. A future authenticated platform loader can pass repository paths and pinned commit identifiers to the same merge engine.
+When the CLI reads local files directly, `source` is the absolute filename and `commit` is `null`. The file SHA-256 is still recorded. A future authenticated loader can pass repository paths and pinned commits to the same merge engine.
 
 ## Mandatory invariants
 
-Higher-precedence layers may specialize configuration, but they cannot silently weaken these initial invariants:
+Higher-precedence layers cannot silently weaken these initial invariants:
 
 ```text
 publicationPolicy.humanReviewRequired = true
 publicationPolicy.automaticPublicPublicationAllowed = false
 ```
 
-An attempted override fails resolution with a `ConfigurationInvariantError`.
+An attempted override fails with `ConfigurationInvariantError`.
 
 These invariants apply across derived-product types, not only audio.
 
-## Local file-based CLI
+## Local CLI
 
 From the Ubikia repository root:
 
@@ -136,7 +121,7 @@ npm run config:resolve -- `
   [job-overrides]
 ```
 
-For a sibling checkout of a GitHub profile repository:
+For a sibling checkout of a profile repository:
 
 ```powershell
 npm run config:resolve -- `
@@ -155,7 +140,7 @@ npm run config:resolve -- `
   jobs\current-job.json
 ```
 
-Use `-` as the output filename to write the resolved JSON to standard output.
+Use `-` as the output filename to write JSON to standard output.
 
 ## Resolved output
 
@@ -172,7 +157,7 @@ secret_references
 instructions
 ```
 
-Instruction documents are loaded and hashed at runtime, but their contents are omitted from serialized output by default. This avoids accidentally copying private instructions into an artifact.
+Instruction documents are loaded and hashed at runtime, but their contents are omitted from serialized output by default. This prevents a private instruction document from being copied accidentally into an artifact.
 
 To include instruction text in a deliberately protected local output:
 
@@ -181,7 +166,7 @@ $env:UBIKIA_INCLUDE_INSTRUCTION_CONTENT = "true"
 npm run config:resolve -- <public-profile> <output>
 ```
 
-The output must then be treated according to the most restrictive instruction layer it contains.
+The output must then be treated according to its most restrictive layer.
 
 ## Secret-reference status
 
@@ -197,15 +182,15 @@ It reports one of:
 
 ```text
 available
-a missing
+missing
 external_resolver_required
 ```
 
-The actual secret value is never serialized. `secret:` and `credential:` references require a future external resolver supplied by Inseme or another platform.
+The actual secret value is never serialized. `secret:` and `credential:` references require an external resolver supplied by Inseme or another platform.
 
-## Instruction-file paths
+## Instruction paths
 
-Paths listed in `instructionFiles` are resolved from the root of the repository containing the profile. Therefore this public profile is valid:
+Paths listed in `instructionFiles` are resolved from the root of the repository containing the profile:
 
 ```json
 {
@@ -217,11 +202,9 @@ Paths listed in `instructionFiles` are resolved from the root of the repository 
 
 When `instructionFiles` is absent, the resolver looks for `instructions.md` beside the profile file.
 
-A declared instruction file that does not exist is an error. Missing instructions must not disappear silently.
+A declared instruction file that does not exist is an error. Missing policy must not disappear silently.
 
-## Suggested extensions
-
-The account repository may later contain:
+## Suggested account layout
 
 ```text
 .ubikia/
@@ -233,11 +216,9 @@ The account repository may later contain:
   products/
 ```
 
-Product-specific files should specialize generic account policy rather than duplicate it. The same resolver can support audible essays, social posts, technical briefs, video scripts, publication packages, and other derived products.
+Product-specific files should specialize generic account policy rather than duplicate it. The same resolver can support audible essays, social posts, technical briefs, political notes, video scripts, publication packages, and other derived products.
 
 ## Public-by-default principle
-
-The recommended posture is:
 
 ```text
 public when openness improves verification;
@@ -245,20 +226,20 @@ private when confidentiality is substantively required;
 secret only for credentials and cryptographic material.
 ```
 
-This is compatible with rejecting security by obscurity. Public algorithms, prompts, schemas, review policies, and operational constraints should remain secure even when fully visible.
+Public algorithms, prompts, schemas, review policies, and operational constraints should remain secure when fully visible.
 
 ## Platform boundary
 
-Ubikia now provides:
+Ubikia provides:
 
 - deterministic layer merging;
-- per-field provenance;
+- per-field provenance and source hashes;
 - instruction-document loading and hashing;
-- secret-reference inspection without secret disclosure;
+- secret-reference inspection without disclosure;
 - mandatory invariant enforcement;
 - a local CLI and machine-readable output.
 
-The Inseme platform layer will eventually provide:
+Inseme will eventually provide:
 
 - authenticated repository access;
 - private-repository retrieval;
