@@ -10,10 +10,10 @@ import { renderAudibleProduct } from "../src/audible/render.js";
 const options = parseArguments(process.argv.slice(2));
 
 if (!options.input && !options.text) {
-  fail("Use --input <markdown-file> or --text <text>.");
+  fail("Use --input <markdown-file>, --text <text>, or positional <input> <output>.");
 }
 if (!options.output) {
-  fail("Use --output <directory>.");
+  fail("Use --output <directory> or positional <input> <output>.");
 }
 
 const sourceText = options.text ?? await readFile(options.input, "utf8");
@@ -41,9 +41,23 @@ console.log(JSON.stringify({
 
 function parseArguments(argumentsList) {
   const result = {};
+  const positional = [];
+
   for (let index = 0; index < argumentsList.length; index += 1) {
     const argument = argumentsList[index];
-    if (!argument.startsWith("--")) continue;
+
+    if (!argument.startsWith("--")) {
+      positional.push(argument);
+      continue;
+    }
+
+    const equalIndex = argument.indexOf("=");
+    if (equalIndex > 2) {
+      const key = toCamelCase(argument.slice(2, equalIndex));
+      result[key] = argument.slice(equalIndex + 1);
+      continue;
+    }
+
     const key = toCamelCase(argument.slice(2));
     const value = argumentsList[index + 1];
     if (!value || value.startsWith("--")) {
@@ -53,6 +67,14 @@ function parseArguments(argumentsList) {
       index += 1;
     }
   }
+
+  if (!result.input && !result.text && positional[0]) {
+    result.input = positional[0];
+  }
+  if (!result.output && positional[1]) {
+    result.output = positional[1];
+  }
+
   return result;
 }
 
@@ -62,6 +84,8 @@ function toCamelCase(value) {
 
 function fail(message) {
   console.error(message);
-  console.error("Example: node --env-file=.env cli/audible-render.js --input article.md --output artifacts/audible/article");
+  console.error("Examples:");
+  console.error("  node --env-file=.env cli/audible-render.js --input article.md --output artifacts/audible/article");
+  console.error("  npm run audible:render -- article.md artifacts/audible/article");
   process.exit(1);
 }
