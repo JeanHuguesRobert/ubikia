@@ -10,6 +10,7 @@
     "audible:review": "node cli/audible-review.js",
     "audible:render": "node --env-file=.env cli/audible-render.js",
     "audible:assemble": "node --env-file=.env cli/audible-assemble.js",
+    "audible:finalize": "node --env-file=.env cli/audible-finalize.js",
     "audible:video": "node --env-file=.env cli/audible-video.js",
     "audible:package:youtube": "node cli/audible-package-youtube.js",
     "audible:test": "node --env-file=.env cli/audible-render.js --text \"On n’est jamais si bien servi que par soi-même ; demain, cela fera beaucoup de monde. À condition que tous sachent qui est le mandant.\" --output artifacts/audible/test",
