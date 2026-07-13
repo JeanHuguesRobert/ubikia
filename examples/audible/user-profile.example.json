@@ -1,0 +1,39 @@
+{
+  "schema": "ubikia.user-profile.v0.1",
+  "account": "example-user",
+  "displayName": "Example User",
+  "defaultLanguage": "en",
+  "instructionFiles": [
+    ".ubikia/instructions.md"
+  ],
+  "audio": {
+    "defaultProvider": "gradium",
+    "voiceReference": "env:GRADIUM_VOICE_ID",
+    "syntheticVoiceDisclosure": "This episode uses a synthetic custom voice authorized by the represented speaker.",
+    "defaultFormats": [
+      "mp3",
+      "opus"
+    ]
+  },
+  "series": [
+    {
+      "id": "example-audio-edition",
+      "title": "Example publication — audio edition",
+      "language": "en",
+      "author": "Example User",
+      "writtenPlatform": "substack",
+      "audioPlatform": "youtube",
+      "defaultVisibility": "private"
+    }
+  ],
+  "publicationPolicy": {
+    "humanReviewRequired": true,
+    "automaticPublicPublicationAllowed": false,
+    "firstUploadVisibility": "private",
+    "sourceLinkRequired": true,
+    "syntheticVoiceDisclosureRequired": true
+  },
+  "secretReferences": {
+    "gradiumApiKey": "env:GRADIUM_API_KEY"
+  }
+}
