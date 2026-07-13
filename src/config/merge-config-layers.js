@@ -156,7 +156,14 @@ function deleteDescendantProvenance(provenance, path) {
 }
 
 function walkLeaves(value, pathParts, visitor) {
-  if (Array.isArray(value) || !isPlainObject(value)) {
+  if (Array.isArray(value)) {
+    for (const [index, child] of value.entries()) {
+      walkLeaves(child, [...pathParts, String(index)], visitor);
+    }
+    return;
+  }
+
+  if (!isPlainObject(value)) {
     visitor(pathParts, value);
     return;
   }
