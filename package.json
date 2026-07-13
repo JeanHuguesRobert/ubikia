@@ -6,6 +6,7 @@
   "description": "Governed derivation, publication support, and faithful appearances of versioned corpora.",
   "scripts": {
     "audible:adapt": "node cli/audible-adapt.js",
+    "audible:review": "node cli/audible-review.js",
     "audible:render": "node --env-file=.env cli/audible-render.js",
     "audible:assemble": "node --env-file=.env cli/audible-assemble.js",
     "audible:video": "node --env-file=.env cli/audible-video.js",
