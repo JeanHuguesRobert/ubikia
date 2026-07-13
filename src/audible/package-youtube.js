@@ -46,7 +46,7 @@ export async function createYouTubePublicationPackage({
     category: metadata.category ?? null,
     visibility: metadata.visibility ?? "private",
     made_for_kids: metadata.madeForKids ?? false,
-    altered_or_synthetic_content: metadata.alteredOrSyntheticContent ?? true,
+    altered_or_synthetic_content: metadata.alteredOrSyntheticContent ?? null,
     synthetic_voice_disclosure: disclosure,
     video,
     transcript,
