@@ -10,6 +10,7 @@ export async function createStaticYouTubeVideo({
   ffmpegPath = process.env.FFMPEG_PATH ?? "ffmpeg",
   width = 1920,
   height = 1080,
+  frameRate = 30,
   overwrite = true,
 } = {}) {
   if (!outputDirectory) throw new Error("outputDirectory is required");
@@ -43,6 +44,7 @@ export async function createStaticYouTubeVideo({
     "-i", absoluteImage,
     "-i", audioFile,
     "-vf", scaleFilter,
+    "-r", String(frameRate),
     "-c:v", "libx264",
     "-tune", "stillimage",
     "-preset", "medium",
@@ -61,6 +63,7 @@ export async function createStaticYouTubeVideo({
     mime_type: "video/mp4",
     width,
     height,
+    frame_rate: frameRate,
     source_audio: audioProduct.filename,
     source_artwork: absoluteImage,
   });
