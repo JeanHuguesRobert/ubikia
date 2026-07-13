@@ -28,11 +28,15 @@
       "type": "object",
       "additionalProperties": {
         "type": "object",
-        "required": ["layer", "source", "commit"],
+        "required": ["layer", "source", "commit", "sha256"],
         "properties": {
           "layer": { "type": "string" },
           "source": { "type": ["string", "null"] },
-          "commit": { "type": ["string", "null"] }
+          "commit": { "type": ["string", "null"] },
+          "sha256": {
+            "type": ["string", "null"],
+            "pattern": "^[a-f0-9]{64}$"
+          }
         }
       }
     },
@@ -40,7 +44,13 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["name", "source", "commit", "precedence"]
+        "required": ["name", "source", "commit", "sha256", "precedence"],
+        "properties": {
+          "sha256": {
+            "type": ["string", "null"],
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        }
       }
     },
     "invariants": {
