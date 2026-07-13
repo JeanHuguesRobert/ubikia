@@ -7,6 +7,8 @@ A written essay is not automatically a good listening script. Ubikia therefore t
 ```text
 written source
   -> spoken adaptation workspace
+  -> spoken draft
+  -> explicit review act
   -> reviewed spoken product
   -> TTS preparation
   -> audio rendering
@@ -28,14 +30,14 @@ adaptation.json
 - `adaptation-request.md` is a provider-neutral mandate that can be given to a human editor, coding agent, conversational agent, or LLM adapter.
 - `adaptation.json` records source and draft hashes, status, metadata, basic validation warnings, and the human-review requirement.
 
-A reviewed workflow should later add:
+After an explicit approval step, Ubikia adds:
 
 ```text
 spoken.reviewed.md
 review.json
 ```
 
-No automation should rename a draft as reviewed without an explicit review act.
+No automation should treat a draft as reviewed without this explicit review act.
 
 ## Create a workspace
 
@@ -84,7 +86,48 @@ Ubikia currently performs limited checks:
 - raw URLs left in spoken text;
 - Markdown headings or code fences left in spoken text.
 
-These checks detect some obvious failures. They do not establish semantic fidelity. A future governed review agent should compare claims, named entities, quotations, numbers, negations, modalities, and conclusions.
+These checks detect some obvious failures. They do not establish semantic fidelity. Review must still compare claims, named entities, quotations, numbers, negations, modalities, conclusions, and omitted qualifications.
+
+## Record an explicit review
+
+Copy and edit the review example:
+
+```powershell
+Copy-Item `
+  examples\audible\review.example.json `
+  artifacts\audible\episode\review-input.json
+```
+
+The input contains:
+
+```json
+{
+  "decision": "approve",
+  "reviewer": "Reviewer name",
+  "acknowledgeWarnings": false,
+  "notes": "Review notes"
+}
+```
+
+Then run:
+
+```powershell
+npm run audible:review -- `
+  artifacts\audible\episode `
+  artifacts\audible\episode\review-input.json
+```
+
+The command:
+
+- requires an explicit `approve` decision;
+- requires a named reviewer;
+- recomputes the mechanical checks;
+- refuses unresolved warnings unless they are explicitly acknowledged;
+- copies the reviewed draft to `spoken.reviewed.md`;
+- writes `review.json` with hashes and review metadata;
+- updates `adaptation.json` to `status: reviewed`.
+
+The command records the review act. It does not itself determine whether the adaptation is semantically correct.
 
 ## Rendering the reviewed spoken product
 
@@ -97,7 +140,7 @@ npm run audible:render -- `
   artifacts\audible\episode\spoken.reviewed.md
 ```
 
-The audio manifest then records separate hashes and references for:
+The audio manifest records separate hashes and references for:
 
 - the written source;
 - the spoken adaptation;
