@@ -43,6 +43,7 @@ export function mergeConfigurationLayers(layers, {
       name: layer.name,
       source: layer.source ?? null,
       commit: layer.commit ?? null,
+      sha256: layer.sha256 ?? null,
       precedence: index,
     });
   }
@@ -143,6 +144,7 @@ function describeProvenance(layer) {
     layer: layer.name,
     source: layer.source ?? null,
     commit: layer.commit ?? null,
+    sha256: layer.sha256 ?? null,
   };
 }
 
