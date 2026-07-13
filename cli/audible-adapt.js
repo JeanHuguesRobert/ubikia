@@ -24,14 +24,14 @@ const manifest = await createSpokenAdaptationWorkspace({
   outputDirectory,
   metadata: {
     sourceReference: sourcePath,
-    sourceUrl: options.sourceUrl ?? null,
-    title: options.title ?? null,
-    series: options.series ?? null,
-    author: options.author ?? null,
-    language: options.language ?? null,
-    audience: options.audience ?? null,
-    intro: options.intro ?? null,
-    outro: options.outro ?? null,
+    sourceUrl: options.sourceUrl,
+    title: options.title,
+    series: options.series,
+    author: options.author,
+    language: options.language,
+    audience: options.audience,
+    intro: options.intro,
+    outro: options.outro,
   },
 });
 
