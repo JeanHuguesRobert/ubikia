@@ -3,6 +3,8 @@ import { spawn } from "node:child_process";
 import { readFile, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
 
+import { normalizeWavBuffer } from "./wav.js";
+
 export async function assembleAudibleProduct({
   outputDirectory,
   basename = "audible-product",
@@ -20,6 +22,12 @@ export async function assembleAudibleProduct({
 
   await ensureExecutable(ffmpegPath, ["-version"], "FFmpeg");
 
+  const normalization = await normalizeSegmentContainers(segmentFiles, manifest);
+  const normalizedManifest = {
+    ...manifest,
+    files: normalization.files,
+  };
+
   const concatFile = path.join(absoluteDirectory, "segments.ffconcat");
   await writeFile(concatFile, buildConcatFile(segmentFiles), "utf8");
 
@@ -31,7 +39,7 @@ export async function assembleAudibleProduct({
     "-f", "concat",
     "-safe", "0",
     "-i", concatFile,
-    "-c", "copy",
+    "-c:a", "pcm_s16le",
     assembledWav,
   ]);
 
@@ -68,7 +76,7 @@ export async function assembleAudibleProduct({
   }
 
   const updatedManifest = {
-    ...manifest,
+    ...normalizedManifest,
     updated_at: new Date().toISOString(),
     assembly_status: "complete",
     assembly: {
@@ -76,6 +84,12 @@ export async function assembleAudibleProduct({
       concat_file: path.basename(concatFile),
       segment_source: "manifest.files",
       segment_count: segmentFiles.length,
+      input_container_normalization: {
+        method: "repair-riff-and-data-chunk-sizes",
+        repaired_segment_count: normalization.repairedSegments.length,
+        repaired_segments: normalization.repairedSegments,
+      },
+      assembled_wav_codec: "pcm_s16le",
       loudness_target: {
         integrated_lufs: -16,
         true_peak_db: -1.5,
@@ -87,6 +101,59 @@ export async function assembleAudibleProduct({
 
   await writeFile(manifestPath, `${JSON.stringify(updatedManifest, null, 2)}\n`, "utf8");
   return updatedManifest;
+}
+
+async function normalizeSegmentContainers(segmentFiles, manifest) {
+  if ((manifest.output_format ?? "wav").toLowerCase() !== "wav") {
+    return {
+      files: manifest.files,
+      repairedSegments: [],
+    };
+  }
+
+  const entriesByFilename = new Map(
+    (manifest.files ?? []).map((entry) => [entry.filename, { ...entry }]),
+  );
+  const repairedSegments = [];
+
+  for (const filename of segmentFiles) {
+    const basename = path.basename(filename);
+    const entry = entriesByFilename.get(basename);
+    const before = await readFile(filename);
+    const beforeSha256 = sha256(before);
+    const result = normalizeWavBuffer(before);
+
+    if (!result.recognized) {
+      throw new Error(`Manifest declares WAV output but ${basename} is not a RIFF/WAVE file`);
+    }
+
+    if (result.changed) {
+      await writeFile(filename, result.buffer);
+      repairedSegments.push(basename);
+    }
+
+    const previousNormalization = entry?.container_normalization;
+    entriesByFilename.set(basename, {
+      ...entry,
+      filename: basename,
+      provider_response_sha256: entry?.provider_response_sha256
+        ?? entry?.sha256
+        ?? beforeSha256,
+      sha256: sha256(result.buffer),
+      container_normalization: {
+        recognized: true,
+        applied: result.changed || previousNormalization?.applied === true,
+        repairs: result.changed
+          ? result.repairs
+          : previousNormalization?.repairs ?? [],
+      },
+    });
+  }
+
+  return {
+    files: (manifest.files ?? []).map((entry) => entriesByFilename.get(entry.filename)),
+    repairedSegments,
+  };
 }
 
 async function resolveManifestSegments(directory, manifest) {
@@ -153,7 +220,7 @@ async function describeAudioFile(filename, ffprobePath, format) {
     format,
     bytes: fileStat.size,
     duration_seconds: durationSeconds,
-    sha256: createHash("sha256").update(content).digest("hex"),
+    sha256: sha256(content),
   };
 }
 
@@ -187,4 +254,8 @@ function run(command, args, { captureOutput = false } = {}) {
       else reject(new Error(`${command} exited with code ${code}${stderr ? `: ${stderr.trim()}` : ""}`));
     });
   });
+}
+
+function sha256(content) {
+  return createHash("sha256").update(content).digest("hex");
 }
