@@ -35,22 +35,28 @@ The real `.env` is ignored by Git.
 From the root of the `ubikia` checkout:
 
 ```bash
+npm run audible:test
+```
+
+Equivalent direct invocation:
+
+```bash
 node --env-file=.env cli/audible-render.js \
   --text "On n’est jamais si bien servi que par soi-même ; demain, cela fera beaucoup de monde. À condition que tous sachent qui est le mandant." \
   --output artifacts/audible/test
 ```
 
-Or:
-
-```bash
-npm run audible:test -- --env-file=.env
-```
-
-The direct Node command is currently the reference invocation.
-
 ## Render a Markdown article
 
 From the root of `ubikia`, a source file may be outside this repository:
+
+```bash
+npm run audible:render -- \
+  --input ../barons-Mariani/research/se_demultiplier_pour_explorer_le_possible_blogpost.md \
+  --output artifacts/audible/on-nest-jamais-si-bien-servi
+```
+
+Equivalent direct invocation:
 
 ```bash
 node --env-file=.env cli/audible-render.js \
