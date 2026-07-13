@@ -1,0 +1,10 @@
+{
+  "audio": {
+    "defaultProvider": "gradium"
+  },
+  "extensions": {
+    "localWorkspace": {
+      "artworkDirectory": "C:\\media\\ubikia\\artwork"
+    }
+  }
+}
