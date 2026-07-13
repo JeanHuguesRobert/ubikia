@@ -5,7 +5,9 @@ import { renderAudibleProduct } from "./render.js";
 
 export async function runAudiblePipeline({
   sourceText,
+  speechText = sourceText,
   sourceReference = null,
+  adaptationReference = null,
   outputDirectory,
   provider,
   maxCharacters = 900,
@@ -17,7 +19,9 @@ export async function runAudiblePipeline({
 } = {}) {
   const renderManifest = await renderAudibleProduct({
     sourceText,
+    speechText,
     sourceReference,
+    adaptationReference,
     outputDirectory,
     provider,
     maxCharacters,
