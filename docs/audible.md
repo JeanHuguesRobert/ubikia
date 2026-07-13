@@ -2,24 +2,26 @@
 
 ## Scope
 
-This implementation produces an audible derived product from Markdown while preserving a provenance manifest.
+Ubikia produces governed audible derived products from written sources while preserving the distinction between source, spoken adaptation, TTS input, audio assets, target-specific media, and publication records.
 
-It belongs to Ubikia because it transforms a corpus-backed written product into a situated form of appearance. Database services, scheduling, deployment, durable job state, public media hosting, and shared secret management remain outside this repository and belong to the `inseme` platform layer.
+Database services, scheduling, durable job state, shared secret management, media hosting, and deployment remain responsibilities of the `inseme` platform layer.
 
-## Current pipeline
+## Pipeline
 
 ```text
-Markdown or inline text
-  -> oral preparation
+written source
+  -> spoken adaptation workspace
+  -> reviewed spoken product
+  -> TTS preparation
   -> bounded text segments
-  -> Gradium TTS
-  -> resumable segment files
-  -> FFmpeg lossless WAV assembly
-  -> normalized MP3 and Opus products
-  -> manifest.json + prepared.txt
+  -> resumable Gradium rendering
+  -> WAV assembly
+  -> normalized MP3 and Opus
+  -> static-artwork YouTube MP4
+  -> YouTube publication package
+  -> manual private upload
+  -> human publication decision
 ```
-
-Publication remains a separate, human-authorized stage. See [`audible-publication.md`](audible-publication.md).
 
 ## Environment
 
@@ -30,126 +32,166 @@ GRADIUM_API_KEY=...
 GRADIUM_VOICE_ID=...
 ```
 
-The real `.env` is ignored by Git.
-
-Optional executable overrides:
+After FFmpeg is installed, either place `ffmpeg` and `ffprobe` on `PATH` or set:
 
 ```dotenv
 FFMPEG_PATH=C:\path\to\ffmpeg.exe
 FFPROBE_PATH=C:\path\to\ffprobe.exe
 ```
 
-These overrides are useful when FFmpeg is unpacked but not added to `PATH`.
+The real `.env` is ignored by Git.
 
-## Test the custom voice
-
-From the root of the `ubikia` checkout:
+## 1. Create a spoken adaptation workspace
 
 ```powershell
-npm run audible:test
+npm run audible:adapt -- `
+  ..\source-repository\article.md `
+  artifacts\audible\episode-slug
 ```
 
-## Render a Markdown article
+This creates:
 
-PowerShell-safe positional invocation:
+```text
+source.md
+spoken.draft.md
+adaptation-request.md
+adaptation.json
+```
+
+The generated `spoken.draft.md` is a mechanical baseline. It is not a reviewed adaptation.
+
+## 2. Adapt and review
+
+Give `adaptation-request.md` and `source.md` to a human editor or governed agent. Preserve the reviewed result as:
+
+```text
+spoken.reviewed.md
+```
+
+See [`audible-adaptation.md`](audible-adaptation.md).
+
+## 3. Render the reviewed spoken product
 
 ```powershell
 npm run audible:render -- `
-  ..\barons-Mariani\research\se_demultiplier_pour_explorer_le_possible_blogpost.md `
-  artifacts\audible\on-nest-jamais-si-bien-servi
+  artifacts\audible\episode-slug\source.md `
+  artifacts\audible\episode-slug `
+  artifacts\audible\episode-slug\spoken.reviewed.md
 ```
 
-Equivalent direct invocation:
+The rendering process is resumable. Existing segments are reused only when the segment text hash, voice, and output format match.
+
+The audio manifest records separate hashes for:
+
+- the written source;
+- the spoken adaptation;
+- the prepared TTS text;
+- each segment text;
+- each segment audio file.
+
+## 4. Assemble and normalize audio
 
 ```powershell
-node --env-file=.env cli/audible-render.js `
-  --input ..\barons-Mariani\research\se_demultiplier_pour_explorer_le_possible_blogpost.md `
-  --output artifacts\audible\on-nest-jamais-si-bien-servi
+npm run audible:assemble -- artifacts\audible\episode-slug
 ```
 
-Optional argument:
+Expected products include:
 
 ```text
---max-characters 900
-```
-
-The renderer retries transient Gradium failures and reuses existing non-empty segment files.
-
-## Assemble and normalize
-
-After FFmpeg and FFprobe are available:
-
-```powershell
-npm run audible:assemble -- artifacts\audible\on-nest-jamais-si-bien-servi
-```
-
-This produces, by default:
-
-```text
-on-nest-jamais-si-bien-servi.wav
-on-nest-jamais-si-bien-servi.mp3
-on-nest-jamais-si-bien-servi.opus
+episode-slug.wav
+episode-slug.mp3
+episode-slug.opus
 segments.ffconcat
+manifest.json
 ```
 
-The WAV is assembled without re-encoding. MP3 and Opus are normalized for spoken audio with these targets:
+The MP3 is encoded for broad compatibility. The Opus file is suitable for efficient direct delivery. Both are described in the manifest with size, duration when available, and SHA-256.
+
+## 5. Create a YouTube video asset
+
+Prepare a landscape artwork image, then run:
+
+```powershell
+npm run audible:video -- `
+  artifacts\audible\episode-slug `
+  artwork\episode-slug.png `
+  episode-slug
+```
+
+The command creates an H.264/AAC MP4 from the static artwork and assembled audio, then records the video asset in `manifest.json`.
+
+## 6. Create a YouTube publication package
+
+Copy and edit the generic metadata example:
+
+```powershell
+Copy-Item `
+  examples\audible\youtube.metadata.example.json `
+  artifacts\audible\episode-slug\youtube.metadata.json
+```
+
+Then run:
+
+```powershell
+npm run audible:package:youtube -- `
+  artifacts\audible\episode-slug `
+  artifacts\audible\episode-slug\youtube.metadata.json
+```
+
+Generated files:
 
 ```text
-integrated loudness: -16 LUFS
-true peak: -1.5 dB
-loudness range: 11 LU
-MP3 bitrate: 128 kbit/s
-Opus bitrate: 64 kbit/s
+youtube-package.json
+youtube-title.txt
+youtube-description.md
 ```
 
-Optional assembly arguments:
+The package remains a draft with private visibility and `not_uploaded` status until reviewed and manually uploaded.
+
+See [`audible-youtube.md`](audible-youtube.md).
+
+## Commands
 
 ```text
---basename article-name
---formats mp3,opus
---ffmpeg C:\path\to\ffmpeg.exe
---ffprobe C:\path\to\ffprobe.exe
---overwrite false
+npm run audible:adapt
+npm run audible:render
+npm run audible:assemble
+npm run audible:video
+npm run audible:package:youtube
+npm run audible:test
 ```
 
-## Programmatic pipeline
+## Current boundaries
 
-`src/audible/pipeline.js` exposes `runAudiblePipeline()` for a later orchestration layer. It runs rendering and, unless disabled, assembly.
+Implemented:
 
-The current CLIs deliberately keep rendering and assembly separate so that synthesis can finish before FFmpeg is installed, and so that already-rendered segments remain reusable.
+- provider-neutral adaptation workspace;
+- adaptation prompt and mechanical checks;
+- source/spoken/prepared-text provenance;
+- resumable Gradium TTS;
+- safe segment reuse by text hash;
+- FFmpeg assembly and normalization;
+- static YouTube MP4 generation;
+- generic YouTube metadata package;
+- schemas for spoken and YouTube products.
 
-## Generated manifest
+Not yet implemented:
 
-Rendering records:
-
-- source reference;
-- source and prepared-text SHA-256 hashes;
-- provider class;
-- voice identifier;
-- segment sequence, size, SHA-256, and reuse status;
-- rendering progress;
-- provenance preservation status.
-
-Assembly adds:
-
-- assembly status;
-- FFmpeg path;
-- segment count;
-- normalization targets;
-- WAV, MP3, and Opus filenames;
-- byte sizes;
-- durations when FFprobe is available;
-- SHA-256 for every assembled product.
-
-## Known limits
-
-The oral preparation is intentionally conservative and incomplete. It currently removes front matter, code blocks, Markdown decoration, raw URLs, and list markers. It does not yet provide:
-
-- a governed pronunciation dictionary;
-- semantic handling of footnotes, tables, citations, acronyms, and code excerpts;
-- chapter introductions or editorial transitions;
-- artwork or embedded ID3 metadata;
-- publication records or feedback return to the source corpus;
-- database, queues, public storage, scheduling, or deployment.
+- semantic adaptation by a configured LLM provider;
+- formal review act and `review.json`;
+- pronunciation dictionaries;
+- sentence-level timing and subtitle generation;
+- artwork generation or templates;
+- direct YouTube upload;
+- publication records and connector reconciliation;
+- canonical hosting and RSS;
+- database, queues, storage services, scheduling, or deployment;
+- interactive onboarding agent.
 
 These limits must remain visible rather than being hidden behind automatic publication.
+
+## Future onboarding
+
+Ubikia is intended for multiple authors and organizations. Static documentation will remain available, but a future onboarding agent may guide users through prerequisites, adaptation, review, rendering, packaging, and publication checkpoints.
+
+See [`audible-onboarding-agent.md`](audible-onboarding-agent.md).
