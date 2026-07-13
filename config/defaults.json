@@ -1,0 +1,16 @@
+{
+  "defaultLanguage": "en",
+  "audio": {
+    "defaultFormats": [
+      "mp3",
+      "opus"
+    ]
+  },
+  "publicationPolicy": {
+    "humanReviewRequired": true,
+    "automaticPublicPublicationAllowed": false,
+    "firstUploadVisibility": "private",
+    "sourceLinkRequired": true,
+    "syntheticVoiceDisclosureRequired": true
+  }
+}
