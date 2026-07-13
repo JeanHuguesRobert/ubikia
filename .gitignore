@@ -1,0 +1,19 @@
+# Local secrets
+.env
+.env.*
+!.env.example
+
+# Dependencies
+node_modules/
+
+# Generated audible products
+artifacts/
+*.wav
+*.opus
+*.pcm
+
+# Local editor and OS files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
