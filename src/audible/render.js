@@ -4,6 +4,7 @@ import path from "node:path";
 
 import { prepareMarkdownForSpeech } from "./prepare-text.js";
 import { segmentText } from "./segment-text.js";
+import { normalizeWavBuffer } from "./wav.js";
 
 export async function renderAudibleProduct({
   sourceText,
@@ -45,23 +46,33 @@ export async function renderAudibleProduct({
   for (const [index, segment] of segments.entries()) {
     const sequenceNumber = index + 1;
     const sequence = String(sequenceNumber).padStart(3, "0");
-    const filename = `segment-${sequence}.${provider.outputFormat ?? "wav"}`;
+    const outputFormat = provider.outputFormat ?? "wav";
+    const filename = `segment-${sequence}.${outputFormat}`;
     const destination = path.join(outputDirectory, filename);
     const textSha256 = sha256(Buffer.from(segment, "utf8"));
     const existingEntry = existingFiles.get(filename);
 
-    let audio;
+    let providerAudio;
     let reused = false;
     if (
       existingEntry?.text_sha256 === textSha256
       && await isNonEmptyFile(destination)
     ) {
-      audio = await readFile(destination);
+      providerAudio = await readFile(destination);
       reused = true;
       console.log(`Reuse ${filename}`);
     } else {
       console.log(`Render ${filename} (${segment.length} characters)`);
-      audio = await provider.synthesize(segment);
+      providerAudio = await provider.synthesize(segment);
+    }
+
+    const providerResponseSha256 = existingEntry?.provider_response_sha256
+      ?? existingEntry?.sha256
+      ?? sha256(providerAudio);
+    const normalization = normalizeProviderAudio(providerAudio, outputFormat);
+    const audio = normalization.buffer;
+
+    if (!reused || normalization.changed) {
       await writeFile(destination, audio);
     }
 
@@ -70,8 +81,14 @@ export async function renderAudibleProduct({
       filename,
       characters: segment.length,
       text_sha256: textSha256,
+      provider_response_sha256: providerResponseSha256,
       sha256: sha256(audio),
       reused,
+      container_normalization: {
+        recognized: normalization.recognized,
+        applied: normalization.changed,
+        repairs: normalization.repairs,
+      },
     });
 
     await writeManifest(outputDirectory, buildManifest({
@@ -114,7 +131,7 @@ function buildManifest({
   status,
 }) {
   return {
-    schema: "ubikia.audible-manifest.v0.3",
+    schema: "ubikia.audible-manifest.v0.4",
     updated_at: new Date().toISOString(),
     status,
     source_reference: sourceReference,
@@ -132,6 +149,23 @@ function buildManifest({
     assembly_status: "not_assembled",
     provenance_preserved: true,
   };
+}
+
+function normalizeProviderAudio(audio, outputFormat) {
+  if (outputFormat.toLowerCase() !== "wav") {
+    return {
+      buffer: audio,
+      recognized: false,
+      changed: false,
+      repairs: [],
+    };
+  }
+
+  const result = normalizeWavBuffer(audio);
+  if (!result.recognized) {
+    throw new Error("The provider declared WAV output but returned an invalid RIFF/WAVE payload");
+  }
+  return result;
 }
 
 async function writeManifest(outputDirectory, manifest) {
