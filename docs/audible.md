@@ -6,6 +6,8 @@ Ubikia produces governed audible derived products from written sources while pre
 
 Database services, scheduling, durable job state, shared secret management, media hosting, and deployment remain responsibilities of the `inseme` platform layer.
 
+User-specific defaults and editorial instructions should live outside this repository. The recommended public location is the GitHub account repository `<account>/<account>` under `.ubikia/`. See [`user-configuration.md`](user-configuration.md).
+
 ## Pipeline
 
 ```text
@@ -41,7 +43,7 @@ FFMPEG_PATH=C:\path\to\ffmpeg.exe
 FFPROBE_PATH=C:\path\to\ffprobe.exe
 ```
 
-The real `.env` is ignored by Git.
+The real `.env` is ignored by Git. API keys, OAuth tokens, passwords, and signing keys must never be stored in Git, including private repositories. Versioned profiles may contain only references such as `env:GRADIUM_API_KEY`.
 
 ## 1. Create a spoken adaptation workspace
 
@@ -197,10 +199,12 @@ Implemented:
 - manifest-controlled FFmpeg assembly and normalization;
 - static YouTube MP4 generation;
 - generic YouTube metadata package;
-- schemas for adaptation, review, and YouTube products.
+- schemas for adaptation, review, YouTube products, and layered user profiles.
 
 Not yet implemented:
 
+- automatic loading and merging of account profiles;
+- authenticated private instruction repository access;
 - semantic adaptation by a configured LLM provider;
 - semantic review agent;
 - pronunciation dictionaries;
@@ -216,6 +220,6 @@ These limits must remain visible rather than being hidden behind automatic publi
 
 ## Future onboarding
 
-Ubikia is intended for multiple authors and organizations. Static documentation will remain available, but a future onboarding agent may guide users through prerequisites, adaptation, review, rendering, packaging, and publication checkpoints.
+Ubikia is intended for multiple authors and organizations. Static documentation will remain available, but a future onboarding agent may guide users through prerequisites, profile discovery, adaptation, review, rendering, packaging, and publication checkpoints.
 
 See [`audible-onboarding-agent.md`](audible-onboarding-agent.md).
