@@ -11,6 +11,7 @@ It does not upload or publish automatically.
 ```text
 written source
   -> spoken adaptation
+  -> explicit spoken review
   -> reviewed spoken product
   -> TTS segments
   -> assembled audio
@@ -22,6 +23,8 @@ written source
 ```
 
 A YouTube episode is a platform appearance of an audible derived product. It is not the canonical source and should point back to the written source or canonical episode page when available.
+
+For dated platform assumptions, see [`youtube-platform-notes-2026-07.md`](youtube-platform-notes-2026-07.md).
 
 ## 1. Create the adaptation workspace
 
@@ -54,13 +57,30 @@ Review at least:
 - transitions that may imply a different logical relationship;
 - pronunciation-sensitive words and abbreviations.
 
-After explicit review, preserve the reviewed text as:
+Copy and edit the review input:
+
+```powershell
+Copy-Item `
+  examples\audible\review.example.json `
+  artifacts\audible\episode-slug\review-input.json
+```
+
+Then record the review:
+
+```powershell
+npm run audible:review -- `
+  artifacts\audible\episode-slug `
+  artifacts\audible\episode-slug\review-input.json
+```
+
+This creates:
 
 ```text
 spoken.reviewed.md
+review.json
 ```
 
-A later implementation should record the reviewer and review act in `review.json`.
+The command records who approved the draft, when it was approved, the reviewed hashes, mechanical warnings, and whether warnings were explicitly acknowledged.
 
 ## 3. Render audio from source plus spoken product
 
@@ -79,11 +99,11 @@ The manifest records separate hashes for the written source, spoken product, and
 npm run audible:assemble -- artifacts\audible\episode-slug
 ```
 
-Expected products include WAV, MP3, and Opus files plus updated provenance metadata.
+Expected products include WAV, MP3, and Opus files plus updated provenance metadata. Assembly follows the current manifest rather than scanning every segment-shaped file in the directory.
 
 ## 5. Prepare artwork
 
-Create a landscape image suitable for a static-video episode. The initial implementation renders a 1920×1080 MP4 and scales/pads the supplied image without stretching it.
+Create a landscape image suitable for a static-video episode. The initial implementation renders a 1920×1080, 30 fps MP4 and scales/pads the supplied image without stretching it.
 
 Artwork should normally include:
 
@@ -118,6 +138,8 @@ Copy-Item `
 
 Edit the copied file. Metadata is user-provided rather than hard-coded because Ubikia is intended for multiple authors, languages, channels, series, and disclosure policies.
 
+The editorial synthetic-voice disclosure is separate from the platform `AI use` field. The example leaves `alteredOrSyntheticContent` as `null`, requiring a current policy decision before upload.
+
 ## 8. Create the publication package
 
 ```powershell
@@ -143,6 +165,8 @@ upload_status: not_uploaded
 human_review_required: true
 ```
 
+A reviewed spoken transcript is required by default. A development-only override can be requested through metadata, but it remains visible in the package and must not be mistaken for publication readiness.
+
 ## 9. Manual upload checkpoint
 
 The recommended first upload is private. Check:
@@ -154,7 +178,7 @@ The recommended first upload is private. Check:
 - transcript or captions;
 - artwork readability;
 - synthetic-voice disclosure;
-- current platform disclosure and audience settings;
+- current platform AI-use and audience settings;
 - copyright and privacy concerns.
 
 Only a distinct human publication act should change visibility to unlisted or public.
