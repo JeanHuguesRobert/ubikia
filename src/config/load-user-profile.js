@@ -80,26 +80,29 @@ export async function loadJsonLayer(spec) {
     source: spec.source ?? filename,
     commit: spec.commit ?? null,
     filename,
+    rootDirectory: spec.rootDirectory
+      ? path.resolve(spec.rootDirectory)
+      : inferProfileRoot(filename),
     value,
     sha256: sha256(content),
   };
 }
 
 async function loadInstructionDocuments(layer) {
-  const baseDirectory = path.dirname(layer.filename);
+  const profileDirectory = path.dirname(layer.filename);
   const configured = Array.isArray(layer.value.instructionFiles)
     ? layer.value.instructionFiles
     : [];
 
   const candidates = configured.length > 0
-    ? configured
-    : ["instructions.md"];
+    ? configured.map((candidate) => ({ candidate, base: layer.rootDirectory }))
+    : [{ candidate: "instructions.md", base: profileDirectory }];
   const documents = [];
 
-  for (const candidate of candidates) {
+  for (const { candidate, base } of candidates) {
     const filename = path.isAbsolute(candidate)
       ? candidate
-      : path.resolve(baseDirectory, candidate);
+      : path.resolve(base, candidate);
 
     if (!(await isRegularFile(filename))) {
       if (configured.length > 0) {
@@ -130,6 +133,7 @@ function normalizeSpec(spec, defaultName) {
       filename: spec,
       source: path.resolve(spec),
       commit: null,
+      rootDirectory: null,
     };
   }
   if (typeof spec !== "object" || typeof spec.filename !== "string") {
@@ -140,7 +144,15 @@ function normalizeSpec(spec, defaultName) {
     filename: spec.filename,
     source: spec.source ?? path.resolve(spec.filename),
     commit: spec.commit ?? null,
+    rootDirectory: spec.rootDirectory ?? null,
   };
+}
+
+function inferProfileRoot(filename) {
+  const directory = path.dirname(filename);
+  return path.basename(directory).toLowerCase() === ".ubikia"
+    ? path.dirname(directory)
+    : directory;
 }
 
 function validatePublicProfile(profile) {
