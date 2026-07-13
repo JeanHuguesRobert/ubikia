@@ -6,11 +6,25 @@
 # Dependencies
 node_modules/
 
-# Generated audible products
+# Generated derived products and working artifacts
 artifacts/
+tmp/
+.cache/
+
+# Generated audio, video, subtitle, and assembly files
+# These patterns are a safety net when a CLI output is placed outside artifacts/.
 *.wav
+*.mp3
 *.opus
 *.pcm
+*.m4a
+*.aac
+*.flac
+*.mp4
+*.webm
+*.ffconcat
+*.srt
+*.vtt
 
 # Locally resolved configuration
 .ubikia/resolved*.json
