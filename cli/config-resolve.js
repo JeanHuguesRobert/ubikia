@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, readFile, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
 
@@ -18,6 +18,8 @@ if (!options.output) {
   fail("An output filename or '-' for stdout is required.");
 }
 
+await loadOptionalEnvironment(options.envFile ?? ".env");
+
 const result = await loadUserConfiguration({
   publicProfile: fileSpec(options.public, options.publicSource, options.publicCommit),
   privateProfile: fileSpec(options.private, options.privateSource, options.privateCommit),
@@ -25,11 +27,12 @@ const result = await loadUserConfiguration({
   overrides: fileSpec(options.overrides, options.overridesSource, options.overridesCommit),
 });
 
+const includeInstructionContent = asBoolean(
+  options.includeInstructionContent
+    ?? process.env.UBIKIA_INCLUDE_INSTRUCTION_CONTENT,
+);
 const serializable = serializeResolvedUserConfiguration(result, {
-  includeInstructionContent: asBoolean(
-    options.includeInstructionContent
-      ?? process.env.UBIKIA_INCLUDE_INSTRUCTION_CONTENT,
-  ),
+  includeInstructionContent,
 });
 const json = `${JSON.stringify(serializable, null, 2)}\n`;
 
@@ -52,16 +55,51 @@ console.error(JSON.stringify({
   layers: result.layers.map((layer) => layer.name),
   provenanceEntries: Object.keys(result.provenance).length,
   instructionDocuments: result.instructions.length,
-  instructionContentSerialized: asBoolean(
-    options.includeInstructionContent
-      ?? process.env.UBIKIA_INCLUDE_INSTRUCTION_CONTENT,
-  ),
+  instructionContentSerialized: includeInstructionContent,
   secretReferences: secretSummary,
   invariants: result.invariants.map(({ path: invariantPath, status }) => ({
     path: invariantPath,
     status,
   })),
 }, null, 2));
+
+async function loadOptionalEnvironment(filename) {
+  if (!filename || !(await isRegularFile(filename))) return;
+  const content = await readFile(filename, "utf8");
+
+  for (const rawLine of content.split(/\r?\n/)) {
+    const line = rawLine.trim();
+    if (!line || line.startsWith("#")) continue;
+
+    const separator = line.indexOf("=");
+    if (separator <= 0) continue;
+    const name = line.slice(0, separator).trim();
+    if (!/^[A-Za-z_][A-Za-z0-9_]*$/.test(name)) continue;
+    if (Object.hasOwn(process.env, name)) continue;
+
+    process.env[name] = unquote(line.slice(separator + 1).trim());
+  }
+}
+
+async function isRegularFile(filename) {
+  try {
+    return (await stat(path.resolve(filename))).isFile();
+  } catch (error) {
+    if (error?.code === "ENOENT") return false;
+    throw error;
+  }
+}
+
+function unquote(value) {
+  if (value.length >= 2) {
+    const first = value[0];
+    const last = value.at(-1);
+    if ((first === '"' && last === '"') || (first === "'" && last === "'")) {
+      return value.slice(1, -1);
+    }
+  }
+  return value;
+}
 
 function fileSpec(filename, source, commit) {
   if (!filename) return null;
