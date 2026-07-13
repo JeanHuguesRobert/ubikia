@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ubikia.example/schemas/spoken-review.schema.json",
+  "title": "Ubikia spoken review",
+  "type": "object",
+  "required": [
+    "schema",
+    "decision",
+    "reviewer",
+    "reviewed_at",
+    "source_sha256",
+    "draft_sha256",
+    "reviewed_sha256"
+  ],
+  "properties": {
+    "schema": {
+      "const": "ubikia.spoken-review.v0.1"
+    },
+    "decision": {
+      "const": "approve"
+    },
+    "reviewer": {
+      "type": "string",
+      "minLength": 1
+    },
+    "reviewed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "notes": {
+      "type": ["string", "null"]
+    },
+    "acknowledge_warnings": {
+      "type": "boolean"
+    },
+    "validation": {
+      "type": "object"
+    },
+    "source_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "draft_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "reviewed_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  },
+  "additionalProperties": true
+}
