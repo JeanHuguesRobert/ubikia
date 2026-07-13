@@ -1,0 +1,10 @@
+{
+  "defaultLanguage": "fr",
+  "extensions": {
+    "currentJob": {
+      "seriesId": "example-audio-series",
+      "target": "youtube",
+      "visibility": "private"
+    }
+  }
+}
