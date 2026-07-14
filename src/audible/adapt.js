@@ -114,20 +114,24 @@ export function validateSpokenAdaptation({ sourceText, spokenText }) {
     throw new TypeError("sourceText and spokenText must be strings");
   }
 
-  const sourceNumbers = unique(sourceText.match(/\b\d+(?:[.,]\d+)?%?\b/g) ?? []);
+  // YAML front matter describes the publication record, not the prose that the
+  // listener should hear. Dates, versions, postal codes and licence numbers in
+  // that block must therefore not create false omission warnings.
+  const sourceBody = stripYamlFrontMatter(sourceText);
+  const sourceNumbers = unique(sourceBody.match(/\b\d+(?:[.,]\d+)?%?\b/g) ?? []);
   const spokenNumbers = new Set(spokenText.match(/\b\d+(?:[.,]\d+)?%?\b/g) ?? []);
   const missingNumbers = sourceNumbers.filter((number) => !spokenNumbers.has(number));
-  const lengthRatio = sourceText.length === 0 ? null : spokenText.length / sourceText.length;
+  const lengthRatio = sourceBody.length === 0 ? null : spokenText.length / sourceBody.length;
 
   const warnings = [];
   if (lengthRatio !== null && lengthRatio < 0.55) {
-    warnings.push("The spoken draft is much shorter than the source; check for omissions.");
+    warnings.push("The spoken draft is much shorter than the source body; check for omissions.");
   }
   if (lengthRatio !== null && lengthRatio > 1.45) {
-    warnings.push("The spoken draft is much longer than the source; check for additions.");
+    warnings.push("The spoken draft is much longer than the source body; check for additions.");
   }
   if (missingNumbers.length > 0) {
-    warnings.push("Some numeric tokens from the source are absent from the spoken draft.");
+    warnings.push("Some numeric tokens from the source body are absent from the spoken draft.");
   }
   if (/https?:\/\/\S+/i.test(spokenText)) {
     warnings.push("The spoken draft still contains a raw URL.");
@@ -138,13 +142,31 @@ export function validateSpokenAdaptation({ sourceText, spokenText }) {
 
   return {
     status: warnings.length === 0 ? "mechanical_checks_passed" : "review_required",
+    validation_basis: "source_body_without_yaml_front_matter",
     source_characters: sourceText.length,
+    source_body_characters: sourceBody.length,
     spoken_characters: spokenText.length,
     length_ratio: lengthRatio,
     missing_numeric_tokens: missingNumbers,
     warnings,
     human_review_required: true,
   };
+}
+
+function stripYamlFrontMatter(value) {
+  const normalized = value.startsWith("\uFEFF") ? value.slice(1) : value;
+  const lines = normalized.split(/\r?\n/);
+  if (lines[0]?.trim() !== "---") return normalized;
+
+  for (let index = 1; index < lines.length; index += 1) {
+    if (lines[index].trim() === "---") {
+      return lines.slice(index + 1).join("\n");
+    }
+  }
+
+  // An unclosed delimiter is not valid front matter; validate the whole source
+  // rather than silently discarding its contents.
+  return normalized;
 }
 
 function buildMechanicalDraft(sourceText, metadata) {
