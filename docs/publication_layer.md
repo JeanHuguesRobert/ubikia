@@ -7,15 +7,27 @@ classification_source: "cogentia.js"
 classification_version: "1"
 classification_rule: "documentation"
 classification_confidence: "medium"
+title: "Ubikia Publication Layer"
+author: "Jean Hugues Noël Robert"
+canonical_url: "https://github.com/JeanHuguesRobert/ubikia/blob/main/docs/publication_layer.md"
+date: "2026-05-23"
+status: "draft"
+related_documents:
+  - "ubikia/docs/concepts.md"
+  - "ubikia/docs/derivation_workflow.md"
+provenance:
+  origin_type: "repository"
+  origin_repository: "JeanHuguesRobert/ubikia"
+  origin_ref: "79c781a2"
+  origin_date: "2026-05-23"
+  derived_from: []
+review:
+  status: "unreviewed"
+  reviewed_by: []
 ---
 
 # Ubikia Publication Layer
 ## Platform Packages, Publication Ledger, and Supervised Distribution
-
-**Status:** Draft v0.1  
-**Repository target:** `ubikia/docs/publication_layer.md`  
-**Related documents:** `ubikia/docs/concepts.md`, `ubikia/docs/derivation_workflow.md`  
-**Date:** 2026-05-23  
 
 ---
 

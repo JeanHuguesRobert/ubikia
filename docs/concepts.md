@@ -1,12 +1,25 @@
 ---
-document_role: "source"
-document_kind: "documentation"
-visibility: "public"
-lifecycle_state: "active"
-classification_source: "cogentia.js"
-classification_version: "1"
-classification_rule: "documentation"
-classification_confidence: "medium"
+document_role: source
+document_kind: documentation
+visibility: public
+lifecycle_state: active
+classification_source: cogentia.js
+classification_version: '1'
+classification_rule: documentation
+classification_confidence: medium
+title: Ubikia Concepts
+author: unknown
+date: unknown
+provenance:
+  origin_type: unknown
+  origin_repository: unknown
+  origin_ref: unknown
+  origin_date: unknown
+  derived_from: []
+review:
+  status: unreviewed
+  reviewed_by: []
+update_policy: UP-DEFAULT-REVIEWED
 ---
 
 # Ubikia Concepts
