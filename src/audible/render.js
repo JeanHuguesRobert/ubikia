@@ -4,7 +4,7 @@ import path from "node:path";
 
 import { prepareMarkdownForSpeech } from "./prepare-text.js";
 import { segmentText } from "./segment-text.js";
-import { normalizeWavBuffer } from "./wav.js";
+import { normalizeWavBuffer, wavHasPcmSamples } from "./wav.js";
 
 export async function renderAudibleProduct({
   sourceText,
@@ -71,6 +71,7 @@ export async function renderAudibleProduct({
       ?? sha256(providerAudio);
     const normalization = normalizeProviderAudio(providerAudio, outputFormat);
     const audio = normalization.buffer;
+    assertRenderableAudio(audio, outputFormat, filename);
     const previousNormalization = existingEntry?.container_normalization;
 
     if (!reused || normalization.changed) {
@@ -169,6 +170,29 @@ function normalizeProviderAudio(audio, outputFormat) {
     throw new Error("The provider declared WAV output but returned an invalid RIFF/WAVE payload");
   }
   return result;
+}
+
+/**
+ * Reject empty or header-only provider audio so a silent/corrupt segment cannot
+ * enter the assembly chain and truncate the episode without a clear failure.
+ */
+function assertRenderableAudio(audio, outputFormat, filename) {
+  if (!Buffer.isBuffer(audio) || audio.length === 0) {
+    throw new Error(`TTS returned empty audio for ${filename}`);
+  }
+
+  if (outputFormat.toLowerCase() !== "wav") {
+    if (audio.length < 64) {
+      throw new Error(`TTS returned an implausibly small audio payload for ${filename} (${audio.length} bytes)`);
+    }
+    return;
+  }
+
+  if (!wavHasPcmSamples(audio)) {
+    throw new Error(
+      `TTS returned a WAV container with no PCM samples for ${filename}. Re-render this segment after checking provider credits/status.`,
+    );
+  }
 }
 
 async function writeManifest(outputDirectory, manifest) {

@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { normalizeWavBuffer } from "../src/audible/wav.js";
+import { normalizeWavBuffer, wavHasPcmSamples } from "../src/audible/wav.js";
 
 test("repairs streaming RIFF and data sizes without changing PCM samples", () => {
   const pcm = Buffer.from([0x01, 0x00, 0x02, 0x00, 0x03, 0x00, 0x04, 0x00]);
@@ -29,6 +29,12 @@ test("normalization is idempotent", () => {
   assert.equal(secondPass.changed, false);
   assert.strictEqual(secondPass.buffer, normalized);
   assert.deepEqual(secondPass.repairs, []);
+});
+
+test("detects header-only WAV without PCM samples", () => {
+  const empty = makeStreamingPcmWav(Buffer.alloc(0));
+  assert.equal(wavHasPcmSamples(empty), false);
+  assert.equal(wavHasPcmSamples(makeStreamingPcmWav(Buffer.alloc(16))), true);
 });
 
 test("leaves non-WAV payloads untouched", () => {

@@ -75,6 +75,29 @@ export function normalizeWavBuffer(input) {
   };
 }
 
+/**
+ * Returns true when the buffer is a RIFF/WAVE file with a non-empty data chunk.
+ * Empty header-only WAVs (common silent failure mode) are rejected.
+ */
+export function wavHasPcmSamples(input) {
+  if (!Buffer.isBuffer(input) || input.length < 44) return false;
+  if (
+    input.toString("ascii", 0, 4) !== "RIFF"
+    || input.toString("ascii", 8, 12) !== "WAVE"
+  ) {
+    return false;
+  }
+
+  const dataChunk = findDataChunk(input);
+  if (!dataChunk) return false;
+
+  const availableBytes = input.length - dataChunk.payloadOffset;
+  const effectiveSize = dataChunk.declaredSize === UINT32_MAX
+    ? availableBytes
+    : Math.min(dataChunk.declaredSize, availableBytes);
+  return effectiveSize > 0;
+}
+
 function findDataChunk(buffer) {
   let offset = 12;
 
