@@ -1,15 +1,13 @@
 #!/usr/bin/env node
 
-import { createHash } from "node:crypto";
-import { copyFile, readFile, writeFile } from "node:fs/promises";
+import { readFile } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
 
-import { createSpokenAdaptationWorkspace, validateSpokenAdaptation } from "../src/audible/adapt.js";
 import { assembleAudibleProduct } from "../src/audible/assemble.js";
+import { prepareFinalizedAdaptationWorkspace } from "../src/audible/finalize-workspace.js";
 import { GradiumTTSProvider } from "../src/audible/providers/gradium.js";
 import { renderAudibleProduct } from "../src/audible/render.js";
-import { reviewSpokenAdaptation } from "../src/audible/review.js";
 
 const options = parseArguments(process.argv.slice(2));
 const [sourceArgument, spokenArgument, outputArgument] = options.positionals;
@@ -23,59 +21,44 @@ if (!spokenArgument && !options.spoken) fail("A reviewed spoken draft is require
 if (!outputArgument && !options.output) fail("An output directory is required.");
 if (!reviewer) fail("Use --reviewer <name> or set UBIKIA_REVIEWER.");
 
+// Capture inputs into memory before any workspace mutation.
 const [sourceText, spokenText] = await Promise.all([
   readFile(sourceFile, "utf8"),
   readFile(spokenFile, "utf8"),
 ]);
 
-const validation = validateSpokenAdaptation({ sourceText, spokenText });
-if (validation.warnings.length > 0 && options.acknowledgeWarnings !== true) {
-  console.error(JSON.stringify(validation, null, 2));
-  fail("Mechanical validation warnings remain. Review them, then rerun with --acknowledge-warnings.");
+let prepared;
+try {
+  prepared = await prepareFinalizedAdaptationWorkspace({
+    sourceText,
+    spokenText,
+    sourceFile,
+    spokenFile,
+    outputDirectory,
+    reviewer,
+    acknowledgeWarnings: options.acknowledgeWarnings === true,
+    notes: options.notes ?? "Approved for governed audio rendering.",
+    metadata: {
+      title: options.title ?? null,
+      series: options.series ?? null,
+      author: options.author ?? reviewer,
+      language: options.language ?? "fr",
+      audience: options.audience ?? "general public",
+      sourceUrl: options.sourceUrl ?? null,
+    },
+  });
+} catch (error) {
+  if (error?.validation) {
+    console.error(JSON.stringify(error.validation, null, 2));
+  }
+  fail(error.message);
 }
 
-await createSpokenAdaptationWorkspace({
-  sourceText,
-  outputDirectory,
-  metadata: {
-    sourceReference: sourceFile,
-    title: options.title ?? null,
-    series: options.series ?? null,
-    author: options.author ?? reviewer,
-    language: options.language ?? "fr",
-    audience: options.audience ?? "general public",
-  },
-});
+if (prepared.staging.aliasing_detected) {
+  console.error(prepared.staging.message);
+}
 
-const workspaceDraft = path.join(outputDirectory, "spoken.draft.md");
-await copyFile(spokenFile, workspaceDraft);
-
-const adaptationPath = path.join(outputDirectory, "adaptation.json");
-const adaptation = JSON.parse(await readFile(adaptationPath, "utf8"));
-adaptation.updated_at = new Date().toISOString();
-adaptation.status = "draft_unreviewed";
-adaptation.spoken_product = {
-  ...(adaptation.spoken_product ?? {}),
-  filename: "spoken.draft.md",
-  sha256: sha256(spokenText),
-  adaptation_method: "governed_human_or_agent_adaptation",
-  human_review_required: true,
-  reviewed: false,
-};
-adaptation.validation = validation;
-await writeFile(adaptationPath, `${JSON.stringify(adaptation, null, 2)}\n`, "utf8");
-
-const review = await reviewSpokenAdaptation({
-  outputDirectory,
-  review: {
-    decision: "approve",
-    reviewer,
-    notes: options.notes ?? "Approved for governed audio rendering.",
-    acknowledgeWarnings: options.acknowledgeWarnings === true,
-  },
-});
-
-const reviewedFile = path.join(outputDirectory, "spoken.reviewed.md");
+const reviewedFile = prepared.reviewedFile;
 const provider = new GradiumTTSProvider({
   outputFormat: options.format ?? process.env.UBIKIA_AUDIO_FORMAT ?? "wav",
 });
@@ -109,11 +92,13 @@ const assembledManifest = await assembleAudibleProduct({
 
 console.log(JSON.stringify({
   output: outputDirectory,
+  path_aliasing: prepared.aliasing,
+  staging: prepared.staging,
   review: {
-    status: review.adaptation.status,
-    reviewer: review.review.reviewer,
-    reviewed_at: review.review.reviewed_at,
-    spoken_sha256: review.review.reviewed_sha256,
+    status: prepared.review.adaptation.status,
+    reviewer: prepared.review.review.reviewer,
+    reviewed_at: prepared.review.review.reviewed_at,
+    spoken_sha256: prepared.review.review.reviewed_sha256,
   },
   render: {
     status: renderManifest.status,
@@ -158,10 +143,6 @@ function parseArguments(argumentsList) {
 
 function toCamelCase(value) {
   return value.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
-}
-
-function sha256(value) {
-  return createHash("sha256").update(value, "utf8").digest("hex");
 }
 
 function fail(message) {

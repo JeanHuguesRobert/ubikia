@@ -15,6 +15,9 @@
     "audible:package:youtube": "node cli/audible-package-youtube.js",
     "audible:prepare:youtube": "node --env-file=.env cli/audible-prepare-youtube.js",
     "audible:record:youtube": "node --env-file=.env cli/audible-record-youtube.js",
+    "audible:audition": "node --env-file=.env cli/audible-audition.js",
+    "audible:audition:prepare": "node cli/audible-audition.js --prepare-only",
+    "audible:validate:reference": "node cli/audible-validate-reference.js",
     "audible:test": "node --env-file=.env cli/audible-render.js --text \"On n’est jamais si bien servi que par soi-même ; demain, cela fera beaucoup de monde. À condition que tous sachent qui est le mandant.\" --output artifacts/audible/test",
     "test": "node --test"
   },

@@ -181,10 +181,27 @@ npm run audible:adapt
 npm run audible:review
 npm run audible:render
 npm run audible:assemble
+npm run audible:finalize
 npm run audible:video
 npm run audible:package:youtube
+npm run audible:prepare:youtube
+npm run audible:record:youtube
+npm run audible:audition
+npm run audible:audition:prepare
+npm run audible:validate:reference
 npm run audible:test
+npm test
 ```
+
+## Reference episode
+
+A version-controlled reference project exercises the current Node pipeline end to end without waiting for the draft Media MVP:
+
+```text
+examples/audible/le-pere-noel-revient/
+```
+
+It includes pinned source provenance, a reviewable French spoken script, review template, pronunciation audition text, French private YouTube metadata, and a dual-shell runbook. See [`audible-youtube-workflow.md`](audible-youtube-workflow.md) and the project `RUNBOOK.md`.
 
 ## Current boundaries
 
@@ -196,9 +213,14 @@ Implemented:
 - source/spoken/prepared-text provenance;
 - resumable Gradium TTS;
 - safe segment reuse by text hash;
-- manifest-controlled FFmpeg assembly and normalization;
+- safe finalize input staging when spoken/source paths live inside the output workspace;
+- pronunciation audition prepare/render step;
+- manifest-controlled FFmpeg assembly and normalization, including per-segment durations when ffprobe is available;
+- segment-level French SRT/VTT generation when timings are reliable;
 - static YouTube MP4 generation;
-- generic YouTube metadata package;
+- generic YouTube metadata package with private / not-for-kids defaults;
+- human-confirmed YouTube publication recording (`publication.youtube.json`);
+- offline reference-episode validation;
 - schemas for adaptation, review, YouTube products, and layered user profiles.
 
 Not yet implemented:
@@ -207,11 +229,11 @@ Not yet implemented:
 - authenticated private instruction repository access;
 - semantic adaptation by a configured LLM provider;
 - semantic review agent;
-- pronunciation dictionaries;
-- sentence-level timing and subtitle generation;
+- pronunciation dictionaries beyond the audition sample workflow;
+- sentence-level timing and Studio-perfect subtitles;
 - artwork generation or templates;
-- direct YouTube upload;
-- publication records and connector reconciliation;
+- direct YouTube upload or any automatic public publish;
+- connector reconciliation against the live YouTube API;
 - canonical hosting and RSS;
 - database, queues, storage services, scheduling, or deployment;
 - interactive onboarding agent.

@@ -1,0 +1,45 @@
+{
+  "title": "Le Père Noël revient — et cette fois, il aide les adultes | Les carnets du baron Mariani",
+  "series": "Les carnets du baron Mariani — édition audio",
+  "author": "Jean Hugues Noël Robert",
+  "language": "fr",
+  "summary": "Babbu Natale et ses lutins : une métaphore pour comprendre les agents d’intelligence artificielle comme compagnons de capacité.\n\nLes lutins démultiplient l’action, les angelots de Gabriel démultiplient la réflexion, et l’être humain conserve la décision. Une invitation à formuler des souhaits d’adultes sans renoncer à la traçabilité.",
+  "sourceUrl": "https://github.com/JeanHuguesRobert/barons-Mariani/blob/f1e9057696f26b49e9e97a9bbaa67b59d5954f65/research/le-pere-noel-revient.md",
+  "canonicalUrl": "https://github.com/JeanHuguesRobert/barons-Mariani/blob/main/research/le-pere-noel-revient.md",
+  "tags": [
+    "Babbu Natale",
+    "Père Noël",
+    "agents IA",
+    "intelligence artificielle",
+    "autonomie de capacité",
+    "angelots",
+    "lutins",
+    "Ubikia",
+    "Les carnets du baron Mariani",
+    "édition audio"
+  ],
+  "category": "Education",
+  "visibility": "private",
+  "madeForKids": false,
+  "alteredOrSyntheticContent": true,
+  "syntheticVoiceDisclosure": "Cette vidéo utilise une voix de synthèse autorisée. Le texte, son adaptation orale et sa publication ont été validés par Jean Hugues Noël Robert.",
+  "credits": "Texte source : Jean Hugues Noël Robert — « Le Père Noël revient — et cette fois, il aide les adultes ».\nLicence : CC BY-SA 4.0.\nPersona auctoriale : Babbu Natale.\nAdaptation orale et packaging : produit décliné gouverné Ubikia, avec conservation de la source, de la revue humaine et des empreintes de provenance.\nPublication YouTube : téléversement manuel privé, puis confirmation humaine ; aucune publication publique automatique.",
+  "links": [
+    {
+      "label": "Source immuable (commit)",
+      "url": "https://github.com/JeanHuguesRobert/barons-Mariani/commit/f1e9057696f26b49e9e97a9bbaa67b59d5954f65"
+    },
+    {
+      "label": "Chemin publié (hyphens)",
+      "url": "https://github.com/JeanHuguesRobert/barons-Mariani/blob/main/research/le-pere-noel-revient.md"
+    },
+    {
+      "label": "Licence CC BY-SA 4.0",
+      "url": "https://creativecommons.org/licenses/by-sa/4.0/deed.fr"
+    },
+    {
+      "label": "Note de provenance — écart de chemin underscores/hyphens",
+      "url": "https://github.com/JeanHuguesRobert/barons-Mariani/blob/main/research/le_pere_noel_revient.md"
+    }
+  ]
+}
