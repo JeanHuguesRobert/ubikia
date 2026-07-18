@@ -32,7 +32,8 @@ test("normalization is idempotent", () => {
 });
 
 test("detects header-only WAV without PCM samples", () => {
-  assert.equal(wavHasPcmSamples(makeStreamingPcmWav(Buffer.alloc(0))), false);
+  const empty = makeStreamingPcmWav(Buffer.alloc(0));
+  assert.equal(wavHasPcmSamples(empty), false);
   assert.equal(wavHasPcmSamples(makeStreamingPcmWav(Buffer.alloc(16))), true);
 });
 

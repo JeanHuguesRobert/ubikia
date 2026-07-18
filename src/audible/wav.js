@@ -76,8 +76,8 @@ export function normalizeWavBuffer(input) {
 }
 
 /**
- * True when buffer is RIFF/WAVE with a non-empty data payload.
- * Header-only / empty PCM responses are rejected by the renderer.
+ * Returns true when the buffer is a RIFF/WAVE file with a non-empty data chunk.
+ * Empty header-only WAVs (common silent failure mode) are rejected.
  */
 export function wavHasPcmSamples(input) {
   if (!Buffer.isBuffer(input) || input.length < 44) return false;
@@ -90,6 +90,7 @@ export function wavHasPcmSamples(input) {
 
   const dataChunk = findDataChunk(input);
   if (!dataChunk) return false;
+
   const availableBytes = input.length - dataChunk.payloadOffset;
   const effectiveSize = dataChunk.declaredSize === UINT32_MAX
     ? availableBytes
