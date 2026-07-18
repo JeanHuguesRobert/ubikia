@@ -24,6 +24,8 @@ written source
 
 A YouTube episode is a platform appearance of an audible derived product. It is not the canonical source and should point back to the written source or canonical episode page when available.
 
+For the first governed reference episode and dual-shell commands, see [`audible-youtube-workflow.md`](audible-youtube-workflow.md) and [`examples/audible/le-pere-noel-revient/RUNBOOK.md`](../examples/audible/le-pere-noel-revient/RUNBOOK.md).
+
 For dated platform assumptions, see [`youtube-platform-notes-2026-07.md`](youtube-platform-notes-2026-07.md).
 
 ## 1. Create the adaptation workspace

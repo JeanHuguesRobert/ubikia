@@ -23,9 +23,14 @@ export async function assembleAudibleProduct({
   await ensureExecutable(ffmpegPath, ["-version"], "FFmpeg");
 
   const normalization = await normalizeSegmentContainers(segmentFiles, manifest);
+  const filesWithDurations = await attachSegmentDurations(
+    normalization.files,
+    absoluteDirectory,
+    ffprobePath,
+  );
   const normalizedManifest = {
     ...manifest,
-    files: normalization.files,
+    files: filesWithDurations,
   };
 
   const concatFile = path.join(absoluteDirectory, "segments.ffconcat");
@@ -197,19 +202,45 @@ function buildConcatFile(files) {
   return `${lines.join("\n")}\n`;
 }
 
+async function attachSegmentDurations(files, directory, ffprobePath) {
+  const result = [];
+  for (const entry of files ?? []) {
+    if (!entry?.filename) {
+      result.push(entry);
+      continue;
+    }
+    const absolute = path.join(directory, entry.filename);
+    let durationSeconds = entry.duration_seconds ?? null;
+    try {
+      durationSeconds = await probeDurationSeconds(absolute, ffprobePath);
+    } catch {
+      // Keep previous duration if probing fails; captions will report unavailability.
+    }
+    result.push({
+      ...entry,
+      duration_seconds: durationSeconds,
+    });
+  }
+  return result;
+}
+
+async function probeDurationSeconds(filename, ffprobePath) {
+  const output = await run(ffprobePath, [
+    "-v", "error",
+    "-show_entries", "format=duration",
+    "-of", "default=noprint_wrappers=1:nokey=1",
+    filename,
+  ], { captureOutput: true });
+  const parsed = Number.parseFloat(output.stdout.trim());
+  return Number.isFinite(parsed) ? parsed : null;
+}
+
 async function describeAudioFile(filename, ffprobePath, format) {
   const fileStat = await stat(filename);
   let durationSeconds = null;
 
   try {
-    const output = await run(ffprobePath, [
-      "-v", "error",
-      "-show_entries", "format=duration",
-      "-of", "default=noprint_wrappers=1:nokey=1",
-      filename,
-    ], { captureOutput: true });
-    const parsed = Number.parseFloat(output.stdout.trim());
-    if (Number.isFinite(parsed)) durationSeconds = parsed;
+    durationSeconds = await probeDurationSeconds(filename, ffprobePath);
   } catch {
     // The audio remains usable if ffprobe is unavailable; duration stays unknown.
   }

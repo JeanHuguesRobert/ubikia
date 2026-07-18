@@ -1,6 +1,8 @@
 import { readFile, readdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 
+import { createCaptionTracksFromManifest } from "./captions.js";
+
 export async function createYouTubePublicationPackage({
   outputDirectory,
   metadata,
@@ -33,12 +35,24 @@ export async function createYouTubePublicationPackage({
     );
   }
 
+  const language = metadata.language ?? null;
   const disclosure = metadata.syntheticVoiceDisclosure
-    ?? "This episode uses a synthetic custom voice authorized by the represented speaker.";
+    ?? defaultSyntheticVoiceDisclosure(language);
   const description = buildDescription({
     ...metadata,
     disclosure,
   });
+
+  const captions = metadata.skipCaptions === true
+    ? {
+        status: "skipped",
+        reason: "metadata.skipCaptions=true",
+        captions: null,
+      }
+    : await createCaptionTracksFromManifest({
+      outputDirectory: absoluteDirectory,
+      language: language ?? "fr",
+    });
 
   const publicationPackage = {
     schema: "ubikia.youtube-publication-package.v0.1",
@@ -49,7 +63,7 @@ export async function createYouTubePublicationPackage({
     target: "youtube",
     title: metadata.title,
     description,
-    language: metadata.language ?? null,
+    language,
     series: metadata.series ?? null,
     author: metadata.author ?? null,
     source_url: metadata.sourceUrl ?? null,
@@ -61,6 +75,7 @@ export async function createYouTubePublicationPackage({
     altered_or_synthetic_content: metadata.alteredOrSyntheticContent ?? null,
     synthetic_voice_disclosure: disclosure,
     transcript,
+    captions,
     development_override: reviewOverride
       ? {
           type: "allow_unreviewed_transcript",
@@ -76,6 +91,12 @@ export async function createYouTubePublicationPackage({
       spoken_text_sha256: manifest.spoken_text_sha256 ?? null,
       audio_products: manifest.assembly?.products ?? [],
     },
+    human_publication_gates: {
+      spoken_script_review_required: true,
+      assembled_audio_review_required: true,
+      private_youtube_preview_before_public: true,
+      automatic_public_publish: false,
+    },
     publication_result: null,
   };
 
@@ -90,6 +111,13 @@ export async function createYouTubePublicationPackage({
   ]);
 
   return publicationPackage;
+}
+
+function defaultSyntheticVoiceDisclosure(language) {
+  if (language === "fr") {
+    return "Cette vidéo utilise une voix de synthèse autorisée. Le texte, son adaptation orale et sa publication doivent être validés par l’éditeur responsable.";
+  }
+  return "This episode uses a synthetic voice authorized for this publication. The text, spoken adaptation, and publication remain human-validated.";
 }
 
 function buildDescription({

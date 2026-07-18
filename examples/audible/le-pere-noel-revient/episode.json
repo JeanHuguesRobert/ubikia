@@ -1,0 +1,91 @@
+{
+  "schema": "ubikia.reference-episode.v0.1",
+  "slug": "le-pere-noel-revient",
+  "title": "Le Père Noël revient — et cette fois, il aide les adultes",
+  "status": "reviewable_reference",
+  "created_for_issue": 17,
+  "repository": "JeanHuguesRobert/ubikia",
+  "principal": {
+    "name": "Jean Hugues Noël Robert",
+    "role": "author_and_publisher"
+  },
+  "persona": {
+    "authorial": "Babbu Natale",
+    "publication": "Les carnets du baron Mariani"
+  },
+  "audience": "adults who have retained a childlike capacity for imagination",
+  "derived_form": "spoken_essay_script",
+  "media_product": "audiovisual_essay",
+  "platform": "youtube",
+  "purpose": "make AI agents and reflexive agents understandable through the metaphor of Santa’s elves and Gabriel’s angelots",
+  "language": "fr",
+  "license": "CC BY-SA 4.0",
+  "source": {
+    "repository": "JeanHuguesRobert/barons-Mariani",
+    "published_path": "research/le-pere-noel-revient.md",
+    "canonical_branch_url": "https://github.com/JeanHuguesRobert/barons-Mariani/blob/main/research/le-pere-noel-revient.md",
+    "commit": "f1e9057696f26b49e9e97a9bbaa67b59d5954f65",
+    "commit_url": "https://github.com/JeanHuguesRobert/barons-Mariani/commit/f1e9057696f26b49e9e97a9bbaa67b59d5954f65",
+    "blob_sha": "3e66696cf534f16b4e8671fec26418c96c380fb5",
+    "content_sha256": "7dde44873b73780db33c504b10ff9cd7dd5eeae4ed25853e49111744270e6de5",
+    "local_copy": "source.md",
+    "license": "CC BY-SA 4.0",
+    "path_discrepancy": {
+      "reported": true,
+      "published_filename": "research/le-pere-noel-revient.md",
+      "frontmatter_canonical_url_path": "research/le_pere_noel_revient.md",
+      "frontmatter_origin_path": "research/le_pere_noel_revient.md",
+      "note": "The published filename uses hyphens, but the article’s canonical_url, provenance.origin_path, and final source link currently use underscores. Ubikia preserves this discrepancy; the source repository should correct it separately."
+    }
+  },
+  "spoken_script": {
+    "draft": "spoken.draft.md",
+    "reviewed": "spoken.reviewed.md",
+    "review_record": "review.json",
+    "review_template": "review.template.json",
+    "status": "draft_reviewable",
+    "must_preserve": [
+      "Babbu Natale",
+      "Les lutins démultiplient notre capacité d’action",
+      "Les angelots démultiplient notre capacité de réflexion",
+      "Mais l’être humain conserve la capacité de décision",
+      "La magie est dans l’expérience ; la traçabilité est dans l’atelier",
+      "autonomie de capacité"
+    ]
+  },
+  "pronunciation_audition": {
+    "text": "pronunciation-audition.txt",
+    "artifact_directory": "artifacts/audible/le-pere-noel-revient/audition",
+    "prepare_command": "npm run audible:audition:prepare -- examples/audible/le-pere-noel-revient/pronunciation-audition.txt artifacts/audible/le-pere-noel-revient/audition",
+    "render_command": "npm run audible:audition -- examples/audible/le-pere-noel-revient/pronunciation-audition.txt artifacts/audible/le-pere-noel-revient/audition"
+  },
+  "youtube": {
+    "metadata": "youtube.metadata.json",
+    "default_visibility": "private",
+    "made_for_kids": false,
+    "automatic_public_publish": false
+  },
+  "human_gates": {
+    "spoken_script": "required",
+    "assembled_audio": "required",
+    "private_youtube_preview_before_public": "required"
+  },
+  "publication_automation": {
+    "auto_public": false,
+    "expected_upload_path": "YouTube Studio manual private upload",
+    "record_command": "npm run audible:record:youtube"
+  },
+  "artifact_directory": "artifacts/audible/le-pere-noel-revient",
+  "runbook": "RUNBOOK.md",
+  "captions": {
+    "strategy": "generate_segment_level_srt_vtt_when_durations_available",
+    "fallback": "package_reviewed_transcript_for_youtube_studio",
+    "follow_up": "Issue #2 / Media MVP for sentence-level timing"
+  },
+  "out_of_scope": [
+    "automatic public YouTube publication",
+    "voice cloning",
+    "committing generated media binaries",
+    "silent correction of the source path discrepancy in barons-Mariani"
+  ]
+}

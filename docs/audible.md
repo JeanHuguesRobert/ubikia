@@ -29,43 +29,11 @@ written source
 
 ## Environment
 
-Copy `.env.example` to `.env` and set provider credentials locally (never commit them):
+Copy `.env.example` to `.env` and set:
 
 ```dotenv
 GRADIUM_API_KEY=...
 GRADIUM_VOICE_ID=...
-CARTESIA_API_KEY=...
-CARTESIA_VOICE_ID=...
-```
-
-TTS provider selection (Gradium remains the default):
-
-```text
-CLI --provider  >  UBIKIA_TTS_PROVIDER  >  audio.defaultProvider  >  gradium
-```
-
-Optional capacity fallbacks for completing a **partial** render when a provider hits quota or rate limits:
-
-```text
---fallback-providers cartesia
-# or
-UBIKIA_TTS_FALLBACK_PROVIDERS=cartesia
-# or profile audio.fallbackProviders: ["cartesia"]
-```
-
-Valid segments already on disk are reused across providers when the spoken segment text is unchanged. To discard mixed segments and regenerate everything with the active provider:
-
-```text
---force-rerender
-```
-
-Prefer direct Node invocation when npm swallows flags on Windows:
-
-```powershell
-node --env-file=.env cli/audible-render.js `
-  source.md artifacts\audible\episode spoken.reviewed.md `
-  --provider cartesia `
-  --fallback-providers gradium
 ```
 
 After FFmpeg is installed, either place `ffmpeg` and `ffprobe` on `PATH` or set:
@@ -218,9 +186,22 @@ npm run audible:video
 npm run audible:package:youtube
 npm run audible:prepare:youtube
 npm run audible:record:youtube
+npm run audible:audition
+npm run audible:audition:prepare
+npm run audible:validate:reference
 npm run audible:test
 npm test
 ```
+
+## Reference episode
+
+A version-controlled reference project exercises the current Node pipeline end to end without waiting for the draft Media MVP:
+
+```text
+examples/audible/le-pere-noel-revient/
+```
+
+It includes pinned source provenance, a reviewable French spoken script, review template, pronunciation audition text, French private YouTube metadata, and a dual-shell runbook. See [`audible-youtube-workflow.md`](audible-youtube-workflow.md) and the project `RUNBOOK.md`.
 
 ## Current boundaries
 
@@ -230,45 +211,34 @@ Implemented:
 - adaptation prompt and mechanical checks;
 - explicit spoken review act and `review.json`;
 - source/spoken/prepared-text provenance;
-- provider-independent TTS factory/registry (Gradium default, Cartesia second);
-- synthesis identity in manifest cache/provenance (schema `ubikia.audible-manifest.v0.5`);
-- resumable rendering with cross-provider completion of partial jobs;
-- optional capacity fallbacks (quota/rate-limit), not quality ranking;
-- `--force-rerender` for full re-synthesis with the active provider;
-- rejection of empty/header-only WAV segments;
-- manifest-controlled FFmpeg assembly and normalization;
+- resumable Gradium TTS;
+- safe segment reuse by text hash;
+- safe finalize input staging when spoken/source paths live inside the output workspace;
+- pronunciation audition prepare/render step;
+- manifest-controlled FFmpeg assembly and normalization, including per-segment durations when ffprobe is available;
+- segment-level French SRT/VTT generation when timings are reliable;
 - static YouTube MP4 generation;
-- generic YouTube metadata package;
-- human-confirmed YouTube publication recording;
-- versioned publication ledger for public URLs (`publications/ledger/`);
+- generic YouTube metadata package with private / not-for-kids defaults;
+- human-confirmed YouTube publication recording (`publication.youtube.json`);
+- offline reference-episode validation;
 - schemas for adaptation, review, YouTube products, and layered user profiles.
 
 Not yet implemented:
 
-- automatic loading and merging of account profiles into every CLI by default;
+- automatic loading and merging of account profiles;
 - authenticated private instruction repository access;
 - semantic adaptation by a configured LLM provider;
 - semantic review agent;
-- pronunciation dictionaries;
-- sentence-level timing and subtitle generation;
-- quality-based provider ranking or automatic “best voice” routing;
-- automatic cross-provider failover unrelated to capacity completion;
+- pronunciation dictionaries beyond the audition sample workflow;
+- sentence-level timing and Studio-perfect subtitles;
 - artwork generation or templates;
-- direct YouTube upload or automatic public publication;
-- additional TTS providers beyond Gradium and Cartesia;
+- direct YouTube upload or any automatic public publish;
+- connector reconciliation against the live YouTube API;
 - canonical hosting and RSS;
 - database, queues, storage services, scheduling, or deployment;
 - interactive onboarding agent.
 
 These limits must remain visible rather than being hidden behind automatic publication.
-
-## Stable baseline and deferred work
-
-A production-shaped path is already in use (multi-provider TTS, manual YouTube publication, versioned URL ledger). Deferred efficiency work (episode scaffold on `main`, lessons checklist, human publication index, registry views) is packaged for cold resume here:
-
-[`research/audible_stable_baseline_and_continuations.md`](../research/audible_stable_baseline_and_continuations.md)
-
-Do not re-litigate closed issues #17 / #19 unless scope changes. Prefer starting a future session with an explicit package id (e.g. “implement P1”).
 
 ## Future onboarding
 
