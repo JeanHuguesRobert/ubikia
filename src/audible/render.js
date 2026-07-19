@@ -3,9 +3,26 @@ import { mkdir, readFile, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 import { prepareMarkdownForSpeech } from "./prepare-text.js";
+import { isProviderCapacityError } from "./providers/retry.js";
+import { publicSynthesisIdentity } from "./providers/synthesis-identity.js";
 import { segmentText } from "./segment-text.js";
-import { normalizeWavBuffer } from "./wav.js";
+import { normalizeWavBuffer, wavHasPcmSamples } from "./wav.js";
 
+export const AUDIBLE_MANIFEST_SCHEMA = "ubikia.audible-manifest.v0.5";
+
+/**
+ * Render spoken text to segment audio files with provider-aware resume.
+ *
+ * Modes:
+ * - default completion: reuse any valid segment with matching text_sha256
+ *   (including segments produced by another provider) so a partial job can be
+ *   finished when quota/capacity forces a provider change;
+ * - forceRerender: ignore existing segments and regenerate with the active
+ *   provider (use when mixed quality is unacceptable).
+ *
+ * Optional providerChain: on capacity errors (402/429/quota), switch to the
+ * next fallback for remaining segments only — not quality ranking.
+ */
 export async function renderAudibleProduct({
   sourceText,
   speechText = sourceText,
@@ -13,20 +30,23 @@ export async function renderAudibleProduct({
   adaptationReference = null,
   outputDirectory,
   provider,
+  providerChain = null,
   maxCharacters = 900,
-}) {
+  forceRerender = false,
+} = {}) {
   if (typeof sourceText !== "string" || sourceText.trim() === "") {
     throw new TypeError("sourceText must be a non-empty string");
   }
   if (typeof speechText !== "string" || speechText.trim() === "") {
     throw new TypeError("speechText must be a non-empty string");
   }
-  if (!provider || typeof provider.synthesize !== "function") {
-    throw new TypeError("A TTS provider with synthesize(text) is required");
-  }
   if (!outputDirectory) {
     throw new Error("outputDirectory is required");
   }
+
+  const chain = normalizeProviderChain(provider, providerChain);
+  let activeIndex = 0;
+  let active = chain[activeIndex];
 
   const preparedText = prepareMarkdownForSpeech(speechText);
   const segments = segmentText(preparedText, { maxCharacters });
@@ -34,43 +54,72 @@ export async function renderAudibleProduct({
   await writeFile(path.join(outputDirectory, "prepared.txt"), `${preparedText}\n`, "utf8");
 
   const existingManifest = await readJsonIfPresent(path.join(outputDirectory, "manifest.json"));
-  const compatibleExistingRun = existingManifest
-    && existingManifest.voice_id === (provider.voiceId ?? null)
-    && existingManifest.output_format === (provider.outputFormat ?? "wav");
   const existingFiles = new Map(
-    (compatibleExistingRun ? existingManifest.files ?? [] : [])
-      .map((file) => [file.filename, file]),
+    (existingManifest?.files ?? []).map((file) => [file.filename, file]),
   );
 
   const files = [];
+  const providerSwitches = [];
+
   for (const [index, segment] of segments.entries()) {
     const sequenceNumber = index + 1;
     const sequence = String(sequenceNumber).padStart(3, "0");
-    const outputFormat = provider.outputFormat ?? "wav";
+    const outputFormat = active.provider.outputFormat ?? "wav";
     const filename = `segment-${sequence}.${outputFormat}`;
     const destination = path.join(outputDirectory, filename);
     const textSha256 = sha256(Buffer.from(segment, "utf8"));
     const existingEntry = existingFiles.get(filename);
+    const activeIdentity = active.provider.getSynthesisIdentity();
 
     let providerAudio;
     let reused = false;
-    if (
-      existingEntry?.text_sha256 === textSha256
-      && await isNonEmptyFile(destination)
-    ) {
+    let segmentIdentity = activeIdentity;
+    let segmentProviderId = active.provider.id;
+
+    const canReuse = !forceRerender
+      && existingEntry?.text_sha256 === textSha256
+      && await isReusableSegmentFile(destination, outputFormat);
+
+    if (canReuse) {
       providerAudio = await readFile(destination);
       reused = true;
-      console.log(`Reuse ${filename}`);
+      segmentIdentity = existingEntry.synthesis
+        ?? activeIdentity;
+      segmentProviderId = existingEntry.provider_id
+        ?? segmentIdentity.provider_id
+        ?? active.provider.id;
+      console.log(`Reuse ${filename} (provider=${segmentProviderId})`);
     } else {
-      console.log(`Render ${filename} (${segment.length} characters)`);
-      providerAudio = await provider.synthesize(segment);
+      const synthesized = await synthesizeWithCapacityFallback({
+        chain,
+        startIndex: activeIndex,
+        text: segment,
+        filename,
+      });
+      if (synthesized.switchedFrom != null) {
+        providerSwitches.push({
+          at_segment: sequenceNumber,
+          from: synthesized.switchedFrom,
+          to: synthesized.provider.id,
+          reason: "provider_capacity",
+        });
+        activeIndex = synthesized.chainIndex;
+        active = chain[activeIndex];
+      }
+      providerAudio = synthesized.audio;
+      segmentIdentity = synthesized.provider.getSynthesisIdentity();
+      segmentProviderId = synthesized.provider.id;
+      console.log(
+        `Render ${filename} (${segment.length} characters, provider=${segmentProviderId})`,
+      );
     }
 
-    const providerResponseSha256 = existingEntry?.provider_response_sha256
-      ?? existingEntry?.sha256
-      ?? sha256(providerAudio);
+    const providerResponseSha256 = reused
+      ? (existingEntry?.provider_response_sha256 ?? existingEntry?.sha256 ?? sha256(providerAudio))
+      : sha256(providerAudio);
     const normalization = normalizeProviderAudio(providerAudio, outputFormat);
     const audio = normalization.buffer;
+    assertRenderableAudio(audio, outputFormat, filename);
     const previousNormalization = existingEntry?.container_normalization;
 
     if (!reused || normalization.changed) {
@@ -82,6 +131,9 @@ export async function renderAudibleProduct({
       filename,
       characters: segment.length,
       text_sha256: textSha256,
+      provider_id: segmentProviderId,
+      synthesis: publicSynthesisIdentity(segmentIdentity),
+      synthesis_identity_sha256: segmentIdentity.synthesis_identity_sha256,
       provider_response_sha256: providerResponseSha256,
       sha256: sha256(audio),
       reused,
@@ -100,10 +152,13 @@ export async function renderAudibleProduct({
       preparedText,
       sourceReference,
       adaptationReference,
-      provider,
+      activeProvider: active.provider,
       files,
       expectedSegmentCount: segments.length,
       status: "rendering",
+      forceRerender,
+      providerSwitches,
+      maxCharacters,
     }));
   }
 
@@ -113,13 +168,77 @@ export async function renderAudibleProduct({
     preparedText,
     sourceReference,
     adaptationReference,
-    provider,
+    activeProvider: active.provider,
     files,
     expectedSegmentCount: segments.length,
     status: "complete",
+    forceRerender,
+    providerSwitches,
+    maxCharacters,
   });
   await writeManifest(outputDirectory, manifest);
   return manifest;
+}
+
+function normalizeProviderChain(provider, providerChain) {
+  if (Array.isArray(providerChain) && providerChain.length > 0) {
+    return providerChain.map((entry, index) => {
+      if (entry?.provider && typeof entry.provider.synthesize === "function") {
+        return {
+          id: entry.id ?? entry.provider.id ?? `provider-${index}`,
+          provider: entry.provider,
+        };
+      }
+      if (entry && typeof entry.synthesize === "function") {
+        return {
+          id: entry.id ?? `provider-${index}`,
+          provider: entry,
+        };
+      }
+      throw new TypeError("providerChain entries must expose synthesize()");
+    });
+  }
+
+  if (!provider || typeof provider.synthesize !== "function") {
+    throw new TypeError("A TTS provider with synthesize(text) is required");
+  }
+  if (typeof provider.getSynthesisIdentity !== "function") {
+    throw new TypeError("A TTS provider with getSynthesisIdentity() is required");
+  }
+
+  return [{ id: provider.id ?? "primary", provider }];
+}
+
+async function synthesizeWithCapacityFallback({
+  chain,
+  startIndex,
+  text,
+  filename,
+}) {
+  let lastError;
+  for (let index = startIndex; index < chain.length; index += 1) {
+    const entry = chain[index];
+    try {
+      const audio = await entry.provider.synthesize(text);
+      return {
+        audio,
+        provider: entry.provider,
+        chainIndex: index,
+        switchedFrom: index === startIndex ? null : chain[startIndex].id,
+      };
+    } catch (error) {
+      lastError = error;
+      const hasFallback = index < chain.length - 1;
+      if (hasFallback && isProviderCapacityError(error)) {
+        console.warn(
+          `Provider ${entry.id} capacity error on ${filename}; switching to ${chain[index + 1].id}.`,
+        );
+        continue;
+      }
+      throw error;
+    }
+  }
+  throw lastError;
 }
 
 function buildManifest({
@@ -128,13 +247,19 @@ function buildManifest({
   preparedText,
   sourceReference,
   adaptationReference,
-  provider,
+  activeProvider,
   files,
   expectedSegmentCount,
   status,
+  forceRerender,
+  providerSwitches,
+  maxCharacters,
 }) {
+  const activeIdentity = publicSynthesisIdentity(activeProvider.getSynthesisIdentity());
+  const providersUsed = [...new Set(files.map((file) => file.provider_id).filter(Boolean))];
+
   return {
-    schema: "ubikia.audible-manifest.v0.4",
+    schema: AUDIBLE_MANIFEST_SCHEMA,
     updated_at: new Date().toISOString(),
     status,
     source_reference: sourceReference,
@@ -142,9 +267,18 @@ function buildManifest({
     source_sha256: sha256(Buffer.from(sourceText, "utf8")),
     spoken_text_sha256: sha256(Buffer.from(speechText, "utf8")),
     prepared_text_sha256: sha256(Buffer.from(preparedText, "utf8")),
-    provider: provider.constructor.name,
-    voice_id: provider.voiceId ?? null,
-    output_format: provider.outputFormat ?? "wav",
+    // Active provider at end of render (may differ from some segment providers).
+    provider_id: activeProvider.id ?? activeIdentity.provider_id,
+    provider: activeProvider.constructor?.name ?? null,
+    voice_id: activeProvider.voiceId ?? activeIdentity.voice_id ?? null,
+    output_format: activeProvider.outputFormat ?? activeIdentity.output?.container ?? "wav",
+    synthesis: activeIdentity,
+    synthesis_identity_sha256: activeIdentity.synthesis_identity_sha256,
+    providers_used: providersUsed,
+    mixed_providers: providersUsed.length > 1,
+    force_rerender: forceRerender === true,
+    provider_switches: providerSwitches,
+    max_characters: maxCharacters,
     expected_segment_count: expectedSegmentCount,
     completed_segment_count: files.length,
     segment_count: files.length,
@@ -171,6 +305,40 @@ function normalizeProviderAudio(audio, outputFormat) {
   return result;
 }
 
+function assertRenderableAudio(audio, outputFormat, filename) {
+  if (!Buffer.isBuffer(audio) || audio.length === 0) {
+    throw new Error(`TTS returned empty audio for ${filename}`);
+  }
+
+  if (outputFormat.toLowerCase() !== "wav") {
+    if (audio.length < 64) {
+      throw new Error(
+        `TTS returned an implausibly small audio payload for ${filename} (${audio.length} bytes)`,
+      );
+    }
+    return;
+  }
+
+  if (!wavHasPcmSamples(audio)) {
+    throw new Error(
+      `TTS returned a WAV container with no PCM samples for ${filename}. Re-render this segment after checking provider credits/status.`,
+    );
+  }
+}
+
+async function isReusableSegmentFile(filename, outputFormat) {
+  try {
+    const fileStat = await stat(filename);
+    if (!fileStat.isFile() || fileStat.size === 0) return false;
+    if (outputFormat.toLowerCase() !== "wav") return fileStat.size >= 64;
+    const buffer = await readFile(filename);
+    return wavHasPcmSamples(buffer);
+  } catch (error) {
+    if (error?.code === "ENOENT") return false;
+    throw error;
+  }
+}
+
 async function writeManifest(outputDirectory, manifest) {
   await writeFile(
     path.join(outputDirectory, "manifest.json"),
@@ -184,15 +352,6 @@ async function readJsonIfPresent(filename) {
     return JSON.parse(await readFile(filename, "utf8"));
   } catch (error) {
     if (error?.code === "ENOENT" || error instanceof SyntaxError) return null;
-    throw error;
-  }
-}
-
-async function isNonEmptyFile(filename) {
-  try {
-    return (await stat(filename)).size > 0;
-  } catch (error) {
-    if (error?.code === "ENOENT") return false;
     throw error;
   }
 }

@@ -1,10 +1,20 @@
 {
   "defaultLanguage": "en",
   "audio": {
+    "defaultProvider": "gradium",
+    "fallbackProviders": [],
     "defaultFormats": [
       "mp3",
       "opus"
-    ]
+    ],
+    "providers": {
+      "gradium": {
+        "enabled": true
+      },
+      "cartesia": {
+        "enabled": true
+      }
+    }
   },
   "publicationPolicy": {
     "humanReviewRequired": true,

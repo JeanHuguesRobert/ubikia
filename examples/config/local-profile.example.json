@@ -1,6 +1,9 @@
 {
   "audio": {
-    "defaultProvider": "gradium"
+    "defaultProvider": "gradium",
+    "fallbackProviders": [
+      "cartesia"
+    ]
   },
   "extensions": {
     "localWorkspace": {

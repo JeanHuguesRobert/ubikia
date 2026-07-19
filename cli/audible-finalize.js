@@ -7,7 +7,7 @@ import process from "node:process";
 
 import { createSpokenAdaptationWorkspace, validateSpokenAdaptation } from "../src/audible/adapt.js";
 import { assembleAudibleProduct } from "../src/audible/assemble.js";
-import { GradiumTTSProvider } from "../src/audible/providers/gradium.js";
+import { buildProviderChainFromCliOptions } from "../src/audible/providers/cli-provider-options.js";
 import { renderAudibleProduct } from "../src/audible/render.js";
 import { reviewSpokenAdaptation } from "../src/audible/review.js";
 
@@ -76,9 +76,8 @@ const review = await reviewSpokenAdaptation({
 });
 
 const reviewedFile = path.join(outputDirectory, "spoken.reviewed.md");
-const provider = new GradiumTTSProvider({
-  outputFormat: options.format ?? process.env.UBIKIA_AUDIO_FORMAT ?? "wav",
-});
+const chain = buildProviderChainFromCliOptions(options);
+const forceRerender = options.forceRerender === true || options.forceRerender === "true";
 
 const renderManifest = await renderAudibleProduct({
   sourceText,
@@ -86,7 +85,8 @@ const renderManifest = await renderAudibleProduct({
   sourceReference: sourceFile,
   adaptationReference: reviewedFile,
   outputDirectory,
-  provider,
+  providerChain: chain.chain,
+  forceRerender,
   maxCharacters: options.maxCharacters
     ? Number.parseInt(options.maxCharacters, 10)
     : 900,
@@ -118,6 +118,9 @@ console.log(JSON.stringify({
   render: {
     status: renderManifest.status,
     segments: renderManifest.segment_count,
+    provider_id: renderManifest.provider_id,
+    providers_used: renderManifest.providers_used,
+    mixed_providers: renderManifest.mixed_providers,
     source_sha256: renderManifest.source_sha256,
     spoken_text_sha256: renderManifest.spoken_text_sha256,
   },
@@ -130,6 +133,10 @@ console.log(JSON.stringify({
 
 function parseArguments(argumentsList) {
   const result = { positionals: [] };
+  const booleanFlags = new Set([
+    "acknowledgeWarnings",
+    "forceRerender",
+  ]);
 
   for (let index = 0; index < argumentsList.length; index += 1) {
     const argument = argumentsList[index];
@@ -145,6 +152,11 @@ function parseArguments(argumentsList) {
     }
 
     const key = toCamelCase(argument.slice(2));
+    if (booleanFlags.has(key)) {
+      result[key] = true;
+      continue;
+    }
+
     const value = argumentsList[index + 1];
     if (!value || value.startsWith("--")) result[key] = true;
     else {
@@ -166,6 +178,7 @@ function sha256(value) {
 
 function fail(message) {
   console.error(message);
-  console.error("Use: npm run audible:finalize -- <source.md> <spoken.md> <output-directory> --reviewer \"Name\"");
+  console.error("Use: node --env-file=.env cli/audible-finalize.js <source.md> <spoken.md> <output-directory> --reviewer \"Name\"");
+  console.error("Optional: --provider cartesia --fallback-providers gradium --force-rerender");
   process.exit(1);
 }
