@@ -8,12 +8,24 @@
   ],
   "audio": {
     "defaultProvider": "gradium",
+    "fallbackProviders": [
+      "cartesia"
+    ],
     "voiceReference": "env:GRADIUM_VOICE_ID",
-    "syntheticVoiceDisclosure": "This episode uses a synthetic custom voice authorized by the represented speaker.",
+    "syntheticVoiceDisclosure": "This episode uses a synthetic voice authorized for this publication.",
     "defaultFormats": [
       "mp3",
       "opus"
-    ]
+    ],
+    "providers": {
+      "gradium": {
+        "enabled": true
+      },
+      "cartesia": {
+        "enabled": true,
+        "voiceReference": "env:CARTESIA_VOICE_ID"
+      }
+    }
   },
   "series": [
     {
@@ -34,6 +46,7 @@
     "syntheticVoiceDisclosureRequired": true
   },
   "secretReferences": {
-    "gradiumApiKey": "env:GRADIUM_API_KEY"
+    "gradiumApiKey": "env:GRADIUM_API_KEY",
+    "cartesiaApiKey": "env:CARTESIA_API_KEY"
   }
 }

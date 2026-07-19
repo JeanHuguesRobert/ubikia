@@ -51,22 +51,28 @@ test("records a human-confirmed YouTube publication in package and manifest", as
     publication_result: null,
   });
 
+  const ledgerPath = path.join(directory, "publications.json");
   const result = await recordYouTubePublication({
     outputDirectory: directory,
     url: "https://youtu.be/mjdHmPvNmB0",
     visibility: "public",
     recordedBy: "Jean Hugues Noël Robert",
     publishedAt: "2026-07-14T07:00:00+02:00",
+    ledgerPath,
+    slug: "episode",
   });
 
   assert.equal(result.status, "published");
   assert.equal(result.video_id, "mjdHmPvNmB0");
   assert.equal(result.evidence.type, "human_confirmation");
   assert.equal(result.evidence.remote_verification, "not_performed");
+  assert.equal(result.ledger.entry.id, "youtube:mjdHmPvNmB0");
+  assert.equal(result.ledger.entry.platform_as_backup, true);
 
   const publicationPackage = await readJson(path.join(directory, "youtube-package.json"));
   const manifest = await readJson(path.join(directory, "manifest.json"));
   const publication = await readJson(path.join(directory, "publication.youtube.json"));
+  const ledger = await readJson(ledgerPath);
 
   assert.equal(publicationPackage.status, "published");
   assert.equal(publicationPackage.upload_status, "published");
@@ -74,6 +80,10 @@ test("records a human-confirmed YouTube publication in package and manifest", as
   assert.equal(manifest.publication_status, "published");
   assert.equal(manifest.publication_assets.youtube_publication.video_id, "mjdHmPvNmB0");
   assert.equal(publication.video.sha256, "video-sha");
+  assert.equal(ledger.schema, "ubikia.publication-ledger.v0.1");
+  assert.equal(ledger.entries.length, 1);
+  assert.equal(ledger.entries[0].url, "https://youtu.be/mjdHmPvNmB0");
+  assert.equal(ledger.entries[0].slug, "episode");
 });
 
 async function writeJson(filename, value) {

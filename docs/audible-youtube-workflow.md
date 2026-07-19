@@ -61,9 +61,12 @@ This updates:
 
 - `manifest.json`
 - `youtube-package.json`
-- `publication.youtube.json`
+- `publication.youtube.json` (local under `artifacts/`, gitignored)
+- `publications/ledger/publications.json` (version-controlled publication memory)
 
 The record includes the YouTube video identifier, URL, visibility, publication time, actor, video descriptor, transcript status, and provenance hashes. Its evidence type is `human_confirmation`; remote verification remains `not_performed` unless a separate verifier is used.
+
+The versioned ledger is the durable URL memory in the repository. Platforms also act as recoverability backups: material that was uploaded can often be re-linked or re-exported from the platform. See [`publications/README.md`](../publications/README.md).
 
 ## State progression
 

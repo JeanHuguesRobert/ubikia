@@ -29,11 +29,43 @@ written source
 
 ## Environment
 
-Copy `.env.example` to `.env` and set:
+Copy `.env.example` to `.env` and set provider credentials locally (never commit them):
 
 ```dotenv
 GRADIUM_API_KEY=...
 GRADIUM_VOICE_ID=...
+CARTESIA_API_KEY=...
+CARTESIA_VOICE_ID=...
+```
+
+TTS provider selection (Gradium remains the default):
+
+```text
+CLI --provider  >  UBIKIA_TTS_PROVIDER  >  audio.defaultProvider  >  gradium
+```
+
+Optional capacity fallbacks for completing a **partial** render when a provider hits quota or rate limits:
+
+```text
+--fallback-providers cartesia
+# or
+UBIKIA_TTS_FALLBACK_PROVIDERS=cartesia
+# or profile audio.fallbackProviders: ["cartesia"]
+```
+
+Valid segments already on disk are reused across providers when the spoken segment text is unchanged. To discard mixed segments and regenerate everything with the active provider:
+
+```text
+--force-rerender
+```
+
+Prefer direct Node invocation when npm swallows flags on Windows:
+
+```powershell
+node --env-file=.env cli/audible-render.js `
+  source.md artifacts\audible\episode spoken.reviewed.md `
+  --provider cartesia `
+  --fallback-providers gradium
 ```
 
 After FFmpeg is installed, either place `ffmpeg` and `ffprobe` on `PATH` or set:
@@ -181,9 +213,13 @@ npm run audible:adapt
 npm run audible:review
 npm run audible:render
 npm run audible:assemble
+npm run audible:finalize
 npm run audible:video
 npm run audible:package:youtube
+npm run audible:prepare:youtube
+npm run audible:record:youtube
 npm run audible:test
+npm test
 ```
 
 ## Current boundaries
@@ -194,24 +230,32 @@ Implemented:
 - adaptation prompt and mechanical checks;
 - explicit spoken review act and `review.json`;
 - source/spoken/prepared-text provenance;
-- resumable Gradium TTS;
-- safe segment reuse by text hash;
+- provider-independent TTS factory/registry (Gradium default, Cartesia second);
+- synthesis identity in manifest cache/provenance (schema `ubikia.audible-manifest.v0.5`);
+- resumable rendering with cross-provider completion of partial jobs;
+- optional capacity fallbacks (quota/rate-limit), not quality ranking;
+- `--force-rerender` for full re-synthesis with the active provider;
+- rejection of empty/header-only WAV segments;
 - manifest-controlled FFmpeg assembly and normalization;
 - static YouTube MP4 generation;
 - generic YouTube metadata package;
+- human-confirmed YouTube publication recording;
+- versioned publication ledger for public URLs (`publications/ledger/`);
 - schemas for adaptation, review, YouTube products, and layered user profiles.
 
 Not yet implemented:
 
-- automatic loading and merging of account profiles;
+- automatic loading and merging of account profiles into every CLI by default;
 - authenticated private instruction repository access;
 - semantic adaptation by a configured LLM provider;
 - semantic review agent;
 - pronunciation dictionaries;
 - sentence-level timing and subtitle generation;
+- quality-based provider ranking or automatic “best voice” routing;
+- automatic cross-provider failover unrelated to capacity completion;
 - artwork generation or templates;
-- direct YouTube upload;
-- publication records and connector reconciliation;
+- direct YouTube upload or automatic public publication;
+- additional TTS providers beyond Gradium and Cartesia;
 - canonical hosting and RSS;
 - database, queues, storage services, scheduling, or deployment;
 - interactive onboarding agent.

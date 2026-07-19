@@ -1,4 +1,11 @@
+import {
+  defaultIsRetryable,
+  withRetries,
+} from "./retry.js";
+import { buildSynthesisIdentity } from "./synthesis-identity.js";
+
 const DEFAULT_TTS_URL = "https://api.gradium.ai/api/post/speech/tts";
+export const GRADIUM_PROVIDER_ID = "gradium";
 
 export class GradiumTTSProvider {
   constructor({
@@ -6,18 +13,43 @@ export class GradiumTTSProvider {
     voiceId = process.env.GRADIUM_VOICE_ID,
     endpoint = process.env.GRADIUM_TTS_URL ?? DEFAULT_TTS_URL,
     outputFormat = process.env.UBIKIA_AUDIO_FORMAT ?? "wav",
+    language = process.env.UBIKIA_AUDIO_LANGUAGE ?? null,
+    model = process.env.GRADIUM_MODEL ?? null,
     maxAttempts = 4,
     retryDelayMs = 1500,
+    fetchImpl = globalThis.fetch?.bind(globalThis),
   } = {}) {
     if (!apiKey) throw new Error("GRADIUM_API_KEY is required");
     if (!voiceId) throw new Error("GRADIUM_VOICE_ID is required");
 
+    this.id = GRADIUM_PROVIDER_ID;
     this.apiKey = apiKey;
     this.voiceId = voiceId;
-    this.endpoint = endpoint;
-    this.outputFormat = outputFormat;
+    this.endpoint = endpoint ?? DEFAULT_TTS_URL;
+    this.outputFormat = outputFormat ?? "wav";
+    this.language = language ?? null;
+    this.model = model ?? null;
     this.maxAttempts = maxAttempts;
     this.retryDelayMs = retryDelayMs;
+    this.fetchImpl = fetchImpl;
+  }
+
+  getSynthesisIdentity() {
+    return buildSynthesisIdentity({
+      providerId: this.id,
+      model: this.model,
+      apiVersion: null,
+      voiceId: this.voiceId,
+      language: this.language,
+      output: {
+        container: this.outputFormat,
+        encoding: this.outputFormat === "wav" ? "pcm_s16le" : null,
+        sample_rate: null,
+        codec: null,
+      },
+      settings: null,
+      seed: null,
+    });
   }
 
   async synthesize(text, { signal } = {}) {
@@ -25,29 +57,25 @@ export class GradiumTTSProvider {
       throw new TypeError("The text to synthesize must be a non-empty string");
     }
 
-    let lastError;
-    for (let attempt = 1; attempt <= this.maxAttempts; attempt += 1) {
-      try {
-        return await this.#synthesizeOnce(text, { signal });
-      } catch (error) {
-        lastError = error;
-        if (!isRetryable(error) || attempt === this.maxAttempts) throw error;
-        const delay = this.retryDelayMs * (2 ** (attempt - 1));
-        console.warn(`Gradium attempt ${attempt}/${this.maxAttempts} failed: ${error.message}. Retry in ${delay} ms.`);
-        await sleep(delay, signal);
-      }
-    }
-
-    throw lastError;
+    return withRetries(
+      () => this.#synthesizeOnce(text, { signal }),
+      {
+        maxAttempts: this.maxAttempts,
+        retryDelayMs: this.retryDelayMs,
+        isRetryable: defaultIsRetryable,
+        label: "Gradium",
+        signal,
+      },
+    );
   }
 
   async #synthesizeOnce(text, { signal } = {}) {
-    const response = await fetch(this.endpoint, {
+    const response = await this.fetchImpl(this.endpoint, {
       method: "POST",
       headers: {
         "x-api-key": this.apiKey,
         "Content-Type": "application/json",
-        "Connection": "close",
+        Connection: "close",
       },
       body: JSON.stringify({
         text: text.trim(),
@@ -59,9 +87,11 @@ export class GradiumTTSProvider {
     });
 
     if (!response.ok) {
-      const detail = await response.text();
-      const error = new Error(`Gradium TTS failed (${response.status}): ${detail}`);
+      const detail = await safeResponseDetail(response);
+      const error = new Error(`Gradium TTS failed (${response.status})`);
       error.status = response.status;
+      error.provider_id = this.id;
+      error.detail_excerpt = detail;
       throw error;
     }
 
@@ -69,20 +99,12 @@ export class GradiumTTSProvider {
   }
 }
 
-function isRetryable(error) {
-  if (error?.name === "AbortError") return false;
-  if (Number.isInteger(error?.status)) {
-    return error.status === 408 || error.status === 429 || error.status >= 500;
+async function safeResponseDetail(response) {
+  try {
+    const text = await response.text();
+    // Keep a short excerpt for operators; never log request headers/keys.
+    return text.slice(0, 200);
+  } catch {
+    return null;
   }
-  return error instanceof TypeError || error?.cause?.code === "UND_ERR_SOCKET";
-}
-
-function sleep(milliseconds, signal) {
-  return new Promise((resolve, reject) => {
-    const timer = setTimeout(resolve, milliseconds);
-    signal?.addEventListener("abort", () => {
-      clearTimeout(timer);
-      reject(signal.reason ?? new Error("Aborted"));
-    }, { once: true });
-  });
 }

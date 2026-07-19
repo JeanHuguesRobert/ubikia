@@ -59,12 +59,26 @@ This includes API keys, OAuth tokens, passwords, signing keys, upload credential
 ```json
 {
   "secretReferences": {
-    "gradiumApiKey": "env:GRADIUM_API_KEY"
+    "gradiumApiKey": "env:GRADIUM_API_KEY",
+    "cartesiaApiKey": "env:CARTESIA_API_KEY"
   }
 }
 ```
 
 The resolver reports whether an environment reference is available. It never copies the secret value into resolved JSON.
+
+Audio provider selection uses the same layers:
+
+```json
+{
+  "audio": {
+    "defaultProvider": "gradium",
+    "fallbackProviders": ["cartesia"]
+  }
+}
+```
+
+`defaultProvider` selects the primary TTS adapter. `fallbackProviders` is only used to complete remaining segments when the active provider hits capacity/quota limits—not for quality ranking. A full quality redo uses the render `--force-rerender` flag with the chosen provider.
 
 ## Resolution order
 

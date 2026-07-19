@@ -1,0 +1,75 @@
+{
+  "schema": "ubikia.publication-ledger.v0.1",
+  "updated_at": "2026-07-19T09:12:08.360Z",
+  "notes": [
+    "This ledger is the repository-visible memory of publication appearances.",
+    "Detailed media binaries remain local under artifacts/ (gitignored).",
+    "Platforms also act as recoverability backups: uploaded material can often be re-downloaded or re-linked from the platform."
+  ],
+  "entries": [
+    {
+      "id": "youtube:mjdHmPvNmB0",
+      "platform": "youtube",
+      "url": "https://youtu.be/mjdHmPvNmB0",
+      "canonical_url": "https://www.youtube.com/watch?v=mjdHmPvNmB0",
+      "platform_id": "mjdHmPvNmB0",
+      "title": "On n’est jamais si bien servi que par soi-même ; demain, cela fera beaucoup de monde",
+      "visibility": "public",
+      "status": "published",
+      "published_at": "2026-07-14T07:21:39.206Z",
+      "recorded_at": "2026-07-14T07:21:39.206Z",
+      "recorded_by": "Jean Hugues Noël Robert",
+      "evidence": {
+        "type": "human_confirmation",
+        "remote_verification": "not_performed"
+      },
+      "slug": "on-nest-jamais-si-bien-servi",
+      "source": {
+        "repository": "JeanHuguesRobert/barons-Mariani",
+        "path": "research/se_demultiplier_pour_explorer_le_possible_blogpost.md",
+        "note": "First governed audible episode on the Node pipeline."
+      },
+      "product": {
+        "kind": "audiovisual_essay",
+        "form": "spoken_essay_script",
+        "platform_package": "youtube"
+      },
+      "platform_as_backup": true,
+      "local_artifact_directory": "artifacts/audible/on-nest-jamais-si-bien-servi",
+      "notes": "Pilot episode. Synthetic custom voice disclosure recorded in package metadata."
+    },
+    {
+      "id": "youtube:BklzkGmP0HI",
+      "platform": "youtube",
+      "url": "https://youtu.be/BklzkGmP0HI",
+      "canonical_url": "https://www.youtube.com/watch?v=BklzkGmP0HI",
+      "platform_id": "BklzkGmP0HI",
+      "title": "Le Père Noël revient — et cette fois, il aide les adultes | Les carnets du baron Mariani",
+      "visibility": "public",
+      "status": "published",
+      "published_at": "2026-07-19T09:12:08.360Z",
+      "recorded_at": "2026-07-19T09:12:08.360Z",
+      "recorded_by": "Jean Hugues Noël Robert",
+      "evidence": {
+        "type": "human_confirmation",
+        "remote_verification": "not_performed"
+      },
+      "slug": "le-pere-noel-revient",
+      "source": {
+        "repository": "JeanHuguesRobert/barons-Mariani",
+        "path": "research/le-pere-noel-revient.md",
+        "commit": "f1e9057696f26b49e9e97a9bbaa67b59d5954f65",
+        "blob_sha": "3e66696cf534f16b4e8671fec26418c96c380fb5"
+      },
+      "product": {
+        "kind": "audiovisual_essay",
+        "form": "spoken_essay_script",
+        "platform_package": "youtube",
+        "persona": "Babbu Natale"
+      },
+      "platform_as_backup": true,
+      "local_artifact_directory": "artifacts/audible/le-pere-noel-revient",
+      "notes": "Reference episode for issue #17. Completed multi-provider (Gradium segments 1–13, Cartesia segment 14) after Gradium quota exhaustion. Mixed-provider imperfections retained as honest synthetic signal."
+    }
+  ]
+}

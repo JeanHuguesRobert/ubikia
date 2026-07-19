@@ -75,6 +75,28 @@ export function normalizeWavBuffer(input) {
   };
 }
 
+/**
+ * True when buffer is RIFF/WAVE with a non-empty data payload.
+ * Header-only / empty PCM responses are rejected by the renderer.
+ */
+export function wavHasPcmSamples(input) {
+  if (!Buffer.isBuffer(input) || input.length < 44) return false;
+  if (
+    input.toString("ascii", 0, 4) !== "RIFF"
+    || input.toString("ascii", 8, 12) !== "WAVE"
+  ) {
+    return false;
+  }
+
+  const dataChunk = findDataChunk(input);
+  if (!dataChunk) return false;
+  const availableBytes = input.length - dataChunk.payloadOffset;
+  const effectiveSize = dataChunk.declaredSize === UINT32_MAX
+    ? availableBytes
+    : Math.min(dataChunk.declaredSize, availableBytes);
+  return effectiveSize > 0;
+}
+
 function findDataChunk(buffer) {
   let offset = 12;
 
