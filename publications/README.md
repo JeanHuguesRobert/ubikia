@@ -60,7 +60,15 @@ The command still writes the local `publication.youtube.json` under `artifacts/`
 
 ## Continuations
 
+See the study note:
+
+[`research/publication_registry_exploration.md`](../research/publication_registry_exploration.md)
+
+Short list:
+
+- human-readable generated index (`publications/index.md`) from this ledger;
 - richer multi-platform ledger fields (Substack, Medium, X, …);
+- optional related GitHub issue/PR links on each entry (GitHub = work audit, not catalog);
 - automatic reconciliation against platform APIs (optional, never silent public publish);
 - return-to-corpus feedback links from each appearance;
 - optional signed export of ledger + source commits for archival packages.

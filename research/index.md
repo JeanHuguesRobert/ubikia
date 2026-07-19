@@ -36,9 +36,16 @@ Ubikia is the corpus derivation and publication-support layer: it helps source d
 | [Ubikia Derivation Workflow](../docs/derivation_workflow.md) | workflow | active |
 | [Ubikia Publication Layer](../docs/publication_layer.md) | publication layer | active |
 
+## Working research
+
+| Document | Role | Status |
+|---|---|---|
+| [Publication registry exploration](publication_registry_exploration.md) | how to make publications explorable | exploration |
+
 ## Open Possibilities
 
 - Add schemas for source, persona, derived product, publication, and review records.
 - Add examples that preserve source provenance across publication forms.
 - Add a lightweight CLI only after the file-based workflow is stable.
+- Generate a human-readable publication index from `publications/ledger/` (see registry exploration).
 
