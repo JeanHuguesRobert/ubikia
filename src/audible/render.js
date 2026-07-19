@@ -83,11 +83,31 @@ export async function renderAudibleProduct({
     if (canReuse) {
       providerAudio = await readFile(destination);
       reused = true;
-      segmentIdentity = existingEntry.synthesis
-        ?? activeIdentity;
+      // Never attribute a reused segment to the active provider unless the
+      // previous entry actually recorded that provider. Legacy manifests may
+      // only have text hashes; mark them unknown rather than rewriting history.
       segmentProviderId = existingEntry.provider_id
-        ?? segmentIdentity.provider_id
-        ?? active.provider.id;
+        ?? existingEntry.synthesis?.provider_id
+        ?? "unknown_legacy";
+      segmentIdentity = existingEntry.synthesis
+        ?? {
+          provider_id: segmentProviderId,
+          model: null,
+          api_version: null,
+          voice_id: existingEntry.voice_id ?? null,
+          language: null,
+          output: {
+            container: outputFormat,
+            encoding: null,
+            sample_rate: null,
+            codec: null,
+          },
+          settings: null,
+          seed: null,
+          synthesis_identity_sha256: existingEntry.synthesis_identity_sha256
+            ?? `legacy:${existingEntry.text_sha256 ?? textSha256}`,
+          legacy_reuse: true,
+        };
       console.log(`Reuse ${filename} (provider=${segmentProviderId})`);
     } else {
       const synthesized = await synthesizeWithCapacityFallback({
