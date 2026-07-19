@@ -60,9 +60,10 @@ The command still writes the local `publication.youtube.json` under `artifacts/`
 
 ## Continuations
 
-See the study note:
+See:
 
-[`research/publication_registry_exploration.md`](../research/publication_registry_exploration.md)
+- handoff + deferred packages: [`research/audible_stable_baseline_and_continuations.md`](../research/audible_stable_baseline_and_continuations.md)
+- registry study: [`research/publication_registry_exploration.md`](../research/publication_registry_exploration.md)
 
 Short list:
 

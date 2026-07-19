@@ -40,6 +40,7 @@ Ubikia is the corpus derivation and publication-support layer: it helps source d
 
 | Document | Role | Status |
 |---|---|---|
+| [Audible stable baseline and continuations](audible_stable_baseline_and_continuations.md) | handoff + deferred packages P1–P5 | active handoff |
 | [Publication registry exploration](publication_registry_exploration.md) | how to make publications explorable | exploration |
 
 ## Open Possibilities
@@ -48,4 +49,5 @@ Ubikia is the corpus derivation and publication-support layer: it helps source d
 - Add examples that preserve source provenance across publication forms.
 - Add a lightweight CLI only after the file-based workflow is stable.
 - Generate a human-readable publication index from `publications/ledger/` (see registry exploration).
+- Resume deferred audible packages from the stable-baseline handoff (P1 episode scaffold first).
 

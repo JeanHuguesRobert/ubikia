@@ -262,6 +262,14 @@ Not yet implemented:
 
 These limits must remain visible rather than being hidden behind automatic publication.
 
+## Stable baseline and deferred work
+
+A production-shaped path is already in use (multi-provider TTS, manual YouTube publication, versioned URL ledger). Deferred efficiency work (episode scaffold on `main`, lessons checklist, human publication index, registry views) is packaged for cold resume here:
+
+[`research/audible_stable_baseline_and_continuations.md`](../research/audible_stable_baseline_and_continuations.md)
+
+Do not re-litigate closed issues #17 / #19 unless scope changes. Prefer starting a future session with an explicit package id (e.g. “implement P1”).
+
 ## Future onboarding
 
 Ubikia is intended for multiple authors and organizations. Static documentation will remain available, but a future onboarding agent may guide users through prerequisites, profile discovery, adaptation, review, rendering, packaging, and publication checkpoints.
