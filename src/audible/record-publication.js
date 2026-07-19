@@ -1,12 +1,22 @@
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
+import {
+  publicationEntryFromYouTubeRecord,
+  upsertPublicationLedgerEntry,
+} from "./publication-ledger.js";
+
 export async function recordYouTubePublication({
   outputDirectory,
   url,
   visibility = "public",
   recordedBy = null,
   publishedAt = null,
+  updateLedger = true,
+  ledgerPath = null,
+  slug = null,
+  source = null,
+  notes = null,
 } = {}) {
   if (!outputDirectory) throw new Error("outputDirectory is required");
   if (!url) throw new Error("url is required");
@@ -110,7 +120,24 @@ export async function recordYouTubePublication({
     writeJson(manifestPath, updatedManifest),
   ]);
 
-  return publication;
+  let ledger = null;
+  if (updateLedger !== false) {
+    const inferredSlug = slug
+      ?? path.basename(absoluteDirectory);
+    ledger = await upsertPublicationLedgerEntry(
+      publicationEntryFromYouTubeRecord(publication, {
+        slug: inferredSlug,
+        source,
+        notes,
+      }),
+      ledgerPath ? { ledgerPath } : {},
+    );
+  }
+
+  return {
+    ...publication,
+    ledger,
+  };
 }
 
 export function extractYouTubeVideoId(value) {

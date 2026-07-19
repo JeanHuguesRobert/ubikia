@@ -240,6 +240,7 @@ Implemented:
 - static YouTube MP4 generation;
 - generic YouTube metadata package;
 - human-confirmed YouTube publication recording;
+- versioned publication ledger for public URLs (`publications/ledger/`);
 - schemas for adaptation, review, YouTube products, and layered user profiles.
 
 Not yet implemented:

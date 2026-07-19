@@ -21,6 +21,7 @@ const publication = await recordYouTubePublication({
   visibility,
   recordedBy,
   publishedAt,
+  slug: path.basename(path.resolve(outputDirectory)),
 });
 
 console.log(JSON.stringify({
@@ -36,4 +37,6 @@ console.log(JSON.stringify({
   publication: path.resolve(outputDirectory, "publication.youtube.json"),
   package: path.resolve(outputDirectory, "youtube-package.json"),
   manifest: path.resolve(outputDirectory, "manifest.json"),
+  ledger: publication.ledger?.ledgerPath ?? null,
+  ledger_entry_id: publication.ledger?.entry?.id ?? null,
 }, null, 2));
