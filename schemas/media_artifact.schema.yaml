@@ -1,0 +1,314 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+$id: "https://github.com/JeanHuguesRobert/ubikia/schemas/media_artifact.schema.yaml"
+title: "Ubikia Media Artifact Manifest"
+description: >-
+  Machine-generated manifest for media artifacts, their provenance, technical
+  properties, review state, quality-control evidence, and publication readiness.
+type: object
+additionalProperties: false
+required:
+  - schema_version
+  - project_id
+  - build_id
+  - generated_at
+  - generator
+  - provenance
+  - artifacts
+  - qc_summary
+  - publication_state
+properties:
+  schema_version:
+    type: string
+    const: "0.1"
+  project_id:
+    type: string
+  build_id:
+    type: string
+    pattern: "^[a-z0-9][a-z0-9._-]+$"
+  generated_at:
+    type: string
+    format: date-time
+  generator:
+    type: object
+    additionalProperties: false
+    required: [name, version, python_version, ffmpeg_version]
+    properties:
+      name:
+        type: string
+        const: "ubikia-media"
+      version:
+        type: string
+      python_version:
+        type: string
+      ffmpeg_version:
+        type: [string, "null"]
+      ffprobe_version:
+        type: [string, "null"]
+      operating_system:
+        type: [string, "null"]
+  provenance:
+    type: object
+    additionalProperties: false
+    required:
+      - source
+      - script
+      - project_sha256
+      - text_left_local_machine
+    properties:
+      source:
+        $ref: "#/$defs/sourceSnapshot"
+      intermediate_product:
+        anyOf:
+          - $ref: "#/$defs/sourceSnapshot"
+          - type: "null"
+      script:
+        type: object
+        additionalProperties: false
+        required: [path, sha256, status]
+        properties:
+          path:
+            type: string
+          sha256:
+            $ref: "#/$defs/sha256"
+          status:
+            type: string
+            enum: [draft, approved]
+          reviewed_by:
+            type: [string, "null"]
+          reviewed_at:
+            type: [string, "null"]
+            format: date-time
+      project_sha256:
+        $ref: "#/$defs/sha256"
+      utterance_manifest_sha256:
+        anyOf:
+          - $ref: "#/$defs/sha256"
+          - type: "null"
+      provider:
+        type: object
+        additionalProperties: true
+        required: [id]
+        properties:
+          id:
+            type: string
+          executable_version:
+            type: [string, "null"]
+          configuration_fingerprint:
+            anyOf:
+              - $ref: "#/$defs/sha256"
+              - type: "null"
+      text_left_local_machine:
+        type: boolean
+  artifacts:
+    type: array
+    items:
+      $ref: "#/$defs/artifact"
+  qc_summary:
+    type: object
+    additionalProperties: false
+    required: [passed, errors, warnings, checks_total, report_path, report_sha256]
+    properties:
+      passed:
+        type: boolean
+      errors:
+        type: integer
+        minimum: 0
+      warnings:
+        type: integer
+        minimum: 0
+      checks_total:
+        type: integer
+        minimum: 0
+      report_path:
+        type: string
+      report_sha256:
+        $ref: "#/$defs/sha256"
+  review:
+    type: object
+    additionalProperties: false
+    properties:
+      script_status:
+        $ref: "#/$defs/reviewValue"
+      audio_status:
+        $ref: "#/$defs/reviewValue"
+      video_status:
+        $ref: "#/$defs/reviewValue"
+      publication_status:
+        $ref: "#/$defs/reviewValue"
+      reviewer:
+        type: [string, "null"]
+  publication_state:
+    type: string
+    enum:
+      - not_ready
+      - ready_for_review
+      - approved
+      - ready_for_manual_publication
+      - published
+      - superseded
+  package_targets:
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required: [profile, path, status]
+      properties:
+        profile:
+          type: string
+          enum: [podcast, youtube, facebook_video, linkedin_video, instagram_reel_future, youtube_short_future]
+        path:
+          type: string
+        status:
+          type: string
+          enum: [not_built, ready_for_review, ready_for_manual_publication, published, superseded]
+        sha256:
+          anyOf:
+            - $ref: "#/$defs/sha256"
+            - type: "null"
+
+$defs:
+  sha256:
+    type: string
+    pattern: "^[0-9a-f]{64}$"
+
+  sourceSnapshot:
+    type: object
+    additionalProperties: false
+    required: [repository, path, commit, url]
+    properties:
+      repository:
+        type: string
+      path:
+        type: string
+      commit:
+        type: string
+      url:
+        type: string
+        format: uri
+      local_path:
+        type: [string, "null"]
+      local_sha256:
+        anyOf:
+          - $ref: "#/$defs/sha256"
+          - type: "null"
+
+  artifact:
+    type: object
+    additionalProperties: false
+    required:
+      - id
+      - kind
+      - path
+      - media_type
+      - sha256
+      - size_bytes
+      - generated_at
+      - inputs
+      - review_required
+      - review_status
+    properties:
+      id:
+        type: string
+        pattern: "^[a-z0-9][a-z0-9._-]+$"
+      kind:
+        type: string
+        enum:
+          - provider_utterance_audio
+          - normalized_utterance_audio
+          - narrated_audio_master
+          - podcast_audio_export
+          - caption_srt
+          - caption_vtt
+          - transcript_text
+          - transcript_markdown
+          - scene_plan
+          - rendered_card
+          - cover_image
+          - thumbnail_image
+          - audiovisual_master
+          - platform_video_render
+          - publication_package
+          - ledger_stub
+          - build_report
+          - qc_report
+      path:
+        type: string
+      media_type:
+        type: string
+      sha256:
+        $ref: "#/$defs/sha256"
+      size_bytes:
+        type: integer
+        minimum: 0
+      generated_at:
+        type: string
+        format: date-time
+      duration_ms:
+        type: [integer, "null"]
+        minimum: 0
+      width:
+        type: [integer, "null"]
+        minimum: 1
+      height:
+        type: [integer, "null"]
+        minimum: 1
+      codec:
+        type: [string, "null"]
+      sample_rate_hz:
+        type: [integer, "null"]
+        minimum: 1
+      channels:
+        type: [integer, "null"]
+        minimum: 1
+      inputs:
+        type: object
+        additionalProperties:
+          anyOf:
+            - $ref: "#/$defs/sha256"
+            - type: string
+            - type: number
+            - type: boolean
+            - type: "null"
+      generator_stage:
+        type: [string, "null"]
+      generator_profile:
+        type: [string, "null"]
+      review_required:
+        type: boolean
+      review_status:
+        $ref: "#/$defs/reviewValue"
+      rights:
+        type: object
+        additionalProperties: false
+        properties:
+          status:
+            type: string
+            enum: [generated, owned, licensed, public_domain, permission_granted, private_test_only, not_applicable]
+          creator:
+            type: [string, "null"]
+          licence:
+            type: [string, "null"]
+          attribution:
+            type: [string, "null"]
+          source_url:
+            type: [string, "null"]
+            format: uri
+      accessibility:
+        type: object
+        additionalProperties: false
+        properties:
+          alt_text:
+            type: [string, "null"]
+          captions_available:
+            type: [boolean, "null"]
+          transcript_available:
+            type: [boolean, "null"]
+
+  reviewValue:
+    type: string
+    enum:
+      - not_started
+      - pending
+      - approved
+      - rejected
+      - approved_with_minor_edits
