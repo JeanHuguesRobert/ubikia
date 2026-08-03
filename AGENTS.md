@@ -1,5 +1,6 @@
 ---
 document_role: "operational"
+shared_instructions: https://github.com/JeanHuguesRobert/cogentia/blob/main/instructions/AGENTS.shared.md
 document_kind: "agent-mandate"
 visibility: "public"
 lifecycle_state: "active"
