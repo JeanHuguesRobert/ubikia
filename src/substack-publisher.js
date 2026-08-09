@@ -77,6 +77,8 @@ export async function createSubstackDraft(options = {}) {
   const draftEndpoint = `${baseUrl}/api/v1/drafts`;
   const htmlContent = markdownToSubstackHtml(markdownBody);
 
+  const decodedCookie = decodeURIComponent(sessionCookie.trim());
+
   const payload = {
     draft_title: title,
     draft_subtitle: subtitle,
@@ -90,6 +92,7 @@ export async function createSubstackDraft(options = {}) {
       ],
     }),
     draft_html: htmlContent,
+    draft_bylines: [],
     type: "newsletter",
   };
 
@@ -98,8 +101,10 @@ export async function createSubstackDraft(options = {}) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Cookie: `substack.sid=${sessionCookie.trim()}`,
-        "User-Agent": "Ubikia-Substack-Publisher/1.0 (Cogentia Sovereign Twin)",
+        Cookie: `substack.sid=${decodedCookie}`,
+        Origin: baseUrl,
+        Referer: `${baseUrl}/publish`,
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
       },
       body: JSON.stringify(payload),
     });
