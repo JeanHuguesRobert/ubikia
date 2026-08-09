@@ -14,16 +14,25 @@
 const SUPABASE_URL = process.env.SUPABASE_URL || "https://ndiysuhzmztatpxbkezn.supabase.co";
 const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY;
 
+let _vaultCache = null;
+let _vaultCacheTimestamp = 0;
+const CACHE_TTL_MS = 300_000; // 5 minutes TTL in memory
+
 /**
- * Fetch all entries from the Twin Vault (`instance_config` table).
+ * Fetch all entries from the Twin Vault (`instance_config` table) with in-memory caching.
  *
  * @param {object} [options]
- * @param {string} [options.category] - Filter by category ('secrets', 'integrations', etc.)
+ * @param {boolean} [options.forceRefresh] - Bypass in-memory cache
  * @returns {Promise<Record<string, string>>} Key-value map of configuration entries
  */
 export async function loadTwinVaultConfig(options = {}) {
+  const now = Date.now();
+  if (_vaultCache && !options.forceRefresh && (now - _vaultCacheTimestamp < CACHE_TTL_MS)) {
+    return _vaultCache;
+  }
+
   if (!SUPABASE_URL || !SUPABASE_KEY) {
-    return {};
+    return _vaultCache || {};
   }
 
   let endpoint = `${SUPABASE_URL.replace(/\/$/, "")}/rest/v1/instance_config?select=key,value,category,is_secret`;
@@ -41,7 +50,7 @@ export async function loadTwinVaultConfig(options = {}) {
     });
 
     if (!res.ok) {
-      return {};
+      return _vaultCache || {};
     }
 
     const rows = await res.json();
@@ -52,9 +61,11 @@ export async function loadTwinVaultConfig(options = {}) {
         map[r.key.toUpperCase()] = r.value;
       }
     }
+    _vaultCache = map;
+    _vaultCacheTimestamp = now;
     return map;
   } catch (err) {
-    return {};
+    return _vaultCache || {};
   }
 }
 
