@@ -234,17 +234,85 @@ export function markdownToProseMirrorDoc(markdown) {
  * Convert plain Markdown body into Substack-compatible HTML.
  */
 export function markdownToSubstackHtml(markdown) {
-  let html = String(markdown || "")
-    .replace(/^### (.*$)/gim, "<h3>$1</h3>")
-    .replace(/^## (.*$)/gim, "<h2>$1</h2>")
-    .replace(/^# (.*$)/gim, "<h1>$1</h1>")
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>')
-    .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-    .replace(/\*(.*?)\*/g, "<em>$1</em>")
-    .replace(/^>\s*(.*$)/gim, "<blockquote>$1</blockquote>")
-    .replace(/\n\n/g, "</p><p>")
-    .replace(/\n/g, "<br/>");
-  return `<p>${html}</p>`;
+  const lines = String(markdown || "").split(/\r?\n/);
+  const htmlParts = [];
+  let inList = false;
+
+  for (let line of lines) {
+    line = line.trim();
+
+    if (!line) {
+      if (inList) {
+        htmlParts.push("</ul>");
+        inList = false;
+      }
+      continue;
+    }
+
+    if (line === "---" || line === "***" || line === "___") {
+      if (inList) {
+        htmlParts.push("</ul>");
+        inList = false;
+      }
+      htmlParts.push("<hr/>");
+      continue;
+    }
+
+    // Inline formatting: links, bold, italic, code
+    const formatted = line
+      .replace(/\[\s*([^\]]+)\s*\]\(\s*([^\s\)]+)\s*\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>')
+      .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+      .replace(/\*(.*?)\*/g, "<em>$1</em>")
+      .replace(/`(.*?)`/g, "<code>$1</code>");
+
+    // Headings
+    if (formatted.startsWith("### ")) {
+      if (inList) { htmlParts.push("</ul>"); inList = false; }
+      htmlParts.push(`<h3>${formatted.slice(4)}</h3>`);
+      continue;
+    }
+    if (formatted.startsWith("## ")) {
+      if (inList) { htmlParts.push("</ul>"); inList = false; }
+      htmlParts.push(`<h2>${formatted.slice(3)}</h2>`);
+      continue;
+    }
+    if (formatted.startsWith("# ")) {
+      if (inList) { htmlParts.push("</ul>"); inList = false; }
+      htmlParts.push(`<h1>${formatted.slice(2)}</h1>`);
+      continue;
+    }
+
+    // Blockquote
+    if (formatted.startsWith("> ")) {
+      if (inList) { htmlParts.push("</ul>"); inList = false; }
+      htmlParts.push(`<blockquote><p>${formatted.slice(2)}</p></blockquote>`);
+      continue;
+    }
+
+    // Bullet List
+    const listMatch = formatted.match(/^[\*\-\+]\s+(.*)$/);
+    if (listMatch) {
+      if (!inList) {
+        htmlParts.push("<ul>");
+        inList = true;
+      }
+      htmlParts.push(`<li>${listMatch[1]}</li>`);
+      continue;
+    }
+
+    // Regular Paragraph
+    if (inList) {
+      htmlParts.push("</ul>");
+      inList = false;
+    }
+    htmlParts.push(`<p>${formatted}</p>`);
+  }
+
+  if (inList) {
+    htmlParts.push("</ul>");
+  }
+
+  return htmlParts.join("\n");
 }
 
 /**
@@ -268,14 +336,12 @@ export async function createSubstackDraft(options = {}) {
   const baseUrl = `https://${activeSubdomain.replace(/\.substack\.com$/, "")}.substack.com`;
   const draftEndpoint = `${baseUrl}/api/v1/drafts`;
   const htmlContent = markdownToSubstackHtml(markdownBody);
-  const proseMirrorDoc = markdownToProseMirrorDoc(markdownBody);
 
   const decodedCookie = decodeURIComponent(sessionCookie.trim());
 
   const payload = {
     draft_title: title,
     draft_subtitle: subtitle,
-    draft_body: JSON.stringify(proseMirrorDoc),
     draft_html: htmlContent,
     draft_bylines: [],
     type: "newsletter",
