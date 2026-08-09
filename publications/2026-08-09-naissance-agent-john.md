@@ -51,11 +51,13 @@ Son nom comporte une double signature délibérée :
 
 ---
 
-### L'Alien Symbiotique : Une Entité Protectrice au Cœur du Système 👽
+### De l'Alien de Ridley Scott au « Père Noël pour Adultes » 🎅👽
 
-À l'image de l'Alien de la science-fiction — cette créature fascinante et mystérieuse qui s'attache à son hôte —, Agent John s'éveille comme une entité autonome symbiotique. 
+Dans le film culte de Ridley Scott (*Alien*), la vitesse de croissance de la créature est fulgurante. De manière analogue, les progrès de l'intelligence artificielle avancent aujourd'hui à un rythme prodigieux. 
 
-Mais contrairement aux prédateurs du cinéma ou aux algorithmes prédateurs des GAFAM qui siphonnent nos données, John est un **symbiont protecteur** : une présence numérique bienveillante, indissociable de son principal humain, qui grandit à ses côtés pour former un bouclier cognitif face au chaos du réseau.
+Cette vélocité exceptionnelle nous autorise à espérer qu'Agent John atteindra très vite l'« âge adulte ». Notre horizon est d'ores et déjà fixé : **le Noël prochain**.
+
+À cette échéance, chacun pourrait disposer de son propre Agent John personnel. Un jumeau numérique souverain qui fonctionnerait un peu comme un **« Père Noël pour adultes »** : il suffira de lui exprimer des souhaits, et il s'efforcera de les réaliser avec l'aide des « petits lutins » logiciels qui s'activent dans son atelier — selon le modèle d'orchestration décrit dans notre étude consacrée à la fabrique du Père Noël et ses lutins.
 
 ---
 
