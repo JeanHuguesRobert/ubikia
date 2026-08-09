@@ -67,13 +67,13 @@ export function markdownToSubstackHtml(markdown) {
  * @returns {Promise<{ ok: boolean, draft_id?: number, edit_url?: string, error?: string }>}
  */
 export async function createSubstackDraft(options = {}) {
-  const { subdomain, sessionCookie, title, subtitle = "", markdownBody } = options;
+  const { subdomain = "jeanhugues", sessionCookie, title, subtitle = "", markdownBody } = options;
 
-  if (!subdomain) return { ok: false, error: "Missing Substack subdomain (e.g. SUBSTACK_SUBDOMAIN)" };
+  const activeSubdomain = subdomain || "jeanhugues";
   if (!sessionCookie) return { ok: false, error: "Missing Substack session cookie (SUBSTACK_SID)" };
   if (!title) return { ok: false, error: "Missing post title" };
 
-  const baseUrl = `https://${subdomain.replace(/\.substack\.com$/, "")}.substack.com`;
+  const baseUrl = `https://${activeSubdomain.replace(/\.substack\.com$/, "")}.substack.com`;
   const draftEndpoint = `${baseUrl}/api/v1/drafts`;
   const htmlContent = markdownToSubstackHtml(markdownBody);
 
