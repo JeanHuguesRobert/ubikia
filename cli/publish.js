@@ -14,23 +14,32 @@ import path from "node:path";
 import process from "node:process";
 import { parseMarkdownPublication } from "../src/substack-publisher.js";
 import { ADAPTERS, getAvailableAdapters } from "../src/adapters/index.js";
+import { clearTwinVaultCache } from "../src/supabase-vault.js";
 
 function parseArgs(argv) {
   let target = "substack";
   let filePath = null;
+  let refreshVault = false;
 
   for (const arg of argv) {
     if (arg.startsWith("--target=")) {
       target = arg.slice("--target=".length).toLowerCase();
+    } else if (arg === "--refresh-vault" || arg === "-r") {
+      refreshVault = true;
     } else if (!arg.startsWith("-")) {
       filePath = arg;
     }
   }
-  return { target, filePath };
+  return { target, filePath, refreshVault };
 }
 
 async function main() {
-  const { target, filePath } = parseArgs(process.argv.slice(2));
+  const { target, filePath, refreshVault } = parseArgs(process.argv.slice(2));
+
+  if (refreshVault) {
+    clearTwinVaultCache();
+    console.log("[ubikia] Twin Vault cache invalidated.");
+  }
 
   if (!filePath || process.argv.includes("--help") || process.argv.includes("-h")) {
     console.log("Ubikia Unified Multi-Platform Draft Publisher");

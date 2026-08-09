@@ -19,6 +19,15 @@ let _vaultCacheTimestamp = 0;
 const CACHE_TTL_MS = 300_000; // 5 minutes TTL in memory
 
 /**
+ * Force clear / invalidate the in-memory Vault cache.
+ */
+export function clearTwinVaultCache() {
+  _vaultCache = null;
+  _vaultCacheTimestamp = 0;
+  return true;
+}
+
+/**
  * Fetch all entries from the Twin Vault (`instance_config` table) with in-memory caching.
  *
  * @param {object} [options]
@@ -27,7 +36,11 @@ const CACHE_TTL_MS = 300_000; // 5 minutes TTL in memory
  */
 export async function loadTwinVaultConfig(options = {}) {
   const now = Date.now();
-  if (_vaultCache && !options.forceRefresh && (now - _vaultCacheTimestamp < CACHE_TTL_MS)) {
+  if (options.forceRefresh) {
+    clearTwinVaultCache();
+  }
+
+  if (_vaultCache && (now - _vaultCacheTimestamp < CACHE_TTL_MS)) {
     return _vaultCache;
   }
 

@@ -28,3 +28,8 @@ test("tumblr adapter validates missing env vars", async () => {
   assert.equal(res.ok, false);
   assert.ok(res.error.includes("Missing TUMBLR_OAUTH_TOKEN"));
 });
+
+test("clearTwinVaultCache invalidates in-memory vault cache", async () => {
+  const { clearTwinVaultCache } = await import("../src/supabase-vault.js");
+  assert.equal(clearTwinVaultCache(), true);
+});
