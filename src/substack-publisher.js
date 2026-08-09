@@ -38,40 +38,89 @@ export function parseMarkdownPublication(filePath) {
   };
 }
 
+function parseRawUrls(text) {
+  if (!text) return [];
+  const nodes = [];
+  const urlRegex = /(https?:\/\/[^\s\)\>\,\;\"]+)/g;
+  let lastIndex = 0;
+  let match;
+
+  while ((match = urlRegex.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      nodes.push({ type: "text", text: text.slice(lastIndex, match.index) });
+    }
+    const rawUrl = match[0];
+    const displayUrl = rawUrl.replace(/^https?:\/\//i, "").replace(/\/$/, "");
+    nodes.push({
+      type: "text",
+      text: displayUrl,
+      marks: [
+        {
+          type: "link",
+          attrs: {
+            href: rawUrl,
+            target: "_blank",
+            rel: "noopener noreferrer",
+          },
+        },
+      ],
+    });
+    lastIndex = urlRegex.lastIndex;
+  }
+
+  if (lastIndex < text.length) {
+    nodes.push({ type: "text", text: text.slice(lastIndex) });
+  }
+  return nodes;
+}
+
 /**
- * Parse inline Markdown formatting (**bold**, *italic*, `code`, [link](url))
+ * Parse inline Markdown formatting (**bold**, *italic*, `code`, [link](url), raw URLs)
  * into Substack ProseMirror text nodes with marks.
  */
 export function parseFormattedInline(text) {
   if (!text) return [];
   const nodes = [];
-  const regex = /(\*\*(.*?)\*\*|\*(.*?)\*|\[(.*?)\]\((.*?)\)|`(.*?)`)/g;
+  const regex = /(\[\s*([^\]]+)\s*\]\(\s*([^\s\)]+)\s*\)|\*\*(.*?)\*\*|\*(.*?)\*|`(.*?)`)/g;
   let lastIndex = 0;
   let match;
 
   while ((match = regex.exec(text)) !== null) {
     if (match.index > lastIndex) {
-      nodes.push({ type: "text", text: text.slice(lastIndex, match.index) });
+      const plainText = text.slice(lastIndex, match.index);
+      nodes.push(...parseRawUrls(plainText));
     }
     const full = match[0];
-    if (full.startsWith("**")) {
-      nodes.push({ type: "text", text: match[2], marks: [{ type: "strong" }] });
-    } else if (full.startsWith("*")) {
-      nodes.push({ type: "text", text: match[3], marks: [{ type: "em" }] });
-    } else if (full.startsWith("`")) {
-      nodes.push({ type: "text", text: match[6], marks: [{ type: "code" }] });
-    } else if (full.startsWith("[")) {
+    if (full.startsWith("[")) {
+      const linkText = match[2];
+      const linkUrl = match[3];
       nodes.push({
         type: "text",
-        text: match[4],
-        marks: [{ type: "link", attrs: { href: match[5] } }],
+        text: linkText,
+        marks: [
+          {
+            type: "link",
+            attrs: {
+              href: linkUrl,
+              target: "_blank",
+              rel: "noopener noreferrer",
+            },
+          },
+        ],
       });
+    } else if (full.startsWith("**")) {
+      nodes.push({ type: "text", text: match[4], marks: [{ type: "strong" }] });
+    } else if (full.startsWith("*")) {
+      nodes.push({ type: "text", text: match[5], marks: [{ type: "em" }] });
+    } else if (full.startsWith("`")) {
+      nodes.push({ type: "text", text: match[6], marks: [{ type: "code" }] });
     }
     lastIndex = regex.lastIndex;
   }
 
   if (lastIndex < text.length) {
-    nodes.push({ type: "text", text: text.slice(lastIndex) });
+    const remaining = text.slice(lastIndex);
+    nodes.push(...parseRawUrls(remaining));
   }
 
   return nodes.length > 0 ? nodes : [{ type: "text", text }];
