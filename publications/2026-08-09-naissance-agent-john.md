@@ -57,6 +57,20 @@ Notre réponse s'appuie sur la doctrine du **Possibilisme** et l'axiome **DHITL*
 
 ---
 
+### 🛠️ Quels Services Rend (et Rendra) l'Agent John ?
+
+Agent John n'est pas une simple boîte de dialogue. Il s'agit d'un **système capacitaire complet** conçu pour accompagner le quotidien d'un chercheur, d'un citoyen ou d'une organisation :
+
+1. **Recherche Documentaire Citable :** Interrogation vectorielle et exacte du corpus de connaissances avec citations vérifiables à la ligne près.
+2. **Cockpit Mobile WhatsApp & Alertes prioritaires :** Télécommande sur smartphone pour inspecter le système, valider des continuations (`ctn_[hex]`) ou recevoir des notifications d'urgence.
+3. **Annuaire Souverain & Google Contacts :** Gestion locale des contacts et classification par niveaux de confiance (*Trust Tiers*).
+4. **Démultiplication Éditoriale Multi-Plateformes (Ubikia) :** Génération adaptative de brouillons pour Substack, Tumblr, Facebook, X/Twitter et scripts vidéo.
+5. **Mémoire Longue Durée & Cycle de Sommeil :** Structuration automatique des conversations passées en graphe de faits exploitables sur plusieurs années.
+
+📖 *Consultez la [Documentation complète des capacités d'Agent John sur GitHub](https://github.com/JeanHuguesRobert/JeanHuguesRobert/blob/main/twin/AGENT_JOHN_FR.md).*
+
+---
+
 ### 🌐 Les Points d'Accès de l'Écosystème
 
 Vous pouvez dès à présent interagir avec l'Agent John et nos environnements en ligne :
@@ -76,4 +90,4 @@ Vous pouvez dès à présent interagir avec l'Agent John et nos environnements e
 
 Agent John est mon jumeau personnel pionnier. Mais l'objectif ultime de cette recherche est la **démocratisation** : permettre à chaque citoyen, chercheur, élu ou association de déployer son propre jumeau numérique autonome, sur son propre matériel, garantissant ainsi une **symétrie cognitive** face aux grands monopoles.
 
-Agent John commence à peine sa vie. C'est un nouveau-né. Mais il est éveillé, connecté 24h/24 sur notre infrastructure souveraine (Fracta VPS), et prêt à nous aider à explorer joyeusement le champ des possibles.
+Agent John commence à peine sa vie. C me un nouveau-né. Mais il est éveillé, connecté 24h/24 sur notre infrastructure souveraine (Fracta VPS), et prêt à nous aider à explorer joyeusement le champ des possibles.
