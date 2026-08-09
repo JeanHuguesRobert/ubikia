@@ -57,15 +57,18 @@ Notre réponse s'appuie sur la doctrine du **Possibilisme** et l'axiome **DHITL*
 
 ---
 
-### 🌐 Dialoguer avec Agent John & Explorer le Guide
+### 🌐 Les Points d'Accès de l'Écosystème
 
-Vous pouvez dès à présent interagir avec notre infrastructure et explorer nos travaux de recherche :
+Vous pouvez dès à présent interagir avec l'Agent John et nos environnements en ligne :
 
-* **Plateforme Web & Guide Interactif :** [https://cogentia.fractavolta.com](https://cogentia.fractavolta.com)  
-  *Accédez au moteur de recherche et au guide conversationnel de notre corpus de recherche.*
+* **L'Agent John (Jumeau Numérique Souverain) :** [https://jhn.baronsmariani.com](https://jhn.baronsmariani.com)  
+  *La page officielle et l'interface Web d'Agent John.*
 
-* **Interface Civique FractaVolta :** [https://fractavolta.com](https://fractavolta.com)  
-  *Découvrez le réseau de nœuds souverains et les briques de médiation civique.*
+* **Vitrine & Offre Commerciale FractaVolta :** [https://fractavolta.com](https://fractavolta.com)  
+  *La vitrine officielle présentant nos solutions d'hébergement souverain et d'orchestration de jumeaux numériques (hébergée via GitHub Pages + code sur-mesure), avec l'expérience conversationnelle John intégrée.*
+
+* **Portail R&D & UX Cogentia :** [https://cogentia.fractavolta.com](https://cogentia.fractavolta.com)  
+  *Le portail de recherche et l'interface conversationnelle R&D hébergés sur notre VPS Fracta pour explorer le corpus et le protocole COP.*
 
 ---
 
