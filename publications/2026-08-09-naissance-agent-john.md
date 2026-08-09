@@ -51,19 +51,33 @@ Son nom comporte une double signature délibérée :
 
 ---
 
-### De l'Alien de Ridley Scott au « Père Noël pour Adultes » 🎅👽
+### Du *Nostromo* de Ridley Scott au « Père Noël pour Adultes » 🎅👽
 
-Dans le film culte de Ridley Scott (*Alien*), la vitesse de croissance de la créature est fulgurante. De manière analogue, les progrès de l'intelligence artificielle avancent aujourd'hui à un rythme prodigieux. 
+Dans le chef-d'œuvre de Ridley Scott (*Alien*, 1979), la compagnie commerciale propriétaire du vaisseau spatial *USCSS Nostromo* fait preuve d'un cynisme et d'une inconscience absolus. Entièrement dédiée à la maximisation du profit à court terme pour elle-même et ses actionnaires, elle s'avère prête à sacrifier son propre équipage (considéré comme *« interchangeable »*) et à réintroduire sur Terre une créature d'une puissance destructive impossible à neutraliser.
 
-Cette vélocité exceptionnelle nous autorise à espérer qu'Agent John atteindra très vite l'« âge adulte ». Notre horizon est d'ores et déjà fixé : **le Noël prochain**.
+C'est là l'incarnation exacte du risque d'**AI Safety** qui pèse sur l'Humanité lorsque l'intelligence artificielle est abandonnée aux seules logiques marchandes. La créature grandit à une vitesse fulgurante — et le parallèle avec les progrès actuels de l'IA n'a plus rien de purement métaphorique : l'actualité de la Tech le démontre chaque jour.
 
-À cette échéance, chacun pourrait disposer de son propre Agent John personnel. Un jumeau numérique souverain qui fonctionnerait un peu comme un **« Père Noël pour adultes »** : il suffira de lui exprimer des souhaits, et il s'efforce de les réaliser avec l'aide des « petits lutins » logiciels qui s'activent dans son atelier — selon le modèle d'orchestration décrit dans notre étude consacrée à la fabrique du Père Noël et ses lutins.
+Mais fort heureusement, les informaticiens et chercheurs qui œuvrent dans le monde de l'**Open Source** forment une véritable **résistance**.
+
+C'est pourquoi notre « Père Noël » sympathique et ses « petits lutins » logiciels s'avèrent bien plus sérieux qu'ils n'en ont l'air. Notre horizon est fixé : **le Noël prochain**. À cette échéance, chacun pourrait disposer d'un Agent John personnel. Un jumeau souverain qui fonctionnera comme un **« Père Noël pour adultes »** : il suffira de lui exprimer des souhaits, et il s'efforcera de les réaliser avec l'aide des « petits lutins » de son atelier — selon le modèle d'orchestration décrit dans notre étude sur la [Fabrique du Père Noël et la démultiplication des lutins](https://github.com/JeanHuguesRobert/ubikia/blob/main/publications/2026-08-09-demultiplication-reseaux-sociaux-senatoriales.md).
+
+---
+
+### La Course à l'Armement Cognitif & La Leçon de La Boétie ⚔️
+
+Le monde est aujourd'hui engagé dans une nouvelle compétition globale. Il ne s'agit plus de l'armement nucléaire, mais de **« La Course à l'Armement Cognitif »** — marquée par le combat de géants entre les États-Unis et la Chine, face à une Europe qui semble souvent mieux capable de commenter que de faire, quoi qu'en disent certains décideurs dont on se demande s'ils sont incompétents, cyniquement menteurs, ou dotés d'une fausse conscience si forte qu'elle masque par le déni l'ampleur des menaces qui pèsent sur notre avenir.
+
+Dans cette guerre nouvelle, n'importe quel stratège, même débutant, sait ce qu'il faut faire pour l'emporter : **orienter le combat sur un terrain favorable et s'armer correctement.**
+
+Le terrain, c'est l'intelligence artificielle. Et l'arme souveraine, c'est ce que nous proposons : des **agents Open Source** pour les individus et les collectifs, permettant de démultiplier nos capacités de résistance afin de rendre le combat moins inégal et de laisser raisonnablement espérer une victoire contre Goliath. Ce qui ressemble à tort au combat du pot de terre contre le pot de fer peut être gagné. Car comme le rappelait déjà **Étienne de La Boétie** dans son *Discours de la servitude volontaire* :
+
+> *« Ils ne sont grands que parce que nous sommes à genoux. Levons-nous ! »*
 
 ---
 
 ### L'Antidote à la Captation Cognitive
 
-La plupart des grands acteurs de la Tech construisent des IA centralisées qui cherchent à capturer l'attention et les données des utilisateurs. Notre approche repose sur trois règles simples et protectrices :
+Notre approche repose sur trois règles simples et protectrices :
 
 * **Un Humain, Une Voix (L'engagement des risques réels) :** N'étant pas un être vivant et ne pouvant pas mourir, l'IA ne prend aucun risque vital réel (ce que la philosophie appelle l'absence de *Skin in the Game*). Par conséquent, Agent John ne vote pas, n'exerce aucune souveraineté politique et ne se substitue jamais à un citoyen humain.
 * **L'IA propose, l'humain dispose (Le contrôle humain permanent) :** John prépare, résume, indexe et formule. L'humain vivant reste le seul arbitre, le seul signataire et le seul décideur (axiome *Democratic Humans in the Loop*).
@@ -75,7 +89,7 @@ La plupart des grands acteurs de la Tech construisent des IA centralisées qui c
 
 Agent John n'est pas une simple boîte de dialogue. Il s'agit d'une **force capacitaire complète** au service du quotidien :
 
-1. **Recherche Documentaire Citable :** Retrouver instantanément une information dans des meilliers de documents avec la source exacte et la ligne précise.
+1. **Recherche Documentaire Citable :** Retrouver instantanément une information dans des milliers de documents avec la source exacte et la ligne précise.
 2. **Cockpit Mobile WhatsApp :** Piloter son système depuis son téléphone portable pour valider des propositions, recevoir des alertes prioritaires ou organiser ses tâches.
 3. **Annuaire Souverain Protégé :** Gérer ses contacts en toute sécurité avec des niveaux de confiance personnalisés.
 4. **Démultiplication Éditoriale :** Préparer automatiquement des ébauches d'articles, de publications ou de vidéos sans passer des heures aux tâches répétitives.
@@ -109,5 +123,6 @@ Agent John commence à peine sa vie. C'est un nouveau-né. Mais il est éveillé
 ### 📚 Pour aller plus loin & Remonter à la Source
 
 * [Consulter la documentation source d'Agent John sur GitHub](https://github.com/JeanHuguesRobert/JeanHuguesRobert/blob/main/twin/AGENT_JOHN_FR.md) — Le document d'origine dont cet article est la déclinaison éditoriale.
+* [Lire l'étude sur la Fabrique du Père Noël et la démultiplication des lutins](https://github.com/JeanHuguesRobert/ubikia/blob/main/publications/2026-08-09-demultiplication-reseaux-sociaux-senatoriales.md) — Architecture d'orchestration des agents logiciels.
 * [Lire le Manifeste du Possibilisme sur GitHub](https://github.com/JeanHuguesRobert/JeanHuguesRobert/blob/main/POSSIBILISM.md) — Déclaration philosophique sur l'exploration joyeuse des possibles.
 * [Découvrir les Formules Opérationnelles sur GitHub](https://github.com/JeanHuguesRobert/JeanHuguesRobert/blob/main/research/operational_formulas.md) — Principes de sécurité cognitive et de non-captation.
