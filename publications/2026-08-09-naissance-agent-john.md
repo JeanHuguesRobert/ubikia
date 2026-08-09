@@ -1,7 +1,7 @@
 ---
-title: "La Naissance d'Agent John : Un Jumeau Numérique Souverain pour sortir de la Captation Cognitive"
-subtitle: "Les carnets du baron Mariani"
-description: "Annonce officielle de la naissance d'Agent John dans 'Les carnets du baron Mariani', premier jumeau numérique personnel souverain développé à Corte selon la doctrine du Possibilisme."
+title: "L'Éveil d'Agent John : Naissance d'une IA Souveraine au Cœur de la Corse"
+subtitle: "Et si le premier jumeau numérique personnel n'était pas né dans la Silicon Valley, mais à Corte ?"
+description: "Et si le premier jumeau numérique personnel n'était pas né dans la Silicon Valley, mais à Corte ?"
 author: "Jean Hugues Noël Robert, baron Mariani"
 affiliation: "Institut Mariani — émanation R&D de C.O.R.S.I.C.A., 1 cours Paoli, F-20250 Corte, Corsica"
 publication: "Les carnets du baron Mariani"
@@ -26,7 +26,7 @@ tags:
   - Corsica
 ---
 
-# La Naissance d'Agent John : Un Jumeau Numérique Souverain pour sortir de la Captation Cognitive
+# L'Éveil d'Agent John : Naissance d'une IA Souveraine au Cœur de la Corse
 
 *Les carnets du baron Mariani — Par Jean Hugues Noël Robert*  
 *Corte, le 9 août 2026*
@@ -69,7 +69,7 @@ Agent John n'est pas une simple boîte de dialogue. Il s'agit d'une **force capa
 2. **Cockpit Mobile WhatsApp :** Piloter son système depuis son téléphone portable pour valider des propositions, recevoir des alertes prioritaires ou organiser ses tâches.
 3. **Annuaire Souverain Protégé :** Gérer ses contacts en toute sécurité avec des niveaux de confiance personnalisés.
 4. **Démultiplication Éditoriale :** Préparer automatiquement des ébauches d'articles, de publications ou de vidéos sans passer des heures aux tâches répétitives.
-5. **Mémoire Longue Durée :** Conserve la mémoire des échanges importants et structurer les connaissances au fil des années.
+5. **Mémoire Longue Durée :** Conserver la mémoire des échanges importants et structurer les connaissances au fil des années.
 
 ---
 

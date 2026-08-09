@@ -336,12 +336,14 @@ export async function createSubstackDraft(options = {}) {
   const baseUrl = `https://${activeSubdomain.replace(/\.substack\.com$/, "")}.substack.com`;
   const draftEndpoint = `${baseUrl}/api/v1/drafts`;
   const htmlContent = markdownToSubstackHtml(markdownBody);
+  const proseMirrorDoc = markdownToProseMirrorDoc(markdownBody);
 
   const decodedCookie = decodeURIComponent(sessionCookie.trim());
 
   const payload = {
     draft_title: title,
     draft_subtitle: subtitle,
+    draft_body: JSON.stringify(proseMirrorDoc),
     draft_html: htmlContent,
     draft_bylines: [],
     type: "newsletter",
