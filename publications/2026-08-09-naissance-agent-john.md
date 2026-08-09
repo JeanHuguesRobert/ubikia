@@ -31,7 +31,7 @@ tags:
 *Les carnets du baron Mariani — Par Jean Hugues Noël Robert*  
 *Corte, le 9 août 2026*
 
-*📌 Cet article est un produit décliné du document source canonique : [Agent John (JHN) — Présentation et Capacités du Jumeau Numérique](https://github.com/JeanHuguesRobert/JeanHuguesRobert/blob/main/twin/AGENT_JOHN_FR.md).*
+*📌 Cet article est un produit décliné de la documentation source : [Consulter la présentation et les capacités d'Agent John](https://github.com/JeanHuguesRobert/JeanHuguesRobert/blob/main/twin/AGENT_JOHN_FR.md).*
 
 ---
 
@@ -69,7 +69,7 @@ Agent John n'est pas une simple boîte de dialogue. Il s'agit d'une **force capa
 2. **Cockpit Mobile WhatsApp :** Piloter son système depuis son téléphone portable pour valider des propositions, recevoir des alertes prioritaires ou organiser ses tâches.
 3. **Annuaire Souverain Protégé :** Gérer ses contacts en toute sécurité avec des niveaux de confiance personnalisés.
 4. **Démultiplication Éditoriale :** Préparer automatiquement des ébauches d'articles, de publications ou de vidéos sans passer des heures aux tâches répétitives.
-5. **Mémoire Longue Durée :** Conserver la mémoire des échanges importants et structurer les connaissances au fil des années.
+5. **Mémoire Longue Durée :** Conserve la mémoire des échanges importants et structurer les connaissances au fil des années.
 
 ---
 
@@ -77,14 +77,14 @@ Agent John n'est pas une simple boîte de dialogue. Il s'agit d'une **force capa
 
 Vous pouvez dès à présent découvrir nos travaux et échanger avec l'Agent John :
 
-* **L'Agent John (Jumeau Numérique Souverain) :** [https://jhn.baronsmariani.com](https://jhn.baronsmariani.com)  
-  *La page officielle et l'interface Web d'Agent John.*
+* **[Accéder à la page officielle d'Agent John](https://jhn.baronsmariani.com)**  
+  *Découvrez l'interface Web et l'identité souveraine d'Agent John.*
 
-* **Vitrine & Offre Commerciale FractaVolta :** [https://fractavolta.com](https://fractavolta.com)  
-  *La vitrine présentant nos solutions d'hébergement souverain et d'orchestration de jumeaux numériques, avec l'expérience conversationnelle John intégrée.*
+* **[Découvrir la vitrine officielle FractaVolta](https://fractavolta.com)**  
+  *Découvrez notre offre commerciale d'hébergement souverain et d'orchestration de jumeaux numériques, avec l'expérience conversationnelle John intégrée.*
 
-* **Portail R&D & UX Cogentia :** [https://cogentia.fractavolta.com](https://cogentia.fractavolta.com)  
-  *Le portail de recherche et l'interface conversationnelle pour explorer nos travaux.*
+* **[Explorer le portail de recherche Cogentia](https://cogentia.fractavolta.com)**  
+  *Accédez au portail de recherche et à l'interface conversationnelle R&D pour interroger notre corpus.*
 
 ---
 
@@ -98,6 +98,6 @@ Agent John commence à peine sa vie. C'est un nouveau-né. Mais il est éveillé
 
 ### 📚 Pour aller plus loin & Remonter à la Source
 
-* **[Document Source Canonique : Agent John (JHN) sur GitHub](https://github.com/JeanHuguesRobert/JeanHuguesRobert/blob/main/twin/AGENT_JOHN_FR.md)** — Le document d'origine dont cet article est la déclinaison éditoriale.
-* **[Le Manifeste du Possibilisme](https://github.com/JeanHuguesRobert/JeanHuguesRobert/blob/main/POSSIBILISM.md)** — Déclaration philosophique sur l'exploration joyeuse des possibles et l’augmentation de la capacité humaine.
-* **[Les Formules Opérationnelles](https://github.com/JeanHuguesRobert/JeanHuguesRobert/blob/main/research/operational_formulas.md)** — Principes de sécurité cognitive et de non-captation.
+* **[Consulter la documentation source d'Agent John sur GitHub](https://github.com/JeanHuguesRobert/JeanHuguesRobert/blob/main/twin/AGENT_JOHN_FR.md)** — Le document d'origine dont cet article est la déclinaison éditoriale.
+* **[Lire le Manifeste du Possibilisme sur GitHub](https://github.com/JeanHuguesRobert/JeanHuguesRobert/blob/main/POSSIBILISM.md)** — Déclaration philosophique sur l'exploration joyeuse des possibles.
+* **[Découvrir les Formules Opérationnelles sur GitHub](https://github.com/JeanHuguesRobert/JeanHuguesRobert/blob/main/research/operational_formulas.md)** — Principes de sécurité cognitive et de non-captation.
