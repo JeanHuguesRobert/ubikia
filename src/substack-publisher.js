@@ -235,9 +235,10 @@ export function markdownToProseMirrorDoc(markdown) {
  */
 export function markdownToSubstackHtml(markdown) {
   let html = String(markdown || "")
-    .replace(/^# (.*$)/gim, "<h1>$1</h1>")
-    .replace(/^## (.*$)/gim, "<h2>$1</h2>")
     .replace(/^### (.*$)/gim, "<h3>$1</h3>")
+    .replace(/^## (.*$)/gim, "<h2>$1</h2>")
+    .replace(/^# (.*$)/gim, "<h1>$1</h1>")
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>')
     .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
     .replace(/\*(.*?)\*/g, "<em>$1</em>")
     .replace(/^>\s*(.*$)/gim, "<blockquote>$1</blockquote>")
