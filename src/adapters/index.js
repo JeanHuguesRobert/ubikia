@@ -8,6 +8,22 @@
  */
 
 import { createSubstackDraft } from "../substack-publisher.js";
+import { loadSupabaseVaultConfig } from "../supabase-vault.js";
+
+/**
+ * Resolve configuration object by merging process.env with Supabase instance_config Vault.
+ */
+export async function resolveConfig(env = process.env) {
+  const vaultMap = await loadSupabaseVaultConfig();
+  const merged = { ...vaultMap };
+  for (const k of Object.keys(env)) {
+    if (env[k] !== undefined) {
+      merged[k] = env[k];
+      merged[k.toLowerCase()] = env[k];
+    }
+  }
+  return merged;
+}
 
 /**
  * Registry of supported blogging platform adapters.
@@ -18,9 +34,12 @@ export const ADAPTERS = {
     type: "http_api",
     requiresEnv: ["SUBSTACK_SUBDOMAIN", "SUBSTACK_SID"],
     async createDraft(parsedPublication, env = process.env) {
+      const cfg = await resolveConfig(env);
+      const subdomain = cfg.SUBSTACK_SUBDOMAIN || cfg.substack_subdomain;
+      const sid = cfg.SUBSTACK_SID || cfg.substack_sid;
       return createSubstackDraft({
-        subdomain: env.SUBSTACK_SUBDOMAIN,
-        sessionCookie: env.SUBSTACK_SID,
+        subdomain,
+        sessionCookie: sid,
         title: parsedPublication.title,
         subtitle: parsedPublication.subtitle,
         markdownBody: parsedPublication.body,
@@ -33,9 +52,10 @@ export const ADAPTERS = {
     type: "admin_api",
     requiresEnv: ["GHOST_URL", "GHOST_ADMIN_API_KEY"],
     async createDraft(parsedPublication, env = process.env) {
-      // Ghost Admin REST API endpoint: POST /ghost/api/admin/posts/
-      const baseUrl = env.GHOST_URL?.replace(/\/$/, "");
-      if (!baseUrl || !env.GHOST_ADMIN_API_KEY) {
+      const cfg = await resolveConfig(env);
+      const baseUrl = (cfg.GHOST_URL || cfg.ghost_url)?.replace(/\/$/, "");
+      const apiKey = cfg.GHOST_ADMIN_API_KEY || cfg.ghost_admin_api_key;
+      if (!baseUrl || !apiKey) {
         return { ok: false, error: "Missing GHOST_URL or GHOST_ADMIN_API_KEY" };
       }
       try {
@@ -43,7 +63,7 @@ export const ADAPTERS = {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Ghost ${env.GHOST_ADMIN_API_KEY}`,
+            Authorization: `Ghost ${apiKey}`,
           },
           body: JSON.stringify({
             posts: [
@@ -76,11 +96,14 @@ export const ADAPTERS = {
     type: "rest_api",
     requiresEnv: ["WORDPRESS_URL", "WORDPRESS_USER", "WORDPRESS_APP_PASSWORD"],
     async createDraft(parsedPublication, env = process.env) {
-      const baseUrl = env.WORDPRESS_URL?.replace(/\/$/, "");
-      if (!baseUrl || !env.WORDPRESS_USER || !env.WORDPRESS_APP_PASSWORD) {
+      const cfg = await resolveConfig(env);
+      const baseUrl = (cfg.WORDPRESS_URL || cfg.wordpress_url)?.replace(/\/$/, "");
+      const user = cfg.WORDPRESS_USER || cfg.wordpress_user;
+      const pass = cfg.WORDPRESS_APP_PASSWORD || cfg.wordpress_app_password;
+      if (!baseUrl || !user || !pass) {
         return { ok: false, error: "Missing WORDPRESS_URL, WORDPRESS_USER or WORDPRESS_APP_PASSWORD" };
       }
-      const authHeader = "Basic " + Buffer.from(`${env.WORDPRESS_USER}:${env.WORDPRESS_APP_PASSWORD}`).toString("base64");
+      const authHeader = "Basic " + Buffer.from(`${user}:${pass}`).toString("base64");
       try {
         const res = await fetch(`${baseUrl}/wp-json/wp/v2/posts`, {
           method: "POST",
@@ -114,13 +137,15 @@ export const ADAPTERS = {
     type: "rest_api",
     requiresEnv: ["DEVTO_API_KEY"],
     async createDraft(parsedPublication, env = process.env) {
-      if (!env.DEVTO_API_KEY) return { ok: false, error: "Missing DEVTO_API_KEY" };
+      const cfg = await resolveConfig(env);
+      const apiKey = cfg.DEVTO_API_KEY || cfg.devto_api_key;
+      if (!apiKey) return { ok: false, error: "Missing DEVTO_API_KEY" };
       try {
         const res = await fetch("https://dev.to/api/articles", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "api-key": env.DEVTO_API_KEY,
+            "api-key": apiKey,
           },
           body: JSON.stringify({
             article: {
@@ -150,14 +175,17 @@ export const ADAPTERS = {
     type: "rest_api",
     requiresEnv: ["TUMBLR_BLOG_IDENTIFIER", "TUMBLR_OAUTH_TOKEN"],
     async createDraft(parsedPublication, env = process.env) {
-      const blogId = (env.TUMBLR_BLOG_IDENTIFIER || "virteal.tumblr.com").replace(/\.tumblr\.com$/, "");
-      if (!env.TUMBLR_OAUTH_TOKEN) return { ok: false, error: "Missing TUMBLR_OAUTH_TOKEN" };
+      const cfg = await resolveConfig(env);
+      const rawBlogId = cfg.TUMBLR_BLOG_IDENTIFIER || cfg.tumblr_blog_identifier || "virteal.tumblr.com";
+      const blogId = rawBlogId.replace(/\.tumblr\.com$/, "");
+      const token = cfg.TUMBLR_OAUTH_TOKEN || cfg.tumblr_oauth_token;
+      if (!token) return { ok: false, error: "Missing TUMBLR_OAUTH_TOKEN" };
       try {
         const res = await fetch(`https://api.tumblr.com/v2/blog/${blogId}.tumblr.com/post`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${env.TUMBLR_OAUTH_TOKEN}`,
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
             type: "text",
