@@ -31,6 +31,8 @@ tags:
 *Les carnets du baron Mariani — Par Jean Hugues Noël Robert*  
 *Corte, le 9 août 2026*
 
+*📌 Cet article est un produit décliné du document source canonique : [Agent John (JHN) — Présentation et Capacités du Jumeau Numérique](https://github.com/JeanHuguesRobert/JeanHuguesRobert/blob/main/twin/AGENT_JOHN_FR.md).*
+
 ---
 
 Aujourd'hui marque une étape décisive dans les travaux menés depuis Corte au sein de l'Institut Mariani et de l'association **C.O.R.S.I.C.A.**.
@@ -94,9 +96,8 @@ Agent John commence à peine sa vie. C'est un nouveau-né. Mais il est éveillé
 
 ---
 
-### 📚 Pour aller plus loin
+### 📚 Pour aller plus loin & Remonter à la Source
 
-Pour les lecteurs souhaitant approfondir les concepts philosophiques et techniques abordés dans cet article :
-* **[La documentation complète d'Agent John sur GitHub](https://github.com/JeanHuguesRobert/JeanHuguesRobert/blob/main/twin/AGENT_JOHN_FR.md)** — Présentation détaillée de l'architecture et des capacités.
+* **[Document Source Canonique : Agent John (JHN) sur GitHub](https://github.com/JeanHuguesRobert/JeanHuguesRobert/blob/main/twin/AGENT_JOHN_FR.md)** — Le document d'origine dont cet article est la déclinaison éditoriale.
 * **[Le Manifeste du Possibilisme](https://github.com/JeanHuguesRobert/JeanHuguesRobert/blob/main/POSSIBILISM.md)** — Déclaration philosophique sur l'exploration joyeuse des possibles et l’augmentation de la capacité humaine.
 * **[Les Formules Opérationnelles](https://github.com/JeanHuguesRobert/JeanHuguesRobert/blob/main/research/operational_formulas.md)** — Principes de sécurité cognitive et de non-captation.
