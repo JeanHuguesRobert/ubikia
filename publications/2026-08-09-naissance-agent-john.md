@@ -1,8 +1,10 @@
 ---
 title: "La Naissance d'Agent John : Un Jumeau Numérique Souverain pour sortir de la Captation Cognitive"
-description: "Annonce officielle de la naissance d'Agent John, premier jumeau numérique personnel souverain développé à Corte selon la doctrine du Possibilisme."
+subtitle: "Les carnets du baron Mariani"
+description: "Annonce officielle de la naissance d'Agent John dans 'Les carnets du baron Mariani', premier jumeau numérique personnel souverain développé à Corte selon la doctrine du Possibilisme."
 author: "Jean Hugues Noël Robert, baron Mariani"
 affiliation: "Institut Mariani — émanation R&D de C.O.R.S.I.C.A., 1 cours Paoli, F-20250 Corte, Corsica"
+publication: "Les carnets du baron Mariani"
 date: "2026-08-09"
 status: "published"
 document_role: "derived-product"
@@ -15,6 +17,7 @@ provenance:
   derivation_framework: "Ubikia — Derive without betraying"
 tags:
   - Agent John
+  - Les carnets du baron Mariani
   - Ubikia
   - Jumeau Numérique
   - AI Safety
@@ -25,7 +28,7 @@ tags:
 
 # La Naissance d'Agent John : Un Jumeau Numérique Souverain pour sortir de la Captation Cognitive
 
-*Par Jean Hugues Noël Robert, baron Mariani*  
+*Les carnets du baron Mariani — Par Jean Hugues Noël Robert*  
 *Corte, le 9 août 2026*
 
 ---
@@ -90,4 +93,4 @@ Vous pouvez dès à présent interagir avec l'Agent John et nos environnements e
 
 Agent John est mon jumeau personnel pionnier. Mais l'objectif ultime de cette recherche est la **démocratisation** : permettre à chaque citoyen, chercheur, élu ou association de déployer son propre jumeau numérique autonome, sur son propre matériel, garantissant ainsi une **symétrie cognitive** face aux grands monopoles.
 
-Agent John commence à peine sa vie. C me un nouveau-né. Mais il est éveillé, connecté 24h/24 sur notre infrastructure souveraine (Fracta VPS), et prêt à nous aider à explorer joyeusement le champ des possibles.
+Agent John commence à peine sa vie. C'est un nouveau-né. Mais il est éveillé, connecté 24h/24 sur notre infrastructure souveraine (Fracta VPS), et prêt à nous aider à explorer joyeusement le champ des possibles.
