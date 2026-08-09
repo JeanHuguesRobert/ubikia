@@ -144,6 +144,42 @@ export const ADAPTERS = {
       }
     },
   },
+
+  tumblr: {
+    name: "Tumblr Micro-blogging",
+    type: "rest_api",
+    requiresEnv: ["TUMBLR_BLOG_IDENTIFIER", "TUMBLR_OAUTH_TOKEN"],
+    async createDraft(parsedPublication, env = process.env) {
+      const blogId = (env.TUMBLR_BLOG_IDENTIFIER || "virteal.tumblr.com").replace(/\.tumblr\.com$/, "");
+      if (!env.TUMBLR_OAUTH_TOKEN) return { ok: false, error: "Missing TUMBLR_OAUTH_TOKEN" };
+      try {
+        const res = await fetch(`https://api.tumblr.com/v2/blog/${blogId}.tumblr.com/post`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${env.TUMBLR_OAUTH_TOKEN}`,
+          },
+          body: JSON.stringify({
+            type: "text",
+            title: parsedPublication.title,
+            body: parsedPublication.body,
+            state: "draft", // DHITL compliant draft!
+          }),
+        });
+        if (!res.ok) return { ok: false, error: `Tumblr API HTTP ${res.status}` };
+        const data = await res.json();
+        const postId = data.response?.id;
+        return {
+          ok: true,
+          draft_id: postId,
+          edit_url: `https://www.tumblr.com/blog/view/${blogId}/drafts`,
+          data,
+        };
+      } catch (err) {
+        return { ok: false, error: `Tumblr draft creation failed: ${err.message}` };
+      }
+    },
+  },
 };
 
 /**
