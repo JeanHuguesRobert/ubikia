@@ -31,7 +31,7 @@ tags:
 *Les carnets du baron Mariani — Par Jean Hugues Noël Robert*  
 *Corte, le 9 août 2026*
 
-*📌 Cet article est un produit décliné de la documentation source : [Consulter la présentation et les capacités d'Agent John](https://github.com/JeanHuguesRobert/JeanHuguesRobert/blob/main/twin/AGENT_JOHN_FR.md).*
+📌 *Cet article est un produit décliné de la documentation source :* [Consulter la présentation et les capacités d'Agent John](https://github.com/JeanHuguesRobert/JeanHuguesRobert/blob/main/twin/AGENT_JOHN_FR.md).
 
 ---
 
@@ -57,7 +57,7 @@ Dans le film culte de Ridley Scott (*Alien*), la vitesse de croissance de la cr�
 
 Cette vélocité exceptionnelle nous autorise à espérer qu'Agent John atteindra très vite l'« âge adulte ». Notre horizon est d'ores et déjà fixé : **le Noël prochain**.
 
-À cette échéance, chacun pourrait disposer de son propre Agent John personnel. Un jumeau numérique souverain qui fonctionnerait un peu comme un **« Père Noël pour adultes »** : il suffira de lui exprimer des souhaits, et il s'efforcera de les réaliser avec l'aide des « petits lutins » logiciels qui s'activent dans son atelier — selon le modèle d'orchestration décrit dans notre étude consacrée à la fabrique du Père Noël et ses lutins.
+À cette échéance, chacun pourrait disposer de son propre Agent John personnel. Un jumeau numérique souverain qui fonctionnerait un peu comme un **« Père Noël pour adultes »** : il suffira de lui exprimer des souhaits, et il s'efforce de les réaliser avec l'aide des « petits lutins » logiciels qui s'activent dans son atelier — selon le modèle d'orchestration décrit dans notre étude consacrée à la fabrique du Père Noël et ses lutins.
 
 ---
 
@@ -75,7 +75,7 @@ La plupart des grands acteurs de la Tech construisent des IA centralisées qui c
 
 Agent John n'est pas une simple boîte de dialogue. Il s'agit d'une **force capacitaire complète** au service du quotidien :
 
-1. **Recherche Documentaire Citable :** Retrouver instantanément une information dans des milliers de documents avec la source exacte et la ligne précise.
+1. **Recherche Documentaire Citable :** Retrouver instantanément une information dans des meilliers de documents avec la source exacte et la ligne précise.
 2. **Cockpit Mobile WhatsApp :** Piloter son système depuis son téléphone portable pour valider des propositions, recevoir des alertes prioritaires ou organiser ses tâches.
 3. **Annuaire Souverain Protégé :** Gérer ses contacts en toute sécurité avec des niveaux de confiance personnalisés.
 4. **Démultiplication Éditoriale :** Préparer automatiquement des ébauches d'articles, de publications ou de vidéos sans passer des heures aux tâches répétitives.
