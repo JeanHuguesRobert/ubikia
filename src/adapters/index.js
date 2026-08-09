@@ -8,13 +8,13 @@
  */
 
 import { createSubstackDraft } from "../substack-publisher.js";
-import { loadSupabaseVaultConfig } from "../supabase-vault.js";
+import { loadTwinVaultConfig } from "../supabase-vault.js";
 
 /**
  * Resolve configuration object by merging process.env with Supabase instance_config Vault.
  */
 export async function resolveConfig(env = process.env) {
-  const vaultMap = await loadSupabaseVaultConfig();
+  const vaultMap = await loadTwinVaultConfig();
   const merged = { ...vaultMap };
   for (const k of Object.keys(env)) {
     if (env[k] !== undefined) {
