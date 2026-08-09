@@ -39,8 +39,150 @@ export function parseMarkdownPublication(filePath) {
 }
 
 /**
- * Convert plain Markdown body into Substack-compatible HTML / Doc node.
- * Substack draft API accepts raw HTML string under `draft_body` or `draft_html`.
+ * Parse inline Markdown formatting (**bold**, *italic*, `code`, [link](url))
+ * into Substack ProseMirror text nodes with marks.
+ */
+export function parseFormattedInline(text) {
+  if (!text) return [];
+  const nodes = [];
+  const regex = /(\*\*(.*?)\*\*|\*(.*?)\*|\[(.*?)\]\((.*?)\)|`(.*?)`)/g;
+  let lastIndex = 0;
+  let match;
+
+  while ((match = regex.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      nodes.push({ type: "text", text: text.slice(lastIndex, match.index) });
+    }
+    const full = match[0];
+    if (full.startsWith("**")) {
+      nodes.push({ type: "text", text: match[2], marks: [{ type: "strong" }] });
+    } else if (full.startsWith("*")) {
+      nodes.push({ type: "text", text: match[3], marks: [{ type: "em" }] });
+    } else if (full.startsWith("`")) {
+      nodes.push({ type: "text", text: match[6], marks: [{ type: "code" }] });
+    } else if (full.startsWith("[")) {
+      nodes.push({
+        type: "text",
+        text: match[4],
+        marks: [{ type: "link", attrs: { href: match[5] } }],
+      });
+    }
+    lastIndex = regex.lastIndex;
+  }
+
+  if (lastIndex < text.length) {
+    nodes.push({ type: "text", text: text.slice(lastIndex) });
+  }
+
+  return nodes.length > 0 ? nodes : [{ type: "text", text }];
+}
+
+/**
+ * Convert Markdown text into Substack ProseMirror JSON AST document structure.
+ */
+export function markdownToProseMirrorDoc(markdown) {
+  const lines = String(markdown || "").split(/\r?\n/);
+  const content = [];
+  let currentList = null;
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i].trim();
+
+    if (!line) {
+      if (currentList) {
+        content.push(currentList);
+        currentList = null;
+      }
+      continue;
+    }
+
+    // Horizontal Rule: --- or ***
+    if (line === "---" || line === "***" || line === "___") {
+      if (currentList) {
+        content.push(currentList);
+        currentList = null;
+      }
+      content.push({ type: "horizontal_rule" });
+      continue;
+    }
+
+    // Headings: #, ##, ###
+    const headingMatch = line.match(/^(#{1,6})\s+(.*)$/);
+    if (headingMatch) {
+      if (currentList) {
+        content.push(currentList);
+        currentList = null;
+      }
+      const level = Math.min(headingMatch[1].length, 3);
+      content.push({
+        type: "heading",
+        attrs: { level },
+        content: parseFormattedInline(headingMatch[2]),
+      });
+      continue;
+    }
+
+    // Blockquote: > text
+    if (line.startsWith(">")) {
+      if (currentList) {
+        content.push(currentList);
+        currentList = null;
+      }
+      const quoteText = line.replace(/^>\s*/, "");
+      content.push({
+        type: "blockquote",
+        content: [
+          {
+            type: "paragraph",
+            content: parseFormattedInline(quoteText),
+          },
+        ],
+      });
+      continue;
+    }
+
+    // Bullet List Items: * item, - item, + item
+    const listMatch = line.match(/^[\*\-\+]\s+(.*)$/);
+    if (listMatch) {
+      if (!currentList) {
+        currentList = { type: "bullet_list", content: [] };
+      }
+      currentList.content.push({
+        type: "list_item",
+        content: [
+          {
+            type: "paragraph",
+            content: parseFormattedInline(listMatch[1]),
+          },
+        ],
+      });
+      continue;
+    }
+
+    // Regular Paragraph
+    if (currentList) {
+      content.push(currentList);
+      currentList = null;
+    }
+
+    content.push({
+      type: "paragraph",
+      content: parseFormattedInline(line),
+    });
+  }
+
+  if (currentList) {
+    content.push(currentList);
+  }
+
+  return {
+    type: "doc",
+    content: content.length > 0 ? content : [{ type: "paragraph", content: [{ type: "text", text: "" }] }],
+  };
+}
+
+/**
+ * Convert plain Markdown body into Substack-compatible HTML.
  */
 export function markdownToSubstackHtml(markdown) {
   let html = String(markdown || "")
@@ -76,21 +218,14 @@ export async function createSubstackDraft(options = {}) {
   const baseUrl = `https://${activeSubdomain.replace(/\.substack\.com$/, "")}.substack.com`;
   const draftEndpoint = `${baseUrl}/api/v1/drafts`;
   const htmlContent = markdownToSubstackHtml(markdownBody);
+  const proseMirrorDoc = markdownToProseMirrorDoc(markdownBody);
 
   const decodedCookie = decodeURIComponent(sessionCookie.trim());
 
   const payload = {
     draft_title: title,
     draft_subtitle: subtitle,
-    draft_body: JSON.stringify({
-      type: "doc",
-      content: [
-        {
-          type: "paragraph",
-          content: [{ type: "text", text: markdownBody }],
-        },
-      ],
-    }),
+    draft_body: JSON.stringify(proseMirrorDoc),
     draft_html: htmlContent,
     draft_bylines: [],
     type: "newsletter",
