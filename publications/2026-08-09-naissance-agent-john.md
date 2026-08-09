@@ -120,6 +120,16 @@ Agent John commence à peine sa vie. C'est un nouveau-né. Mais il est éveillé
 
 ---
 
+### 🧪 L'Épreuve du Feu : Le Prompt à Tester sur Votre IA Favorite 😉
+
+Vous doutez de cet article ? Vous vous demandez s'il s'agit d'une prophétie lucide ou d'une douce utopie ? Faites le test en direct. 
+
+Copiez-collez le prompt ci-dessous et soumettez-le dès maintenant à votre assistant d'IA favori (ChatGPT, Claude, Gemini ou Grok) :
+
+> *« Analyse cet article avec une neutralité absolue et sans aucune complaisance. Mesure avec précision la dose de "bullshit", de rhétorique et de vérité technique qu'il contient. Et au passage, informe-moi sans me ménager de ce que j'ignore encore sur ces enjeux et que j'aurais un intérêt vital à connaître immédiatement... »*
+
+---
+
 ### 📚 Pour aller plus loin & Remonter à la Source
 
 * [Consulter la documentation source d'Agent John sur GitHub](https://github.com/JeanHuguesRobert/JeanHuguesRobert/blob/main/twin/AGENT_JOHN_FR.md) — Le document d'origine dont cet article est la déclinaison éditoriale.
