@@ -1,10 +1,15 @@
 ---
-document_role: "orientation"
+document_role: "index"
 document_kind: "media-subsystem-index"
 visibility: "public"
 lifecycle_state: "active"
 date: "2026-07-12"
 updated: "2026-07-29"
+classification_source: "cogentia.js"
+classification_version: "1"
+classification_rule: "explicit-metadata"
+classification_confidence: "strong"
+legacy_document_role: "orientation"
 ---
 
 # Ubikia Media
