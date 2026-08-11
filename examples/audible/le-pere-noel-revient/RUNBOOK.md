@@ -1,3 +1,14 @@
+---
+document_role: "example"
+document_kind: "example"
+visibility: "public"
+lifecycle_state: "active"
+classification_source: "cogentia.js"
+classification_version: "1"
+classification_rule: "example"
+classification_confidence: "strong"
+---
+
 # Runbook — reference episode `le-pere-noel-revient`
 
 Governed dry-run and real local run for issue #17.  

@@ -16,6 +16,10 @@ related_documents:
   - "ubikia/publications/ledger/publications.json"
   - "ubikia/research/publication_registry_exploration.md"
   - "ubikia/AGENTS.md"
+classification_source: "cogentia.js"
+classification_version: "1"
+classification_rule: "explicit-metadata"
+classification_confidence: "medium"
 ---
 
 # Audible stable baseline and deferred continuations

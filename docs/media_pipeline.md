@@ -13,6 +13,10 @@ related_documents:
   - "docs/publication_layer.md"
   - "docs/media_mvp_implementation_plan.md"
   - "docs/media_agent_runbook.md"
+classification_source: "cogentia.js"
+classification_version: "1"
+classification_rule: "explicit-metadata"
+classification_confidence: "medium"
 ---
 
 # Ubikia Media

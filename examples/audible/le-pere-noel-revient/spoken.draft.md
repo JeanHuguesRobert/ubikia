@@ -1,3 +1,14 @@
+---
+document_role: "example"
+document_kind: "example"
+visibility: "public"
+lifecycle_state: "working"
+classification_source: "cogentia.js"
+classification_version: "1"
+classification_rule: "example"
+classification_confidence: "strong"
+---
+
 Vous écoutez Les carnets du baron Mariani, édition audio.
 
 Le texte source s’intitule : « Le Père Noël revient — et cette fois, il aide les adultes. »

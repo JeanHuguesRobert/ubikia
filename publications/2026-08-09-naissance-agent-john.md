@@ -24,6 +24,12 @@ tags:
   - Possibilisme
   - DHITL
   - Corsica
+lifecycle_state: "stable"
+classification_source: "cogentia.js"
+classification_version: "1"
+classification_rule: "explicit-metadata"
+classification_confidence: "strong"
+legacy_document_role: "derived-product"
 ---
 
 # L'Éveil d'Agent John : Naissance d'une IA Souveraine au Cœur de la Corse

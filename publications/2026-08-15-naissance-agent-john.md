@@ -8,6 +8,14 @@ place: "Corte"
 version: "v2 — révision éditoriale"
 status: draft
 source_document: "Documentation Agent John (GitHub)"
+document_role: "source"
+document_kind: "public-essay"
+visibility: "public"
+lifecycle_state: "working"
+classification_source: "cogentia.js"
+classification_version: "1"
+classification_rule: "public-essay"
+classification_confidence: "strong"
 ---
 
 # L'éveil d'Agent John

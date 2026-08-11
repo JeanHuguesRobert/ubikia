@@ -10,6 +10,10 @@ related_documents:
   - "AGENTS.md"
   - "docs/media_pipeline.md"
   - "docs/media_mvp_implementation_plan.md"
+classification_source: "cogentia.js"
+classification_version: "1"
+classification_rule: "explicit-metadata"
+classification_confidence: "medium"
 ---
 
 # Ubikia Media — Coding-Agent Runbook

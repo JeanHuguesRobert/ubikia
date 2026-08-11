@@ -12,6 +12,10 @@ related_documents:
   - "docs/media_agent_runbook.md"
   - "schemas/media_project.schema.yaml"
   - "schemas/media_artifact.schema.yaml"
+classification_source: "cogentia.js"
+classification_version: "1"
+classification_rule: "explicit-metadata"
+classification_confidence: "medium"
 ---
 
 # Ubikia Media MVP — Detailed Implementation Plan

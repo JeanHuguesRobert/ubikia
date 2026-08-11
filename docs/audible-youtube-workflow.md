@@ -1,3 +1,14 @@
+---
+document_role: "operational"
+document_kind: "documentation"
+visibility: "public"
+lifecycle_state: "active"
+classification_source: "cogentia.js"
+classification_version: "1"
+classification_rule: "documentation"
+classification_confidence: "medium"
+---
+
 # Governed audible publication to YouTube
 
 This workflow turns a versioned written source into a reviewed audio edition, a YouTube-ready video, and a recorded publication result.

@@ -14,6 +14,14 @@ reviewed_by: null
 reviewed_at: null
 publication_target: "podcast and audiovisual essay"
 synthetic_voice_disclosure_required: true
+document_role: "example"
+document_kind: "example"
+visibility: "public"
+lifecycle_state: "working"
+classification_source: "cogentia.js"
+classification_version: "1"
+classification_rule: "example"
+classification_confidence: "strong"
 ---
 
 <!-- media:chapter="Ouverture" -->

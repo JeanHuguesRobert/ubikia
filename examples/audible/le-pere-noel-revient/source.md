@@ -30,6 +30,10 @@ tags:
   - Babbu Natale
   - imagination
   - autonomie de capacité
+classification_source: "cogentia.js"
+classification_version: "1"
+classification_rule: "explicit-metadata"
+classification_confidence: "strong"
 ---
 
 # Le Père Noël revient — et cette fois, il aide les adultes

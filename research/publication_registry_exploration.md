@@ -18,6 +18,10 @@ continuations:
   - "multi-platform registry views"
   - "optional GitHub issue/project sync"
   - "return-to-corpus from appearances"
+classification_source: "cogentia.js"
+classification_version: "1"
+classification_rule: "explicit-metadata"
+classification_confidence: "medium"
 ---
 
 # Publication registry exploration
