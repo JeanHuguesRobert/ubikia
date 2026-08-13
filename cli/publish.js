@@ -13,7 +13,7 @@
 import path from "node:path";
 import process from "node:process";
 import { parseMarkdownPublication } from "../src/substack-publisher.js";
-import { ADAPTERS, getAvailableAdapters } from "../src/adapters/index.js";
+import { ADAPTERS, getAvailableAdapters, resolveConfig } from "../src/adapters/index.js";
 import { clearTwinVaultCache } from "../src/supabase-vault.js";
 
 function parseArgs(argv) {
@@ -64,9 +64,10 @@ async function main() {
     }
 
     console.log(`\n--- Publishing Draft to ${adapter.name} (${t}) ---`);
-    const missingEnv = (adapter.requiresEnv || []).filter((e) => !process.env[e]);
-    if (missingEnv.length > 0) {
-      console.log(`[skip] Missing environment variables for ${adapter.name}: ${missingEnv.join(", ")}`);
+    const cfg = await resolveConfig(process.env);
+    const missingKeys = (adapter.requiresEnv || []).filter((e) => !cfg[e] && !cfg[e.toLowerCase()]);
+    if (missingKeys.length > 0) {
+      console.log(`[skip] Missing environment / Vault keys for ${adapter.name}: ${missingKeys.join(", ")}`);
       continue;
     }
 

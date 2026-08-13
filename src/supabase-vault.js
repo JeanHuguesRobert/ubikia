@@ -11,8 +11,17 @@
  * - `is_public`: boolean
  */
 
-const SUPABASE_URL = process.env.SUPABASE_URL || "https://ndiysuhzmztatpxbkezn.supabase.co";
-const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY;
+import fs from "node:fs";
+import path from "node:path";
+
+export function getSupabaseCredentials() {
+  const defaultJhnUrl = "https://ndiysuhzmztatpxbkezn.supabase.co";
+
+  let url = (process.env.SUPABASE_URL || defaultJhnUrl).trim();
+  let key = (process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || "").trim();
+
+  return { url, key };
+}
 
 let _vaultCache = null;
 let _vaultCacheTimestamp = 0;
@@ -44,11 +53,13 @@ export async function loadTwinVaultConfig(options = {}) {
     return _vaultCache;
   }
 
-  if (!SUPABASE_URL || !SUPABASE_KEY) {
+  const { url: supabaseUrl, key: serviceKey } = getSupabaseCredentials();
+
+  if (!supabaseUrl || !serviceKey) {
     return _vaultCache || {};
   }
 
-  let endpoint = `${SUPABASE_URL.replace(/\/$/, "")}/rest/v1/instance_config?select=key,value,category,is_secret`;
+  let endpoint = `${supabaseUrl.replace(/\/$/, "")}/rest/v1/instance_config?select=key,value,category,is_secret&limit=1000`;
   if (options.category) {
     endpoint += `&category=eq.${encodeURIComponent(options.category)}`;
   }
@@ -57,8 +68,8 @@ export async function loadTwinVaultConfig(options = {}) {
     const res = await fetch(endpoint, {
       method: "GET",
       headers: {
-        apikey: SUPABASE_KEY,
-        Authorization: `Bearer ${SUPABASE_KEY}`,
+        apikey: serviceKey,
+        Authorization: `Bearer ${serviceKey}`,
       },
     });
 
@@ -90,11 +101,12 @@ export async function loadTwinVaultConfig(options = {}) {
  * @param {object} [meta] - Metadata (category, is_secret, description)
  */
 export async function setTwinVaultSecret(key, value, meta = {}) {
-  if (!SUPABASE_URL || !SUPABASE_KEY) {
+  const { url: supabaseUrl, key: serviceKey } = getSupabaseCredentials();
+  if (!supabaseUrl || !serviceKey) {
     return { ok: false, error: "Supabase URL or Key missing in environment" };
   }
 
-  const endpoint = `${SUPABASE_URL.replace(/\/$/, "")}/rest/v1/instance_config`;
+  const endpoint = `${supabaseUrl.replace(/\/$/, "")}/rest/v1/instance_config`;
   const payload = {
     key: key.toLowerCase(),
     value: String(value),
@@ -110,8 +122,8 @@ export async function setTwinVaultSecret(key, value, meta = {}) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        apikey: SUPABASE_KEY,
-        Authorization: `Bearer ${SUPABASE_KEY}`,
+        apikey: serviceKey,
+        Authorization: `Bearer ${serviceKey}`,
         Prefer: "resolution=merge-duplicates",
       },
       body: JSON.stringify(payload),
