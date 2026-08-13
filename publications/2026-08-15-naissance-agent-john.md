@@ -113,24 +113,37 @@ Aujourd'hui, John tourne sur notre infrastructure, à Corte, sous mon contrôle.
 
 Agent John n'est pas une boîte de dialogue. C'est une force capacitaire.
 
-**Aujourd'hui** <!-- AGENT : ne conserver dans cette liste que ce qui est démontrable maintenant -->
+**Aujourd'hui** <!-- vérifié en direct le 13 août 2026 : Guide public 200, eval de fidélité 5/5, tests WhatsApp 28/28, façade Olé Olé 200 -->
 
 - **Recherche documentaire citable** — retrouver une information dans des milliers de documents, avec la source exacte et la ligne précise.
-- **Cockpit mobile WhatsApp** — piloter le système depuis un téléphone : valider des propositions, recevoir les alertes prioritaires, organiser ses tâches.
-- **Annuaire souverain protégé** — gérer ses contacts avec des niveaux de confiance personnalisés.
+- **Cockpit mobile WhatsApp** — piloter le système en chat privé avec moi-même depuis un téléphone, avec le même moteur de réponse que le Guide web (mêmes citations, même sobriété stylistique — WhatsApp appelle par défaut ce Guide, il n'a pas sa propre qualité au rabais). Depuis le téléphone : lister mes conversations, approuver ou rejeter une proposition en attente, clore un échange. Le disjoncteur mentionné plus haut passe par ce même canal.
+- **Annuaire souverain protégé** — un carnet de contacts local (pas un service tiers), à niveaux de confiance (principal, VIP, collègue, famille…), alimentable depuis un export Google Contacts.
+- **Premier service public opéré par John : Olé Olé, la Météo Sociale** — voir plus bas.
 
-**D'ici Noël** <!-- AGENT : déplacer ici tout ce qui n'est pas encore livré -->
+**D'ici Noël** <!-- déplacer ici tout ce qui n'est pas encore livré -->
 
 - **Démultiplication éditoriale** — préparer les ébauches d'articles, de publications, de vidéos, sans y passer des heures.
 - **Mémoire longue durée** — conserver la trace des échanges importants et structurer la connaissance au fil des années.
+- **Orchestration autonome multi-étapes** — que John enchaîne de lui-même plusieurs actions pour un objectif, au-delà d'approuver ou rejeter une proposition ponctuelle qu'il a préparée. Le mécanisme existe en chantier interne ; il est délibérément tenu éteint tant qu'il n'a pas passé la revue humaine.
 
 La frontière entre ces deux listes est le seul chiffre qui compte. Elle sera tenue à jour.
+
+---
+
+## Premier service opéré par John : Olé Olé, la Météo Sociale
+
+En parallèle de John lui-même, un premier service concret prend forme : **Olé Olé**, une carte de présence sociale collective en Corse — « qui bouge où, ce soir » — consultable à la carte ou par chat en langage naturel avec John.
+
+Honnêteté d'abord : c'est un **early proto**, pas le produit fini. Le nom de domaine propre (`oleole.acorsica.org`) n'est pas encore branché en DNS, la persistance multi-instance n'est pas garantie sur toutes les mises à jour, et une bannière rouge « Early proto » reste affichée sur le site. Vous pouvez néanmoins le tester dès aujourd'hui, via la façade du Twin : [jhn.baronsmariani.org/oleole][oleole].
+
+Éditeur du service : l'association **C.O.R.S.I.C.A.** Agent technique : John, sur la même infrastructure souveraine.
 
 ---
 
 ## Les points d'accès
 
 - [Accéder à la page officielle d'Agent John][page-john] — l'interface Web et l'identité souveraine.
+- [Tester Olé Olé, la Météo Sociale][oleole] — carte de présence collective en Corse, premier service opéré par John (early proto).
 - [Découvrir la vitrine officielle FractaVolta][fractavolta] — l'offre d'hébergement souverain et d'orchestration de jumeaux numériques, avec l'expérience conversationnelle John intégrée.
 - [Explorer le portail de recherche Cogentia][cogentia] — le portail R&D et l'interface conversationnelle pour interroger notre corpus.
 
@@ -182,11 +195,14 @@ Si la réponse vous inquiète, elle m'intéresse. Écrivez-moi.
 <!-- ============================================================
      LIENS — REPRENDRE À L'IDENTIQUE LES URL DE LA VERSION 1.
      Les libellés ci-dessus sont inchangés. Ne PAS inventer d'URL.
+     Exception vérifiée le 13 août 2026 : [page-john] corrigé .com→.org
+     (le .com ne résout pas) ; [oleole] ajouté, testé 200 en direct.
      ============================================================ -->
 
 [doc-source]: https://github.com/JeanHuguesRobert/JeanHuguesRobert/blob/main/twin/AGENT_JOHN_FR.md
 [fabrique-pere-noel]: https://github.com/JeanHuguesRobert/ubikia/blob/main/publications/2026-08-09-demultiplication-reseaux-sociaux-senatoriales.md
-[page-john]: https://jhn.baronsmariani.com
+[page-john]: https://jhn.baronsmariani.org
+[oleole]: https://jhn.baronsmariani.org/oleole
 [fractavolta]: https://fractavolta.com
 [cogentia]: https://cogentia.fractavolta.com
 [doc-source-github]: https://github.com/JeanHuguesRobert/JeanHuguesRobert/blob/main/twin/AGENT_JOHN_FR.md

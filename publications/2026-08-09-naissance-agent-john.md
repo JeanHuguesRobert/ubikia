@@ -7,7 +7,7 @@ affiliation: "Institut Mariani — émanation R&D de C.O.R.S.I.C.A., 1 cours Pao
 publication: "Les carnets du baron Mariani"
 date: "2026-08-09"
 status: "published"
-document_role: "derived-product"
+document_role: "derived"
 document_kind: "blog-post"
 visibility: "public"
 language: "fr"
@@ -107,7 +107,7 @@ Agent John n'est pas une simple boîte de dialogue. Il s'agit d'une **force capa
 
 Vous pouvez dès à présent découvrir nos travaux et échanger avec l'Agent John :
 
-* [Accéder à la page officielle d'Agent John](https://jhn.baronsmariani.com)  
+* [Accéder à la page officielle d'Agent John](https://jhn.baronsmariani.org)  
   *Découvrez l'interface Web et l'identité souveraine d'Agent John.*
 
 * [Découvrir la vitrine officielle FractaVolta](https://fractavolta.com)  
