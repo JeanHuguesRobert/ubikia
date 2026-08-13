@@ -113,7 +113,7 @@ Aujourd'hui, John tourne sur notre infrastructure, à Corte, sous mon contrôle.
 
 Agent John n'est pas une boîte de dialogue. C'est une force capacitaire.
 
-**Aujourd'hui** <!-- vérifié en direct le 13 août 2026 : Guide public 200, eval de fidélité 5/5, tests WhatsApp 28/28, façade Olé Olé 200 -->
+**Aujourd'hui** <!-- vérifié en direct le 13 août 2026 : Guide public 200, eval de fidélité 5/5, tests WhatsApp 28/28, oleole.acorsica.org 200 + DB durable -->
 
 - **Recherche documentaire citable** — retrouver une information dans des milliers de documents, avec la source exacte et la ligne précise.
 - **Cockpit mobile WhatsApp** — piloter le système en chat privé avec moi-même depuis un téléphone, avec le même moteur de réponse que le Guide web (mêmes citations, même sobriété stylistique — WhatsApp appelle par défaut ce Guide, il n'a pas sa propre qualité au rabais). Depuis le téléphone : lister mes conversations, approuver ou rejeter une proposition en attente, clore un échange. Le disjoncteur mentionné plus haut passe par ce même canal.
@@ -134,7 +134,7 @@ La frontière entre ces deux listes est le seul chiffre qui compte. Elle sera te
 
 En parallèle de John lui-même, un premier service concret prend forme : **Olé Olé**, une carte de présence sociale collective en Corse — « qui bouge où, ce soir » — consultable à la carte ou par chat en langage naturel avec John.
 
-Honnêteté d'abord : c'est un **early proto**, pas le produit fini. Le nom de domaine propre (`oleole.acorsica.org`) n'est pas encore branché en DNS, la persistance multi-instance n'est pas garantie sur toutes les mises à jour, et une bannière rouge « Early proto » reste affichée sur le site. Vous pouvez néanmoins le tester dès aujourd'hui, via la façade du Twin : [jhn.baronsmariani.org/oleole][oleole].
+Honnêteté d'abord : c'est un **early proto**, pas encore le produit fini — l'ingestion complète Overture/OSM reste à venir, et il n'y a pas encore de brique native pour la localisation en arrière-plan sur mobile. Mais l'essentiel a convergé et se vérifie en direct aujourd'hui : le nom de domaine propre **`oleole.acorsica.org`** est branché, et les données de présence sont stockées durablement (Supabase, confidentialité RLS activée sur chaque table), pas seulement en mémoire locale. Vous pouvez le tester dès maintenant : [oleole.acorsica.org][oleole].
 
 Éditeur du service : l'association **C.O.R.S.I.C.A.** Agent technique : John, sur la même infrastructure souveraine.
 
@@ -196,13 +196,14 @@ Si la réponse vous inquiète, elle m'intéresse. Écrivez-moi.
      LIENS — REPRENDRE À L'IDENTIQUE LES URL DE LA VERSION 1.
      Les libellés ci-dessus sont inchangés. Ne PAS inventer d'URL.
      Exception vérifiée le 13 août 2026 : [page-john] corrigé .com→.org
-     (le .com ne résout pas) ; [oleole] ajouté, testé 200 en direct.
+     (le .com ne résout pas) ; [oleole] ajouté, testé 200 en direct sur
+     son domaine canonique (DNS + persistance Supabase confirmés le 13/08).
      ============================================================ -->
 
 [doc-source]: https://github.com/JeanHuguesRobert/JeanHuguesRobert/blob/main/twin/AGENT_JOHN_FR.md
 [fabrique-pere-noel]: https://github.com/JeanHuguesRobert/ubikia/blob/main/publications/2026-08-09-demultiplication-reseaux-sociaux-senatoriales.md
 [page-john]: https://jhn.baronsmariani.org
-[oleole]: https://jhn.baronsmariani.org/oleole
+[oleole]: https://oleole.acorsica.org
 [fractavolta]: https://fractavolta.com
 [cogentia]: https://cogentia.fractavolta.com
 [doc-source-github]: https://github.com/JeanHuguesRobert/JeanHuguesRobert/blob/main/twin/AGENT_JOHN_FR.md
