@@ -6,6 +6,7 @@
   "description": "Governed derivation, publication support, and faithful appearances of versioned corpora.",
   "scripts": {
     "config:resolve": "node cli/config-resolve.js",
+    "package:instagram": "node cli/instagram-package.js",
     "audible:adapt": "node cli/audible-adapt.js",
     "audible:review": "node cli/audible-review.js",
     "audible:render": "node --env-file=.env cli/audible-render.js",
