@@ -23,6 +23,26 @@ export const MANDATORY_INVARIANTS = Object.freeze([
     expected: false,
     reason: "Public publication must remain a distinct, explicit act.",
   },
+  {
+    path: "publicPresencePolicy.editorialObjectivesMustBeExplicit",
+    expected: true,
+    reason: "A publication package must declare the principal's editorial objective.",
+  },
+  {
+    path: "publicPresencePolicy.autonomousEngagementOptimizationAllowed",
+    expected: false,
+    reason: "Ubikia must not silently optimize engagement, outrage, or compulsive attention.",
+  },
+  {
+    path: "publicPresencePolicy.fabricatedSupportAllowed",
+    expected: false,
+    reason: "Ubikia must not fabricate support or treat a persona as an additional person.",
+  },
+  {
+    path: "publicPresencePolicy.opinionNormalizationAllowed",
+    expected: false,
+    reason: "Ubikia must not normalize or govern the principal's opinions.",
+  },
 ]);
 
 export function mergeConfigurationLayers(layers, {

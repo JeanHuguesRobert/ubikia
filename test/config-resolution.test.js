@@ -26,6 +26,12 @@ test("higher-precedence layers replace leaves and preserve provenance", () => {
           humanReviewRequired: true,
           automaticPublicPublicationAllowed: false,
         },
+        publicPresencePolicy: {
+          editorialObjectivesMustBeExplicit: true,
+          autonomousEngagementOptimizationAllowed: false,
+          fabricatedSupportAllowed: false,
+          opinionNormalizationAllowed: false,
+        },
       },
     },
     {
@@ -48,7 +54,7 @@ test("higher-precedence layers replace leaves and preserve provenance", () => {
     commit: "abc123",
     sha256: "def456",
   });
-  assert.equal(result.invariants.length, 2);
+  assert.equal(result.invariants.length, 6);
 });
 
 test("mandatory publication invariants cannot be weakened", () => {

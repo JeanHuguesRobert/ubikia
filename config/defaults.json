@@ -22,5 +22,11 @@
     "firstUploadVisibility": "private",
     "sourceLinkRequired": true,
     "syntheticVoiceDisclosureRequired": true
+  },
+  "publicPresencePolicy": {
+    "editorialObjectivesMustBeExplicit": true,
+    "autonomousEngagementOptimizationAllowed": false,
+    "fabricatedSupportAllowed": false,
+    "opinionNormalizationAllowed": false
   }
 }

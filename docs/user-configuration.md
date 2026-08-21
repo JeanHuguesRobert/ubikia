@@ -133,6 +133,41 @@ An attempted override fails with `ConfigurationInvariantError`.
 
 These invariants apply across derived-product types, not only audio.
 
+## Public-presence policy
+
+The resolved configuration also contains the non-weakenable policy below:
+
+```text
+publicPresencePolicy.editorialObjectivesMustBeExplicit = true
+publicPresencePolicy.autonomousEngagementOptimizationAllowed = false
+publicPresencePolicy.fabricatedSupportAllowed = false
+publicPresencePolicy.opinionNormalizationAllowed = false
+```
+
+This policy governs Ubikia's means of preparation and distribution, not the
+principal's opinions. A public-presence package must declare one or more
+editorial objectives and one distribution strategy (`none`, `manual`, or
+`principal_selected`). It must explicitly declare that it does not fabricate
+support, autonomously optimize engagement, or normalize opinions.
+
+For example:
+
+```json
+{
+  "public_presence": {
+    "editorial_objectives": ["Explain a sourced public position"],
+    "distribution_strategy": "principal_selected",
+    "fabricated_support": false,
+    "autonomous_engagement_optimization": false,
+    "opinion_normalization": false
+  }
+}
+```
+
+The values make reviewable constraints visible. They do not authorize
+publication, assess the merit of an opinion, or replace the distinct human
+review and publication decision.
+
 ## Local CLI
 
 From the Ubikia repository root:
