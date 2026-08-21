@@ -61,6 +61,18 @@ properties:
         anyOf:
           - $ref: "#/$defs/sourceSnapshot"
           - type: "null"
+      contribution_roles:
+        type: object
+        additionalProperties: false
+        properties:
+          principal:
+            type: [string, "null"]
+          twin_or_agent:
+            type: [string, "null"]
+          substantive_reviewer:
+            type: [string, "null"]
+          responsible_publisher:
+            type: [string, "null"]
       script:
         type: object
         additionalProperties: false
@@ -137,6 +149,33 @@ properties:
         $ref: "#/$defs/reviewValue"
       reviewer:
         type: [string, "null"]
+  authenticity:
+    type: object
+    description: >-
+      Proportionate assessment of whether an audience could mistake a materially
+      artificial appearance for an authentic or truthful one. This is optional
+      for compatibility with existing manifests and required for new
+      publication-ready package implementations.
+    additionalProperties: false
+    required:
+      - authenticity_risk
+      - disclosure_required
+      - disclosure_text
+      - human_editorial_review
+      - responsible_publisher
+    properties:
+      authenticity_risk:
+        type: string
+        enum: [unknown, none, contextual, material]
+      disclosure_required:
+        type: [boolean, "null"]
+      disclosure_text:
+        type: [string, "null"]
+      human_editorial_review:
+        type: string
+        enum: [not_applicable, not_reviewed, pending, substantive_reviewed, editorial_controlled]
+      responsible_publisher:
+        type: [string, "null"]
   publication_state:
     type: string
     enum:
@@ -165,6 +204,8 @@ properties:
           anyOf:
             - $ref: "#/$defs/sha256"
             - type: "null"
+        disclosure_text:
+          type: [string, "null"]
 
 $defs:
   sha256:

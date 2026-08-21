@@ -14,6 +14,13 @@
   "visibility": "private",
   "madeForKids": false,
   "alteredOrSyntheticContent": null,
+  "authenticity": {
+    "authenticity_risk": "unknown",
+    "disclosure_required": null,
+    "disclosure_text": null,
+    "human_editorial_review": "pending",
+    "responsible_publisher": null
+  },
   "syntheticVoiceDisclosure": "This episode uses a synthetic custom voice authorized by the represented speaker.",
   "credits": "Produced as a governed audible derived product with source and adaptation provenance.",
   "links": []

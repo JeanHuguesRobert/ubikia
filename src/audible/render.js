@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import { mkdir, readFile, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
 
+import { normalizeAuthenticity, normalizeContributionRoles } from "./authenticity.js";
 import { prepareMarkdownForSpeech } from "./prepare-text.js";
 import { isProviderCapacityError } from "./providers/retry.js";
 import { publicSynthesisIdentity } from "./providers/synthesis-identity.js";
@@ -33,6 +34,8 @@ export async function renderAudibleProduct({
   providerChain = null,
   maxCharacters = 900,
   forceRerender = false,
+  authenticity = null,
+  contributionRoles = null,
 } = {}) {
   if (typeof sourceText !== "string" || sourceText.trim() === "") {
     throw new TypeError("sourceText must be a non-empty string");
@@ -49,6 +52,8 @@ export async function renderAudibleProduct({
   let active = chain[activeIndex];
 
   const preparedText = prepareMarkdownForSpeech(speechText);
+  const authenticityAssessment = normalizeAuthenticity(authenticity);
+  const normalizedContributionRoles = normalizeContributionRoles(contributionRoles);
   const segments = segmentText(preparedText, { maxCharacters });
   await mkdir(outputDirectory, { recursive: true });
   await writeFile(path.join(outputDirectory, "prepared.txt"), `${preparedText}\n`, "utf8");
@@ -179,6 +184,8 @@ export async function renderAudibleProduct({
       forceRerender,
       providerSwitches,
       maxCharacters,
+      authenticity: authenticityAssessment,
+      contributionRoles: normalizedContributionRoles,
     }));
   }
 
@@ -195,6 +202,8 @@ export async function renderAudibleProduct({
     forceRerender,
     providerSwitches,
     maxCharacters,
+    authenticity: authenticityAssessment,
+    contributionRoles: normalizedContributionRoles,
   });
   await writeManifest(outputDirectory, manifest);
   return manifest;
@@ -274,6 +283,8 @@ function buildManifest({
   forceRerender,
   providerSwitches,
   maxCharacters,
+  authenticity,
+  contributionRoles,
 }) {
   const activeIdentity = publicSynthesisIdentity(activeProvider.getSynthesisIdentity());
   const providersUsed = [...new Set(files.map((file) => file.provider_id).filter(Boolean))];
@@ -298,6 +309,8 @@ function buildManifest({
     mixed_providers: providersUsed.length > 1,
     force_rerender: forceRerender === true,
     provider_switches: providerSwitches,
+    authenticity,
+    contribution_roles: contributionRoles,
     max_characters: maxCharacters,
     expected_segment_count: expectedSegmentCount,
     completed_segment_count: files.length,

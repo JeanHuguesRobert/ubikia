@@ -100,6 +100,7 @@ export function publicationEntryFromYouTubeRecord(publication, {
       type: "human_confirmation",
       remote_verification: "not_performed",
     },
+    authenticity: publication.authenticity ?? null,
     slug,
     source,
     product: {
@@ -138,6 +139,7 @@ function normalizeEntry(entry) {
     recorded_at: entry.recorded_at ?? new Date().toISOString(),
     recorded_by: entry.recorded_by ?? null,
     evidence: entry.evidence ?? null,
+    authenticity: entry.authenticity ?? null,
     slug: entry.slug ?? null,
     source: entry.source ?? null,
     product: entry.product ?? null,

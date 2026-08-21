@@ -252,6 +252,19 @@ test("manifest records provider synthesis provenance and reuses identical synthe
     outputDirectory: directory,
     provider,
     maxCharacters: 900,
+    authenticity: {
+      authenticity_risk: "contextual",
+      disclosure_required: true,
+      disclosure_text: "Voix de synthèse et adaptation assistée, sous revue éditoriale.",
+      human_editorial_review: "substantive_reviewed",
+      responsible_publisher: "Éditeur de test",
+    },
+    contributionRoles: {
+      principal: "Principal de test",
+      twin_or_agent: "Twin de test",
+      substantive_reviewer: "Éditeur de test",
+      responsible_publisher: "Éditeur de test",
+    },
   });
 
   assert.equal(first.schema, "ubikia.audible-manifest.v0.5");
@@ -259,6 +272,9 @@ test("manifest records provider synthesis provenance and reuses identical synthe
   assert.equal(first.files[0].provider_id, "gradium");
   assert.ok(first.synthesis.synthesis_identity_sha256);
   assert.equal(first.files[0].synthesis_identity_sha256, first.synthesis.synthesis_identity_sha256);
+  assert.equal(first.authenticity.authenticity_risk, "contextual");
+  assert.equal(first.authenticity.disclosure_required, true);
+  assert.equal(first.contribution_roles.twin_or_agent, "Twin de test");
   assert.equal(synthesizeCalls, 1);
 
   const second = await renderAudibleProduct({

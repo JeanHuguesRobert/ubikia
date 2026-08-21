@@ -23,6 +23,13 @@ test("records a human-confirmed YouTube publication in package and manifest", as
     schema: "ubikia.audible-manifest.v0.4",
     source_sha256: "source-sha",
     spoken_text_sha256: "spoken-sha",
+    authenticity: {
+      authenticity_risk: "material",
+      disclosure_required: true,
+      disclosure_text: "Vidéo générée avec une voix de synthèse.",
+      human_editorial_review: "substantive_reviewed",
+      responsible_publisher: "Jean Hugues Noël Robert",
+    },
     publication_assets: {
       youtube_video: {
         filename: "episode.youtube.mp4",
@@ -47,6 +54,19 @@ test("records a human-confirmed YouTube publication in package and manifest", as
     provenance: {
       source_sha256: "source-sha",
       spoken_text_sha256: "spoken-sha",
+      contribution_roles: {
+        principal: "Jean Hugues Noël Robert",
+        twin_or_agent: "Agent John",
+        substantive_reviewer: "Jean Hugues Noël Robert",
+        responsible_publisher: "Jean Hugues Noël Robert",
+      },
+    },
+    authenticity: {
+      authenticity_risk: "material",
+      disclosure_required: true,
+      disclosure_text: "Vidéo générée avec une voix de synthèse.",
+      human_editorial_review: "substantive_reviewed",
+      responsible_publisher: "Jean Hugues Noël Robert",
     },
     publication_result: null,
   });
@@ -80,10 +100,14 @@ test("records a human-confirmed YouTube publication in package and manifest", as
   assert.equal(manifest.publication_status, "published");
   assert.equal(manifest.publication_assets.youtube_publication.video_id, "mjdHmPvNmB0");
   assert.equal(publication.video.sha256, "video-sha");
+  assert.equal(publication.authenticity.authenticity_risk, "material");
+  assert.equal(manifest.authenticity.disclosure_required, true);
+  assert.equal(publicationPackage.publication_result.authenticity.responsible_publisher, "Jean Hugues Noël Robert");
   assert.equal(ledger.schema, "ubikia.publication-ledger.v0.1");
   assert.equal(ledger.entries.length, 1);
   assert.equal(ledger.entries[0].url, "https://youtu.be/mjdHmPvNmB0");
   assert.equal(ledger.entries[0].slug, "episode");
+  assert.equal(ledger.entries[0].authenticity.disclosure_text, "Vidéo générée avec une voix de synthèse.");
 });
 
 async function writeJson(filename, value) {

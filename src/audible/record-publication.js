@@ -78,6 +78,7 @@ export async function recordYouTubePublication({
     video: publicationPackage.video,
     transcript: publicationPackage.transcript,
     provenance: publicationPackage.provenance,
+    authenticity: publicationPackage.authenticity ?? manifest.authenticity ?? null,
   };
 
   const updatedPackage = {
@@ -94,6 +95,7 @@ export async function recordYouTubePublication({
       published_at: effectivePublishedAt,
       recorded_at: now,
       recorded_by: recordedBy,
+      authenticity: publication.authenticity,
     },
   };
 
@@ -101,6 +103,7 @@ export async function recordYouTubePublication({
     ...manifest,
     updated_at: now,
     publication_status: "published",
+    authenticity: publication.authenticity,
     publication_assets: {
       ...(manifest.publication_assets ?? {}),
       youtube_publication: {
@@ -110,6 +113,7 @@ export async function recordYouTubePublication({
         video_id: videoId,
         visibility,
         published_at: effectivePublishedAt,
+        authenticity: publication.authenticity,
       },
     },
   };

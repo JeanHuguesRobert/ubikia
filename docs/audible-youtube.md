@@ -153,6 +153,12 @@ Edit the copied file. Metadata is user-provided rather than hard-coded because U
 
 The editorial synthetic-voice disclosure is separate from the platform `AI use` field. The example leaves `alteredOrSyntheticContent` as `null`, requiring a current policy decision before upload.
 
+The optional `authenticity` object preserves that decision across the artifact,
+package, publication record, and ledger. Its `disclosure_required` value may be
+`true`, `false`, or `null` when the assessment remains unknown; it must never
+silently treat `unknown` as `false`. When disclosure is required,
+`disclosure_text` must state what the audience needs to understand.
+
 ## 8. Create the publication package
 
 ```powershell

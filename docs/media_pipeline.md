@@ -335,7 +335,21 @@ The artifact manifest must identify whether narration is:
 
 Voice cloning is outside MVP scope. Future support must require explicit authorization and provenance.
 
-### Invariant 8 — Accessibility
+### Invariant 8 — Authenticity and audience transparency
+
+Each publication-ready artifact manifest must carry a proportionate assessment
+of whether a reasonably foreseeable audience could mistake a materially
+artificial generation or transformation for a human-originated, independently
+witnessed, authentic, or truthful appearance.
+
+The assessment records the risk, whether disclosure is required, any
+platform-appropriate disclosure text, the level of substantive human review or
+editorial control, and the responsible publisher. It must not turn transparent
+provenance into a ritual label: no disclosure is required merely because an AI
+performed an assistive, non-substantive transformation or where the artificial
+character is already evident in context.
+
+### Invariant 9 — Accessibility
 
 Every video render must have:
 
@@ -346,7 +360,7 @@ Every video render must have:
 - a text transcript;
 - alt text for the thumbnail.
 
-### Invariant 9 — Cache transparency
+### Invariant 10 — Cache transparency
 
 Cached utterances must be keyed by all inputs that can change their sound:
 
@@ -363,7 +377,7 @@ normalization version
 
 A stale cache must not be silently reused.
 
-### Invariant 10 — Failure resumability
+### Invariant 11 — Failure resumability
 
 Each stage writes its outputs atomically and updates a stage manifest only after validation.
 
@@ -819,6 +833,13 @@ artifact:
   review:
     required: true
     status: pending
+
+authenticity:
+  authenticity_risk: contextual
+  disclosure_required: true
+  disclosure_text: "Synthetic narration; source and editorial review are identified in the package."
+  human_editorial_review: substantive_reviewed
+  responsible_publisher: "Example editorial principal"
 ```
 
 Project state is explicit:

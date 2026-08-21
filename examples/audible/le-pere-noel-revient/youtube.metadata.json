@@ -22,6 +22,13 @@
   "visibility": "private",
   "madeForKids": false,
   "alteredOrSyntheticContent": true,
+  "authenticity": {
+    "authenticity_risk": "contextual",
+    "disclosure_required": true,
+    "disclosure_text": "Cette édition audiovisuelle utilise une voix de synthèse autorisée ; son texte, son adaptation et sa publication ont fait l’objet d’une revue éditoriale.",
+    "human_editorial_review": "substantive_reviewed",
+    "responsible_publisher": "Jean Hugues Noël Robert"
+  },
   "syntheticVoiceDisclosure": "Cette vidéo utilise une voix de synthèse autorisée. Le texte, son adaptation orale et sa publication ont été validés par Jean Hugues Noël Robert.",
   "credits": "Texte source : Jean Hugues Noël Robert — « Le Père Noël revient — et cette fois, il aide les adultes ».\nLicence : CC BY-SA 4.0.\nPersona auctoriale : Babbu Natale.\nAdaptation orale et packaging : produit décliné gouverné Ubikia, avec conservation de la source, de la revue humaine et des empreintes de provenance.\nPublication YouTube : téléversement manuel privé, puis confirmation humaine ; aucune publication publique automatique.",
   "links": [

@@ -1,6 +1,10 @@
 import { readFile, readdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 
+import {
+  alteredOrSyntheticContentFromAuthenticity,
+  normalizeAuthenticity,
+} from "./authenticity.js";
 import { createCaptionTracksFromManifest } from "./captions.js";
 
 export async function createYouTubePublicationPackage({
@@ -36,11 +40,20 @@ export async function createYouTubePublicationPackage({
   }
 
   const language = metadata.language ?? null;
+  const authenticity = normalizeAuthenticity(metadata.authenticity ?? manifest.authenticity);
+  const alteredOrSyntheticContent = metadata.alteredOrSyntheticContent
+    ?? alteredOrSyntheticContentFromAuthenticity(authenticity);
+  if (authenticity.disclosure_required === true && alteredOrSyntheticContent === false) {
+    throw new Error("alteredOrSyntheticContent cannot be false when authenticity disclosure is required");
+  }
   const disclosure = metadata.syntheticVoiceDisclosure
     ?? defaultSyntheticVoiceDisclosure(language);
   const description = buildDescription({
     ...metadata,
     disclosure,
+    authenticityDisclosure: authenticity.disclosure_required === true
+      ? authenticity.disclosure_text
+      : null,
   });
 
   const captions = metadata.skipCaptions === true
@@ -72,8 +85,9 @@ export async function createYouTubePublicationPackage({
     category: metadata.category ?? null,
     visibility: metadata.visibility ?? "private",
     made_for_kids: metadata.madeForKids ?? false,
-    altered_or_synthetic_content: metadata.alteredOrSyntheticContent ?? null,
+    altered_or_synthetic_content: alteredOrSyntheticContent,
     synthetic_voice_disclosure: disclosure,
+    authenticity,
     transcript,
     captions,
     development_override: reviewOverride
@@ -90,6 +104,7 @@ export async function createYouTubePublicationPackage({
       source_sha256: manifest.source_sha256 ?? null,
       spoken_text_sha256: manifest.spoken_text_sha256 ?? null,
       audio_products: manifest.assembly?.products ?? [],
+      contribution_roles: manifest.contribution_roles ?? null,
     },
     human_publication_gates: {
       spoken_script_review_required: true,
@@ -127,6 +142,7 @@ function buildDescription({
   sourceUrl = null,
   canonicalUrl = null,
   disclosure,
+  authenticityDisclosure = null,
   credits = null,
   links = [],
 }) {
@@ -148,6 +164,9 @@ function buildDescription({
   if (references.length > 0) sections.push(references.join("\n"));
 
   sections.push(`Synthetic voice disclosure: ${disclosure}`);
+  if (authenticityDisclosure) {
+    sections.push(`Authenticity disclosure: ${authenticityDisclosure.trim()}`);
+  }
   if (credits) sections.push(credits.trim());
   return sections.join("\n\n");
 }

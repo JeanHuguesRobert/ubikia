@@ -613,6 +613,22 @@ Has a manually edited version diverged from the source?
 
 Has an agent optimized the product for convenience, engagement, or fluency rather than fidelity?
 
+### 17.7 Authenticity and Audience Transparency Check
+
+Could the reasonably foreseeable audience mistake a materially artificial
+generation or transformation for a human-originated, independently witnessed,
+authentic, or truthful appearance?
+
+If so, prepare a clear, platform-appropriate disclosure and retain it in the
+publication package. Do not add a ritual label when the artificial character
+is already evident in context or when the transformation is merely assistive
+and does not materially alter the source or its meaning.
+
+Record the assessment in the manifest: `authenticity_risk`,
+`disclosure_required`, `disclosure_text`, `human_editorial_review`, and
+`responsible_publisher`. Preserve the respective roles of principal, Twin or
+other agent, sources, reviewers, and responsible publisher in provenance.
+
 ---
 
 ## 18. CLI Implications
