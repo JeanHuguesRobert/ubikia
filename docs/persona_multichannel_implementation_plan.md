@@ -115,6 +115,30 @@ Generate, validate, export, create a remote draft, schedule and publish are dist
 
 Every derivation must record source/version, principal, persona/version, form, audience, platform, purpose, constraints, generation method, reviewer, publication decision, result and feedback return.
 
+### 4.8 Forms beyond publication (short messages)
+
+Ubikia is today concentrated on **publication** products (spoken essay, Substack, YouTube). The persona layer is not limited to those products.
+
+A **form** may be conversational:
+
+```text
+short_messages   — WhatsApp, Signal, iMessage, SMS, and similar chat
+web_conversation — public twin page (e.g. fractavolta.com/john)
+```
+
+`short_messages` is chat-compatible vocabulary: the form, not the vendor.
+
+Default for Agent John on chat:
+
+```text
+principal = Jean Hugues
+persona   = primary (not Babbu Natale, not campaign, unless persona_id is explicit)
+form      = short_messages
+platform  = whatsapp | signal | …   (orthogonal)
+```
+
+That is “how he uses WhatsApp”, not a new person and not a generic short-bot quota. Publication personas (Carnets, Babbu Natale) remain overlays **on top of** STYLE.md; they must not silently govern the twin’s chat unless declared.
+
 ## 5. Required taxonomy
 
 Do not merge these objects:
