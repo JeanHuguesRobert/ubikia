@@ -23,6 +23,7 @@ function draft(overrides = {}) {
     persona: "Les Carnets du Baron Mariani",
     title: "Capacité de présence publique",
     caption: "Un texte de travail, à relire avant toute publication.",
+    media_status: "planned",
     media: [
       { filename: "card-01.png", type: "image", alt_text: "Titre du carrousel" },
       { filename: "card-02.png", type: "image", alt_text: "Argument sourcé" },
@@ -53,7 +54,9 @@ test("creates a local, human-governed Instagram carousel package", () => {
   assert.equal(publicationPackage.status, "draft");
   assert.equal(publicationPackage.target, "instagram");
   assert.equal(publicationPackage.language, "fr");
+  assert.equal(publicationPackage.media_status, "planned");
   assert.equal(publicationPackage.media.length, 2);
+  assert.equal(publicationPackage.human_publication_gates.media_files_must_be_verified, true);
   assert.equal(publicationPackage.human_publication_gates.manual_publication_required, true);
   assert.equal(publicationPackage.human_publication_gates.remote_api_call_performed, false);
 });
@@ -70,6 +73,16 @@ test("refuses a package without accessible media descriptions", () => {
       resolvedConfiguration,
     }),
     /alt_text is required/,
+  );
+});
+
+test("requires an explicit media status", () => {
+  const incomplete = draft();
+  delete incomplete.media_status;
+
+  assert.throws(
+    () => createInstagramPublicationPackage({ draft: incomplete, resolvedConfiguration }),
+    /media_status must be planned, available, or verified/,
   );
 });
 

@@ -2,6 +2,7 @@ import { validatePublicPresencePackage } from "./public-presence-policy.js";
 
 const FORMS = new Set(["single_image", "carousel", "reel", "story"]);
 const MEDIA_TYPES = new Set(["image", "video"]);
+const MEDIA_STATUSES = new Set(["planned", "available", "verified"]);
 
 /**
  * Build a reviewable local package for manual Instagram publication.
@@ -40,6 +41,9 @@ export function createInstagramPublicationPackage({
   }
 
   const media = normalizeMedia(draft.media, form);
+  if (!MEDIA_STATUSES.has(draft.media_status)) {
+    throw new Error("draft.media_status must be planned, available, or verified");
+  }
   const publicPresence = validatePublicPresencePackage({
     public_presence: draft.public_presence,
   }, {
@@ -58,6 +62,7 @@ export function createInstagramPublicationPackage({
     persona: draft.persona ?? null,
     title: draft.title ?? null,
     caption: draft.caption,
+    media_status: draft.media_status,
     media,
     public_presence: publicPresence,
     authenticity: draft.authenticity ?? null,
@@ -65,6 +70,7 @@ export function createInstagramPublicationPackage({
     human_publication_gates: {
       human_editorial_review_required: true,
       account_and_audience_context_check_required: true,
+      media_files_must_be_verified: draft.media_status !== "verified",
       manual_publication_required: true,
       automatic_public_publish: false,
       remote_api_call_performed: false,

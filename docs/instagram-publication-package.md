@@ -31,8 +31,9 @@ npm run package:instagram -- `
   artifacts\instagram\ig_20260821_01.package.json
 ```
 
-The draft requires a stable `id`, `form`, `principal`, caption, media with
-`alt_text`, immutable source provenance, and a `public_presence` declaration.
+The draft requires a stable `id`, `form`, `principal`, caption, an explicit
+`media_status` (`planned`, `available`, or `verified`), media with `alt_text`,
+immutable source provenance, and a `public_presence` declaration.
 Supported local forms are `single_image`, `carousel`, `reel`, and `story`.
 This is a package vocabulary, not a claim of current remote API support.
 
@@ -58,6 +59,7 @@ platform action.
 ## Boundaries
 
 Every output remains `draft`, has `manual_publication_required: true`, and
-records `remote_api_call_performed: false`. Account connection, remote draft,
-scheduled publication, public publication, interaction, and paid distribution
-remain separate governed acts.
+records `remote_api_call_performed: false`. Packages with planned or merely
+available media also retain `media_files_must_be_verified: true`. Account
+connection, remote draft, scheduled publication, public publication,
+interaction, and paid distribution remain separate governed acts.
