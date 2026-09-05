@@ -103,6 +103,37 @@ Each publication should remain connected to:
 
 ---
 
+## 3.1 Observed Appearance Is Not Its Interpretation
+
+> Do not take a representation for the reality it represents.
+
+A publication record is not a claim to have captured the complete meaning of
+an external act. It must preserve the distinction between:
+
+```text
+observed appearance
+!= interpretation of that appearance
+!= model used to classify that interpretation
+```
+
+The immutable evidentiary core records only what was actually observed after
+publication: the displayed text or a faithful snapshot, publication URL or the
+best available retrieval locator, visibility, observed timestamps, material
+publisher, and minimal parent context (for example, the post to which a
+comment replies).
+
+Roles, mandates, personas, themes, audiences, political meaning, source
+relations, and claims about impact are separate, versioned interpretations.
+They may be corrected, supplemented, or superseded without overwriting the
+observed core. A classification must name its schema/version, basis, author,
+and review status. It must never be rendered as a raw fact.
+
+This allows the representation model to evolve. A future schema may divide one
+role into several, join several appearances into one campaign sequence, or
+reclassify a persona without falsifying the original publication trace.
+
+---
+
 ## 4. Publication Package
 
 A **publication package** is the platform-specific bundle needed to publish or manually copy a derived product.
@@ -417,7 +448,29 @@ ledger_entry:
     file: research/personas.md
     commit: pending
   feedback_returned_to_corpus: false
+  observed_appearance:
+    text_snapshot: "The text actually displayed by the platform."
+    publication_url: https://substack.com/...
+    retrieval_locator: null
+    visibility_observed: public
+    first_verified_at: 2026-09-05T12:00:00Z
+    in_reply_to:
+      kind: null
+      url: null
+  interpretations:
+    - schema: ubikia.publication-classification.v1
+      status: reviewed
+      role: public_intellectual
+      persona: public_intellectual
+      basis: human-confirmed publication context
+      classified_at: 2026-09-05T12:05:00Z
 ```
+
+`observed_appearance` is written only after a real publication has been
+verified. A draft, local insertion, remote draft, scheduled item, or intended
+publication does not create a ledger entry. When a platform offers no stable
+URL for the appearance, `retrieval_locator` retains the parent URL plus the
+observed author, timestamp, and other non-secret locating facts.
 
 The ledger should support later queries:
 

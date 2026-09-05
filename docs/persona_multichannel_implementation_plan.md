@@ -412,7 +412,7 @@ Deliberate test cases must include campaign/institution confusion, personal opin
 
 ### P8 — Unified publication ledger
 
-Generalize the YouTube record to multiple appearances per product. Preserve account, persona, visibility, timestamps, human confirmation, remote verification, correction, withdrawal, replacement, republication and feedback return. Continue reading current YouTube files.
+Generalize the YouTube record to multiple appearances per product. Preserve account, visibility, timestamps, human confirmation, remote verification, correction, withdrawal, replacement, republication and feedback return. Store a non-destructive observed-appearance core separately from versioned role, persona, mandate, audience and thematic classifications; every interpretation must declare its schema version and basis. Continue reading current YouTube files.
 
 ### P9 — Remote connector feasibility and safety
 
