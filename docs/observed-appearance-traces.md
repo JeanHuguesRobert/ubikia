@@ -28,17 +28,23 @@ The initial implementation is `ubikia.observed-appearance.v0.1` in
 
 ## Boundary with COP
 
-This format is deliberately an Ubikia experimental adapter, **not** a COP
+This format is deliberately an Ubikia source record, **not** itself a COP
 `TraceDescriptor`. COP trace-centric work in Inseme issues #61 and #63 owns
-the generic shared contract. The adapter is designed to converge without
-competing with that work:
+the generic shared contract. `registerObservedAppearanceInCop()` in
+`src/publication/cop-trace-adapter.js` bridges the two by calling injected COP
+factories; it does not copy the COP schemas or event-envelope implementation.
 
 ```text
 observed appearance
-  -> future external TraceRef / TraceDescriptor
-  -> future COP observation or registration Event
+  -> external TraceRef / TraceDescriptor
+  -> COP TraceObservation registration Event
   -> separate Assertion / EvidenceRelation / Projection
 ```
+
+The registration event is attributable to the observer and explicitly states
+`cop_originated: false`. Its descriptor points to the immutable appearance
+record by identity, integrity hash and locator; it does not duplicate the
+published text nor turn it into an assertion.
 
 ## Required observed core
 
