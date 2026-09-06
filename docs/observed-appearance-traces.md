@@ -63,6 +63,21 @@ fabricated.
 `observed_at_precision` prevents false temporal accuracy. Valid use includes
 `exact`, `day`, `month`, `year`, `approximate`, and `unknown`.
 
+## Later observations are appended
+
+A later readback can reveal a direct comment permalink, a platform identifier,
+an edit marker, or a more precise displayed time. It MUST create a separate
+`ubikia.appearance-locator-observation.v0.1` record that points to the first
+appearance by `appearance_ref`; it does not rewrite the earlier source fact.
+
+```text
+first observation: comment text + parent retrieval locator
+later observation: direct comment locator + displayed edit marker
+```
+
+This is a small, concrete precursor to the COP rule that new traces affect
+projections and assertions without erasing earlier traces.
+
 ## Deliberately excluded
 
 The source record does not contain persona, role, political classification,
