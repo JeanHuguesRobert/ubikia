@@ -1,0 +1,11 @@
+schema: ubikia.corpus.v0
+project: Minimal reactive book
+language: en
+source_root: .
+sources:
+  - path: manuscript/00-opening.md
+    role: documentary-source
+    required: true
+  - path: optional-note.md
+    role: source-note
+    required: false

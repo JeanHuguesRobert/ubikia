@@ -1,0 +1,27 @@
+schema: ubikia.projection.book.v0
+id: minimal-book-0
+status: working
+language: en
+title: Minimal reactive book
+subtitle: A faithful projection
+source_manifest: ../corpus.yml
+chapters:
+  - ../manuscript/00-opening.md
+  - ../manuscript/01-evidence.md
+  - ../manuscript/02-hypothesis.md
+  - ../manuscript/03-interpretation.md
+  - ../manuscript/04-unknowns.md
+outputs:
+  required: [html, pdf]
+  optional: [epub]
+render_contract:
+  canonical_source_format: markdown
+  generated_qmd_is_source: false
+  preserve_frontmatter_provenance: true
+  preserve_epistemic_distinctions: true
+  frozen_release_mutable: false
+provenance_manifest:
+  include_build_date: true
+  include_source_commit: true
+  include_renderer_version: true
+  include_projection_contract: true

@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Ubikia book projection v0",
+  "type": "object",
+  "required": ["schema", "id", "title", "language", "source_manifest", "chapters", "outputs"],
+  "properties": {
+    "schema": { "enum": ["ubikia.projection.book.v0", "suicide-corse.projection.book.v0"] },
+    "id": { "type": "string", "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]*$" },
+    "title": { "type": "string", "pattern": "\\S" },
+    "subtitle": { "type": "string", "pattern": "\\S" },
+    "author": { "type": "string", "pattern": "\\S" },
+    "medium": { "type": "string", "pattern": "\\S" },
+    "previous_edition_id": { "type": "string", "pattern": "\\S" },
+    "parent_edition_id": { "type": "string", "pattern": "\\S" },
+    "language": { "type": "string", "pattern": "\\S" },
+    "source_manifest": { "type": "string", "pattern": "\\S" },
+    "chapters": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": { "type": "string", "pattern": "\\S" }
+    },
+    "outputs": {
+      "type": "object", "required": ["required"],
+      "properties": {
+        "required": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "enum": ["html", "pdf"] } },
+        "optional": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "render_contract": {
+      "type": "object",
+      "properties": {
+        "canonical_source_format": { "const": "markdown" },
+        "generated_qmd_is_source": { "const": false },
+        "preserve_frontmatter_provenance": { "const": true },
+        "preserve_epistemic_distinctions": { "const": true },
+        "frozen_release_mutable": { "const": false }
+      }
+    }
+  }
+}
