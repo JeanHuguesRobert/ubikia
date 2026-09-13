@@ -1,11 +1,18 @@
 ---
 title: Reactive Products v0
 language: en
-document_role: technical
+document_role: "operational"
 document_kind: implementation-guide
 status: working
 update_policy: UP-DEFAULT-REVIEWED
 source_issue: https://github.com/JeanHuguesRobert/ubikia/issues/24#issuecomment-5574399111
+visibility: "public"
+lifecycle_state: "working"
+classification_source: "cogentia.js"
+classification_version: "1"
+classification_rule: "explicit-metadata"
+classification_confidence: "medium"
+legacy_document_role: "technical"
 ---
 
 # Reactive Products v0

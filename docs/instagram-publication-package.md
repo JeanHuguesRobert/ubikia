@@ -6,6 +6,10 @@ visibility: public
 lifecycle_state: working
 update_policy: UP-DEFAULT-REVIEWED
 language: en
+classification_source: "cogentia.js"
+classification_version: "1"
+classification_rule: "explicit-metadata"
+classification_confidence: "medium"
 ---
 
 # Instagram publication package

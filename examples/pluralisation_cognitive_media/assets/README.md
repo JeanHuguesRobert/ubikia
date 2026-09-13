@@ -1,3 +1,14 @@
+---
+document_role: "example"
+document_kind: "example"
+visibility: "public"
+lifecycle_state: "active"
+classification_source: "cogentia.js"
+classification_version: "1"
+classification_rule: "example"
+classification_confidence: "strong"
+---
+
 # Assets for the pluralisation cognitive media example
 
 The first Ubikia Media MVP must work without any committed image, music, portrait, logo, or font file.

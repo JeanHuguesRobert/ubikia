@@ -1,6 +1,6 @@
 ---
 title: "Observed appearance traces"
-document_role: "documentation"
+document_role: "operational"
 document_kind: "implementation-note"
 visibility: "public"
 lifecycle_state: "experimental"
@@ -12,6 +12,11 @@ related_documents:
   - "ubikia/research/publication_registry_exploration.md"
   - "inseme#61"
   - "inseme#63"
+classification_source: "cogentia.js"
+classification_version: "1"
+classification_rule: "explicit-metadata"
+classification_confidence: "medium"
+legacy_document_role: "documentation"
 ---
 
 # Observed appearance traces

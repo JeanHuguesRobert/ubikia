@@ -27,6 +27,11 @@ provenance:
 review:
   status: unreviewed
   reviewed_by: []
+visibility: "public"
+classification_source: "cogentia.js"
+classification_version: "1"
+classification_rule: "explicit-metadata"
+classification_confidence: "medium"
 ---
 
 # Persona-aware Multichannel Discovery

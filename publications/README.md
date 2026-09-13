@@ -1,3 +1,14 @@
+---
+document_role: "source"
+document_kind: "public-essay"
+visibility: "public"
+lifecycle_state: "active"
+classification_source: "cogentia.js"
+classification_version: "1"
+classification_rule: "public-essay"
+classification_confidence: "strong"
+---
+
 # Publication memory
 
 This directory holds **version-controlled publication memory** for Ubikia.
