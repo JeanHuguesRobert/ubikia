@@ -1,22 +1,36 @@
 ---
-document_role: "source"
-document_kind: "implementation-plan"
-visibility: "public"
-lifecycle_state: "working"
-version: "0.1"
-date: "2026-07-12"
-repository: "JeanHuguesRobert/ubikia"
-implementation_target: "Ubikia Media MVP"
+document_role: source
+document_kind: implementation-plan
+visibility: public
+lifecycle_state: working
+version: '0.1'
+date: '2026-07-12'
+implementation_target: Ubikia Media MVP
 related_documents:
-  - "docs/media_pipeline.md"
-  - "docs/media_agent_runbook.md"
-  - "schemas/media_project.schema.yaml"
-  - "schemas/media_artifact.schema.yaml"
-classification_source: "cogentia.js"
-classification_version: "1"
-classification_rule: "explicit-metadata"
-classification_confidence: "medium"
+  - docs/media_pipeline.md
+  - docs/media_agent_runbook.md
+  - schemas/media_project.schema.yaml
+  - schemas/media_artifact.schema.yaml
+classification_source: cogentia.js
+classification_version: '1'
+classification_rule: explicit-metadata
+classification_confidence: medium
+license: CC BY-SA 4.0
+affiliation: Institut Mariani / C.O.R.S.I.C.A., 1 cours Paoli, F-20250 Corte, Corsica
+language: en
+update_policy: UP-DEFAULT-REVIEWED
+status: working-paper
+review:
+  status: unreviewed
+  reviewed_by: []
+provenance:
+  origin_type: unknown
+  origin_repository: unknown
+  origin_ref: unknown
+  origin_date: unknown
+  derived_from: []
 ---
+
 
 # Ubikia Media MVP — Detailed Implementation Plan
 ## An incremental contract for coding agents

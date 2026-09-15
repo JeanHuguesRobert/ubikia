@@ -1,23 +1,36 @@
 ---
-title: "Observed appearance traces"
-document_role: "operational"
-document_kind: "implementation-note"
-visibility: "public"
-lifecycle_state: "experimental"
-status: "working"
-date: "2026-09-06"
-repository: "ubikia"
+title: Observed appearance traces
+document_role: operational
+document_kind: implementation-note
+visibility: public
+lifecycle_state: experimental
+status: working
+date: '2026-09-06'
 related_documents:
-  - "ubikia/docs/publication_layer.md"
-  - "ubikia/research/publication_registry_exploration.md"
-  - "inseme#61"
-  - "inseme#63"
-classification_source: "cogentia.js"
-classification_version: "1"
-classification_rule: "explicit-metadata"
-classification_confidence: "medium"
-legacy_document_role: "documentation"
+  - ubikia/docs/publication_layer.md
+  - ubikia/research/publication_registry_exploration.md
+  - inseme#61
+  - inseme#63
+classification_source: cogentia.js
+classification_version: '1'
+classification_rule: explicit-metadata
+classification_confidence: medium
+legacy_document_role: documentation
+license: CC BY-SA 4.0
+affiliation: Institut Mariani / C.O.R.S.I.C.A., 1 cours Paoli, F-20250 Corte, Corsica
+language: en
+update_policy: UP-DEFAULT-REVIEWED
+review:
+  status: unreviewed
+  reviewed_by: []
+provenance:
+  origin_type: unknown
+  origin_repository: unknown
+  origin_ref: unknown
+  origin_date: unknown
+  derived_from: []
 ---
+
 
 # Observed appearance traces
 

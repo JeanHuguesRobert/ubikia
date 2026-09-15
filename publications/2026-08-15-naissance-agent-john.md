@@ -1,22 +1,36 @@
 ---
-title: "L'éveil d'Agent John"
-subtitle: "Une intelligence artificielle qui n'obéit qu'à son propriétaire"
-publication: "Les carnets du baron Mariani"
-author: "Jean Hugues Noël Robert"
-date: 2026-08-15
-place: "Corte"
-version: "v2 — révision éditoriale"
+title: L'éveil d'Agent John
+subtitle: Une intelligence artificielle qui n'obéit qu'à son propriétaire
+publication: Les carnets du baron Mariani
+author: Jean Hugues Noël Robert
+date: 2026-08-15T00:00:00.000Z
+place: Corte
+version: v2 — révision éditoriale
 status: draft
-source_document: "Documentation Agent John (GitHub)"
-document_role: "source"
-document_kind: "public-essay"
-visibility: "public"
-lifecycle_state: "working"
-classification_source: "cogentia.js"
-classification_version: "1"
-classification_rule: "public-essay"
-classification_confidence: "strong"
+source_document: Documentation Agent John (GitHub)
+document_role: source
+document_kind: public-essay
+visibility: public
+lifecycle_state: working
+classification_source: cogentia.js
+classification_version: '1'
+classification_rule: public-essay
+classification_confidence: strong
+license: CC BY-SA 4.0
+affiliation: Institut Mariani / C.O.R.S.I.C.A., 1 cours Paoli, F-20250 Corte, Corsica
+language: fr
+update_policy: UP-DEFAULT-REVIEWED
+review:
+  status: unreviewed
+  reviewed_by: []
+provenance:
+  origin_type: unknown
+  origin_repository: unknown
+  origin_ref: unknown
+  origin_date: unknown
+  derived_from: []
 ---
+
 
 # L'éveil d'Agent John
 

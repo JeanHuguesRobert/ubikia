@@ -1,26 +1,39 @@
 ---
-title: "Audible stable baseline and deferred continuations"
-document_role: "operational"
-document_kind: "continuation"
-visibility: "public"
-lifecycle_state: "active"
-status: "handoff"
-date: "2026-07-19"
-author: "Jean Hugues Noël Robert"
-repository: "ubikia"
-purpose: "Allow a future human or agent to resume efficiently without replaying the 2026-07 conversation."
+title: Audible stable baseline and deferred continuations
+document_role: operational
+document_kind: continuation
+visibility: public
+lifecycle_state: active
+status: handoff
+date: '2026-07-19'
+author: Jean Hugues Noël Robert
+purpose: Allow a future human or agent to resume efficiently without replaying the 2026-07 conversation.
 related_documents:
-  - "ubikia/docs/audible.md"
-  - "ubikia/docs/audible-youtube-workflow.md"
-  - "ubikia/publications/README.md"
-  - "ubikia/publications/ledger/publications.json"
-  - "ubikia/research/publication_registry_exploration.md"
-  - "ubikia/AGENTS.md"
-classification_source: "cogentia.js"
-classification_version: "1"
-classification_rule: "explicit-metadata"
-classification_confidence: "medium"
+  - ubikia/docs/audible.md
+  - ubikia/docs/audible-youtube-workflow.md
+  - ubikia/publications/README.md
+  - ubikia/publications/ledger/publications.json
+  - ubikia/research/publication_registry_exploration.md
+  - ubikia/AGENTS.md
+classification_source: cogentia.js
+classification_version: '1'
+classification_rule: explicit-metadata
+classification_confidence: medium
+license: CC BY-SA 4.0
+affiliation: Institut Mariani / C.O.R.S.I.C.A., 1 cours Paoli, F-20250 Corte, Corsica
+language: en
+update_policy: UP-DEFAULT-REVIEWED
+review:
+  status: unreviewed
+  reviewed_by: []
+provenance:
+  origin_type: unknown
+  origin_repository: unknown
+  origin_ref: unknown
+  origin_date: unknown
+  derived_from: []
 ---
+
 
 # Audible stable baseline and deferred continuations
 

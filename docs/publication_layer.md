@@ -1,30 +1,35 @@
 ---
-document_role: "source"
-document_kind: "documentation"
-visibility: "public"
-lifecycle_state: "active"
-classification_source: "cogentia.js"
-classification_version: "1"
-classification_rule: "documentation"
-classification_confidence: "medium"
-title: "Ubikia Publication Layer"
-author: "Jean Hugues Noël Robert"
-canonical_url: "https://github.com/JeanHuguesRobert/ubikia/blob/main/docs/publication_layer.md"
-date: "2026-05-23"
-status: "draft"
+document_role: source
+document_kind: documentation
+visibility: public
+lifecycle_state: active
+classification_source: cogentia.js
+classification_version: '1'
+classification_rule: documentation
+classification_confidence: medium
+title: Ubikia Publication Layer
+author: Jean Hugues Noël Robert
+canonical_url: https://github.com/JeanHuguesRobert/ubikia/blob/main/docs/publication_layer.md
+date: '2026-05-23'
+status: draft
 related_documents:
-  - "ubikia/docs/concepts.md"
-  - "ubikia/docs/derivation_workflow.md"
+  - ubikia/docs/concepts.md
+  - ubikia/docs/derivation_workflow.md
 provenance:
-  origin_type: "repository"
-  origin_repository: "JeanHuguesRobert/ubikia"
-  origin_ref: "79c781a2"
-  origin_date: "2026-05-23"
+  origin_type: repository
+  origin_repository: JeanHuguesRobert/ubikia
+  origin_ref: 79c781a2
+  origin_date: '2026-05-23'
   derived_from: []
 review:
-  status: "unreviewed"
+  status: unreviewed
   reviewed_by: []
+license: CC BY-SA 4.0
+affiliation: Institut Mariani / C.O.R.S.I.C.A., 1 cours Paoli, F-20250 Corte, Corsica
+language: en
+update_policy: UP-DEFAULT-REVIEWED
 ---
+
 
 # Ubikia Publication Layer
 ## Platform Packages, Publication Ledger, and Supervised Distribution

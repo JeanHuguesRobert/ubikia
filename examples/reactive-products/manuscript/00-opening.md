@@ -5,17 +5,26 @@ status: draft
 document_role: derived
 provenance:
   origin_ref: unknown
+  origin_type: unknown
+  origin_repository: unknown
+  origin_date: unknown
+  derived_from: []
 review:
   status: unreviewed
   reviewed_by: []
-document_kind: "example"
-visibility: "public"
-lifecycle_state: "working"
-classification_source: "cogentia.js"
-classification_version: "1"
-classification_rule: "example"
-classification_confidence: "strong"
+document_kind: example
+visibility: public
+lifecycle_state: working
+classification_source: cogentia.js
+classification_version: '1'
+classification_rule: example
+classification_confidence: strong
+license: CC BY-SA 4.0
+affiliation: Institut Mariani / C.O.R.S.I.C.A., 1 cours Paoli, F-20250 Corte, Corsica
+date: '2026-09-15'
+update_policy: UP-DEFAULT-REVIEWED
 ---
+
 
 # Opening
 

@@ -1,22 +1,24 @@
 ---
-title: "Le Père Noël revient — et cette fois, il aide les adultes"
-subtitle: "Babbu Natale et ses lutins : quand l’IA devient compagnon de capacité"
-author: "Jean Hugues Noël Robert"
+title: Le Père Noël revient — et cette fois, il aide les adultes
+subtitle: 'Babbu Natale et ses lutins : quand l’IA devient compagnon de capacité'
+author: Jean Hugues Noël Robert
 date: '2026-07-18'
 document_role: source
 document_kind: blogpost
-publication: "Les carnets du baron Mariani"
+publication: Les carnets du baron Mariani
 visibility: public
 lifecycle_state: stable
 update_policy: UP-DEFAULT-REVIEWED
 version: '1.0'
-canonical_url: "https://github.com/JeanHuguesRobert/barons-Mariani/blob/main/research/le_pere_noel_revient.md"
-license: "CC BY-SA 4.0"
+canonical_url: https://github.com/JeanHuguesRobert/barons-Mariani/blob/main/research/le_pere_noel_revient.md
+license: CC BY-SA 4.0
 provenance:
   origin_type: authored
   origin_repository: JeanHuguesRobert/barons-Mariani
   origin_path: research/le_pere_noel_revient.md
   derived_from: []
+  origin_ref: unknown
+  origin_date: unknown
 review:
   status: reviewed
   reviewed_by:
@@ -30,11 +32,15 @@ tags:
   - Babbu Natale
   - imagination
   - autonomie de capacité
-classification_source: "cogentia.js"
-classification_version: "1"
-classification_rule: "explicit-metadata"
-classification_confidence: "strong"
+classification_source: cogentia.js
+classification_version: '1'
+classification_rule: explicit-metadata
+classification_confidence: strong
+affiliation: Institut Mariani / C.O.R.S.I.C.A., 1 cours Paoli, F-20250 Corte, Corsica
+language: fr
+status: working-paper
 ---
+
 
 # Le Père Noël revient — et cette fois, il aide les adultes
 

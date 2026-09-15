@@ -1,20 +1,34 @@
 ---
-document_role: "operational"
-document_kind: "agent-runbook"
-visibility: "public"
-lifecycle_state: "working"
-version: "0.1"
-date: "2026-07-12"
-repository: "JeanHuguesRobert/ubikia"
+document_role: operational
+document_kind: agent-runbook
+visibility: public
+lifecycle_state: working
+version: '0.1'
+date: '2026-07-12'
 related_documents:
-  - "AGENTS.md"
-  - "docs/media_pipeline.md"
-  - "docs/media_mvp_implementation_plan.md"
-classification_source: "cogentia.js"
-classification_version: "1"
-classification_rule: "explicit-metadata"
-classification_confidence: "medium"
+  - AGENTS.md
+  - docs/media_pipeline.md
+  - docs/media_mvp_implementation_plan.md
+classification_source: cogentia.js
+classification_version: '1'
+classification_rule: explicit-metadata
+classification_confidence: medium
+license: CC BY-SA 4.0
+affiliation: Institut Mariani / C.O.R.S.I.C.A., 1 cours Paoli, F-20250 Corte, Corsica
+language: en
+update_policy: UP-DEFAULT-REVIEWED
+status: working-paper
+review:
+  status: unreviewed
+  reviewed_by: []
+provenance:
+  origin_type: unknown
+  origin_repository: unknown
+  origin_ref: unknown
+  origin_date: unknown
+  derived_from: []
 ---
+
 
 # Ubikia Media — Coding-Agent Runbook
 ## How to implement the MVP safely, one bounded task at a time

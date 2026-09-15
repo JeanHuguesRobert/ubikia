@@ -1,28 +1,41 @@
 ---
-title: "Publication registry exploration"
-document_role: "source"
-document_kind: "research-note"
-visibility: "public"
-lifecycle_state: "working"
-status: "exploration"
-date: "2026-07-19"
-author: "Jean Hugues Noël Robert"
-repository: "ubikia"
+title: Publication registry exploration
+document_role: source
+document_kind: research-note
+visibility: public
+lifecycle_state: working
+status: exploration
+date: '2026-07-19'
+author: Jean Hugues Noël Robert
 related_documents:
-  - "ubikia/docs/publication_layer.md"
-  - "ubikia/docs/concepts.md"
-  - "ubikia/publications/README.md"
-  - "ubikia/publications/ledger/publications.json"
+  - ubikia/docs/publication_layer.md
+  - ubikia/docs/concepts.md
+  - ubikia/publications/README.md
+  - ubikia/publications/ledger/publications.json
 continuations:
-  - "human-readable publication index"
-  - "multi-platform registry views"
-  - "optional GitHub issue/project sync"
-  - "return-to-corpus from appearances"
-classification_source: "cogentia.js"
-classification_version: "1"
-classification_rule: "explicit-metadata"
-classification_confidence: "medium"
+  - human-readable publication index
+  - multi-platform registry views
+  - optional GitHub issue/project sync
+  - return-to-corpus from appearances
+classification_source: cogentia.js
+classification_version: '1'
+classification_rule: explicit-metadata
+classification_confidence: medium
+license: CC BY-SA 4.0
+affiliation: Institut Mariani / C.O.R.S.I.C.A., 1 cours Paoli, F-20250 Corte, Corsica
+language: en
+update_policy: UP-DEFAULT-REVIEWED
+review:
+  status: unreviewed
+  reviewed_by: []
+provenance:
+  origin_type: unknown
+  origin_repository: unknown
+  origin_ref: unknown
+  origin_date: unknown
+  derived_from: []
 ---
+
 
 # Publication registry exploration
 

@@ -1,28 +1,42 @@
 ---
-script_id: "pluralisation-cognitive-spoken-essay-v1"
-status: "draft"
-language: "fr-FR"
-title: "On n’est jamais si bien servi que par soi-même ; demain, cela fera beaucoup de monde"
-subtitle: "Pluraliser la capacité sans dissoudre la responsabilité"
-author: "Jean Hugues Noël Robert, baron Mariani"
-source_repository: "JeanHuguesRobert/barons-Mariani"
-source_path: "research/pluralisation_cognitive_sous_mandat.md"
-source_commit: "19dbb4a4e30dff10d2049730a34ab5a9d62bb7f5"
-intermediate_product_path: "research/se_demultiplier_pour_explorer_le_possible_blogpost.md"
-intermediate_product_commit: "19dbb4a4e30dff10d2049730a34ab5a9d62bb7f5"
+script_id: pluralisation-cognitive-spoken-essay-v1
+status: draft
+language: fr-FR
+title: On n’est jamais si bien servi que par soi-même ; demain, cela fera beaucoup de monde
+subtitle: Pluraliser la capacité sans dissoudre la responsabilité
+author: Jean Hugues Noël Robert, baron Mariani
+source_repository: JeanHuguesRobert/barons-Mariani
+source_path: research/pluralisation_cognitive_sous_mandat.md
+source_commit: 19dbb4a4e30dff10d2049730a34ab5a9d62bb7f5
+intermediate_product_path: research/se_demultiplier_pour_explorer_le_possible_blogpost.md
+intermediate_product_commit: 19dbb4a4e30dff10d2049730a34ab5a9d62bb7f5
 reviewed_by: null
 reviewed_at: null
-publication_target: "podcast and audiovisual essay"
+publication_target: podcast and audiovisual essay
 synthetic_voice_disclosure_required: true
-document_role: "example"
-document_kind: "example"
-visibility: "public"
-lifecycle_state: "working"
-classification_source: "cogentia.js"
-classification_version: "1"
-classification_rule: "example"
-classification_confidence: "strong"
+document_role: example
+document_kind: example
+visibility: public
+lifecycle_state: working
+classification_source: cogentia.js
+classification_version: '1'
+classification_rule: example
+classification_confidence: strong
+license: CC BY-SA 4.0
+affiliation: Institut Mariani / C.O.R.S.I.C.A., 1 cours Paoli, F-20250 Corte, Corsica
+date: '2026-09-15'
+update_policy: UP-DEFAULT-REVIEWED
+review:
+  status: unreviewed
+  reviewed_by: []
+provenance:
+  origin_type: unknown
+  origin_repository: unknown
+  origin_ref: unknown
+  origin_date: unknown
+  derived_from: []
 ---
+
 
 <!-- media:chapter="Ouverture" -->
 

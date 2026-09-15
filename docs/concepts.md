@@ -9,7 +9,7 @@ classification_rule: documentation
 classification_confidence: medium
 title: Ubikia Concepts
 author: unknown
-date: unknown
+date: null
 provenance:
   origin_type: unknown
   origin_repository: unknown
@@ -20,7 +20,12 @@ review:
   status: unreviewed
   reviewed_by: []
 update_policy: UP-DEFAULT-REVIEWED
+license: CC BY-SA 4.0
+affiliation: Institut Mariani / C.O.R.S.I.C.A., 1 cours Paoli, F-20250 Corte, Corsica
+language: en
+status: working-paper
 ---
+
 
 # Ubikia Concepts
 ## Operational Glossary for Source-First Derivation

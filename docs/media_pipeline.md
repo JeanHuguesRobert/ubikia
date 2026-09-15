@@ -1,23 +1,37 @@
 ---
-document_role: "source"
-document_kind: "technical-architecture"
-visibility: "public"
-lifecycle_state: "working"
-version: "0.1"
-date: "2026-07-12"
-repository: "JeanHuguesRobert/ubikia"
+document_role: source
+document_kind: technical-architecture
+visibility: public
+lifecycle_state: working
+version: '0.1'
+date: '2026-07-12'
 related_documents:
-  - "README.md"
-  - "docs/concepts.md"
-  - "docs/derivation_workflow.md"
-  - "docs/publication_layer.md"
-  - "docs/media_mvp_implementation_plan.md"
-  - "docs/media_agent_runbook.md"
-classification_source: "cogentia.js"
-classification_version: "1"
-classification_rule: "explicit-metadata"
-classification_confidence: "medium"
+  - README.md
+  - docs/concepts.md
+  - docs/derivation_workflow.md
+  - docs/publication_layer.md
+  - docs/media_mvp_implementation_plan.md
+  - docs/media_agent_runbook.md
+classification_source: cogentia.js
+classification_version: '1'
+classification_rule: explicit-metadata
+classification_confidence: medium
+license: CC BY-SA 4.0
+affiliation: Institut Mariani / C.O.R.S.I.C.A., 1 cours Paoli, F-20250 Corte, Corsica
+language: en
+update_policy: UP-DEFAULT-REVIEWED
+status: working-paper
+review:
+  status: unreviewed
+  reviewed_by: []
+provenance:
+  origin_type: unknown
+  origin_repository: unknown
+  origin_ref: unknown
+  origin_date: unknown
+  derived_from: []
 ---
+
 
 # Ubikia Media
 ## Architecture for traceable audio and audiovisual derivation

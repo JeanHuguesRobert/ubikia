@@ -1,18 +1,22 @@
 ---
-title: "Étude & Stratégie d'Architecture : Démultiplication sur les Réseaux Sociaux (Facebook & X) par Agent John"
-subtitle: "Plan tactique pour la campagne des Sénatoriales sous strict respect du principe DHITL"
-author: "Jean Hugues Noël Robert, baron Mariani"
-affiliation: "Institut Mariani — émanation R&D de C.O.R.S.I.C.A., 1 cours Paoli, F-20250 Corte, Corsica"
-date: "2026-08-09"
-status: "published"
-document_role: "derived"
-document_kind: "technical-study"
-visibility: "public"
-language: "fr"
+title: 'Étude & Stratégie d''Architecture : Démultiplication sur les Réseaux Sociaux (Facebook & X) par Agent John'
+subtitle: Plan tactique pour la campagne des Sénatoriales sous strict respect du principe DHITL
+author: Jean Hugues Noël Robert, baron Mariani
+affiliation: Institut Mariani — émanation R&D de C.O.R.S.I.C.A., 1 cours Paoli, F-20250 Corte, Corsica
+date: '2026-08-09'
+status: published
+document_role: derived
+document_kind: technical-study
+visibility: public
+language: fr
 provenance:
   origin_type: corpus-derivation
-  source_corpus: "JeanHuguesRobert/research/agent_brief.md"
-  derivation_framework: "Ubikia — Derive without betraying"
+  source_corpus: JeanHuguesRobert/research/agent_brief.md
+  derivation_framework: Ubikia — Derive without betraying
+  origin_repository: unknown
+  origin_ref: unknown
+  origin_date: unknown
+  derived_from: []
 tags:
   - Agent John
   - Ubikia
@@ -22,13 +26,19 @@ tags:
   - Sénatoriales
   - DHITL
   - Démultiplication
-lifecycle_state: "stable"
-classification_source: "cogentia.js"
-classification_version: "1"
-classification_rule: "explicit-metadata"
-classification_confidence: "strong"
-legacy_document_role: "derived-product"
+lifecycle_state: stable
+classification_source: cogentia.js
+classification_version: '1'
+classification_rule: explicit-metadata
+classification_confidence: strong
+legacy_document_role: derived-product
+license: CC BY-SA 4.0
+update_policy: UP-DEFAULT-REVIEWED
+review:
+  status: unreviewed
+  reviewed_by: []
 ---
+
 
 # Étude & Stratégie d'Architecture : Démultiplication sur les Réseaux Sociaux (Facebook & X) par Agent John
 

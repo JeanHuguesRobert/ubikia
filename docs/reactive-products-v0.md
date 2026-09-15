@@ -1,19 +1,32 @@
 ---
 title: Reactive Products v0
 language: en
-document_role: "operational"
+document_role: operational
 document_kind: implementation-guide
 status: working
 update_policy: UP-DEFAULT-REVIEWED
 source_issue: https://github.com/JeanHuguesRobert/ubikia/issues/24#issuecomment-5574399111
-visibility: "public"
-lifecycle_state: "working"
-classification_source: "cogentia.js"
-classification_version: "1"
-classification_rule: "explicit-metadata"
-classification_confidence: "medium"
-legacy_document_role: "technical"
+visibility: public
+lifecycle_state: working
+classification_source: cogentia.js
+classification_version: '1'
+classification_rule: explicit-metadata
+classification_confidence: medium
+legacy_document_role: technical
+license: CC BY-SA 4.0
+affiliation: Institut Mariani / C.O.R.S.I.C.A., 1 cours Paoli, F-20250 Corte, Corsica
+date: '2026-09-15'
+review:
+  status: unreviewed
+  reviewed_by: []
+provenance:
+  origin_type: unknown
+  origin_repository: unknown
+  origin_ref: unknown
+  origin_date: unknown
+  derived_from: []
 ---
+
 
 # Reactive Products v0
 
