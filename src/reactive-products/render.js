@@ -38,7 +38,7 @@ export async function render({ corpus: corpusPath, projection: projectionPath, o
     for (const [filename, content] of Object.entries(generated)) {
       await writeFile(path.join(directory, filename), content, { flag: "wx" });
     }
-    await quarto.render(directory, ir.outputs);
+    await quarto.render(directory);
     const artifacts = await outputFiles(directory);
     const manifest = buildManifest({ ...loaded, rendererVersion, generated, artifacts });
     for (const input of inputs) {

@@ -31,16 +31,17 @@ async function fakeQuarto(root, mode = "success") {
   await writeFile(executable, `#!${process.execPath}\n` + `
 const fs = require('node:fs');
 if (process.argv[2] === '--version') { console.log('test-double-1'); process.exit(0); }
-if (process.argv.slice(2).join(' ') !== 'render . --to ' + process.argv[5] + ' --no-execute') process.exit(7);
+if (process.argv.slice(2).join(' ') !== 'render . --no-execute') process.exit(7);
 if (${JSON.stringify(mode)} === 'failure') { console.error('TeX unavailable'); process.exit(9); }
 const config = fs.readFileSync('_quarto.yml', 'utf8');
 const id = config.match(/output-file: (.+)/)[1];
+// A single invocation renders every format declared in _quarto.yml, matching
+// real Quarto book behaviour where each render clears the shared output-dir.
 fs.mkdirSync('_book', { recursive: true });
-if (process.argv[5] === 'html') {
-  fs.writeFileSync('_book/index.html', '<!doctype html><html><body>Opening</body></html>');
-  fs.writeFileSync('_book/chapter-001.html', '<html><body>Evidence</body></html>');
-  fs.writeFileSync('_book/style.css', 'body {}');
-} else if (${JSON.stringify(mode)} !== 'missing-pdf') {
+fs.writeFileSync('_book/index.html', '<!doctype html><html><body>Opening</body></html>');
+fs.writeFileSync('_book/chapter-001.html', '<html><body>Evidence</body></html>');
+fs.writeFileSync('_book/style.css', 'body {}');
+if (${JSON.stringify(mode)} !== 'missing-pdf') {
   fs.writeFileSync('_book/' + id + '.pdf', ${JSON.stringify(mode)} === 'invalid-pdf' ? 'wrong' : '%PDF-1.7\\nTEST DOUBLE');
 }
 `, { mode: 0o755 });

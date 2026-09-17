@@ -20,10 +20,12 @@ export function createQuartoAdapter({ executable = "quarto" } = {}) {
       if (!version) throw new Error("Quarto returned an empty renderer version");
       return version;
     },
-    async render(directory, formats) {
-      for (const format of formats) {
-        await run(["render", ".", "--to", format, "--no-execute"], directory);
-      }
+    async render(directory) {
+      // A Quarto book project clears its output-dir on every render invocation.
+      // Rendering one format at a time via --to would therefore erase the
+      // previous format's artifact. Render every format declared in the
+      // generated _quarto.yml in a single invocation instead.
+      await run(["render", ".", "--no-execute"], directory);
     },
   };
 }
