@@ -68,10 +68,12 @@ rename fails. The build directory is disposable and is removed at exit.
 
 ## Boundaries
 
-`--push` is an explicit operator action. A successful push may cause GitHub
-Pages to deploy, but neither GitHub Pages propagation nor public reachability is
-claimed by this script. Verify the public URL separately with the Operium smoke
-check after GitHub Pages has completed.
+`--push` is an explicit operator action. It updates only the artifact Git
+repository; it does not deploy the public site. The currently observed serving
+topology is a Fracta TLS gateway forwarding over the authenticated mesh to a
+Fracta2 static origin. Promotion of the Fracta2 release pointer belongs to
+Operium and remains a separate, explicitly authorized action. Verify the public
+URL with the Operium smoke check after that promotion.
 
 The final frozen edition is outside this procedure. It requires a separately
 identified source snapshot and explicit editorial/publication authorization.

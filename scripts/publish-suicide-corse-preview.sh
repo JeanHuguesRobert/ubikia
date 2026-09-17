@@ -156,4 +156,4 @@ if "$push"; then
   git -C "$SUICIDE_CORSE_SITE_DIR" push
 fi
 
-printf '%s\n' 'Preview staging complete. GitHub Pages propagation, if pushed, remains externally verified separately.'
+printf '%s\n' 'Artifact-repository update complete. Public gateway promotion is a separate Operium action and must be verified independently.'
