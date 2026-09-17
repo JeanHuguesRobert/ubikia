@@ -46,10 +46,15 @@ export async function render({ corpus: corpusPath, projection: projectionPath, o
         throw new Error(`Source changed during render; retry from a stable snapshot: ${input.path}`);
       }
     }
+    const validators = {
+      pdf: (bytes) => bytes.subarray(0, 5).toString() === "%PDF-",
+      // EPUB is a ZIP container; Quarto/Pandoc always emit the local-file-header signature first.
+      epub: (bytes) => bytes.subarray(0, 4).toString("latin1") === "PK\x03\x04",
+      html: (bytes) => /<html[\s>]/i.test(bytes.toString("utf8")),
+    };
     for (const artifact of manifest.outputs) {
       const bytes = await readFile(path.join(directory, artifact.path));
-      if (artifact.format === "pdf" ? bytes.subarray(0, 5).toString() !== "%PDF-"
-        : !/<html[\s>]/i.test(bytes.toString("utf8"))) {
+      if (!validators[artifact.format](bytes)) {
         throw new Error(`Invalid ${artifact.format} artifact: ${artifact.path}`);
       }
     }

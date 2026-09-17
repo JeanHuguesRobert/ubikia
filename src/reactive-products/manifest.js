@@ -41,7 +41,9 @@ export function buildManifest({ ir, corpus, projection, rendererVersion, generat
     generator: { name: "ubikia.reactive-products", version: "0" },
     generated: Object.entries(generated).map(([filename, content]) => ({ path: filename, sha256: sha256(content) })),
     outputs: ir.outputs.map((format) => {
-      const filename = format === "html" ? "_book/index.html" : `_book/${ir.editionId}.pdf`;
+      // Quarto book projects write the primary HTML page as index.html and every
+      // other format under the book's declared output-file, named by extension.
+      const filename = format === "html" ? "_book/index.html" : `_book/${ir.editionId}.${format}`;
       const file = artifacts.find((entry) => entry.path === filename);
       if (!file) throw new Error(`Quarto did not produce required ${format} output: ${filename}`);
       return { format, ...file };

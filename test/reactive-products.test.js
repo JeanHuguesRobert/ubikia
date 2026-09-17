@@ -35,14 +35,20 @@ if (process.argv.slice(2).join(' ') !== 'render . --no-execute') process.exit(7)
 if (${JSON.stringify(mode)} === 'failure') { console.error('TeX unavailable'); process.exit(9); }
 const config = fs.readFileSync('_quarto.yml', 'utf8');
 const id = config.match(/output-file: (.+)/)[1];
+const formats = [...config.matchAll(/^  (html|pdf|epub):/gm)].map((m) => m[1]);
 // A single invocation renders every format declared in _quarto.yml, matching
 // real Quarto book behaviour where each render clears the shared output-dir.
 fs.mkdirSync('_book', { recursive: true });
-fs.writeFileSync('_book/index.html', '<!doctype html><html><body>Opening</body></html>');
-fs.writeFileSync('_book/chapter-001.html', '<html><body>Evidence</body></html>');
-fs.writeFileSync('_book/style.css', 'body {}');
-if (${JSON.stringify(mode)} !== 'missing-pdf') {
+if (formats.includes('html')) {
+  fs.writeFileSync('_book/index.html', '<!doctype html><html><body>Opening</body></html>');
+  fs.writeFileSync('_book/chapter-001.html', '<html><body>Evidence</body></html>');
+  fs.writeFileSync('_book/style.css', 'body {}');
+}
+if (formats.includes('pdf') && ${JSON.stringify(mode)} !== 'missing-pdf') {
   fs.writeFileSync('_book/' + id + '.pdf', ${JSON.stringify(mode)} === 'invalid-pdf' ? 'wrong' : '%PDF-1.7\\nTEST DOUBLE');
+}
+if (formats.includes('epub') && ${JSON.stringify(mode)} !== 'missing-epub') {
+  fs.writeFileSync('_book/' + id + '.epub', ${JSON.stringify(mode)} === 'invalid-epub' ? 'wrong' : Buffer.from('PK\\x03\\x04TEST DOUBLE'));
 }
 `, { mode: 0o755 });
   return createQuartoAdapter({ executable });
@@ -52,7 +58,7 @@ test("minimal and Suicide Corse contracts validate; contradictory or malformed f
   assert.equal(validateContract(exampleContract).id, "minimal-book-0");
   assert.equal(validateContract({ ...exampleContract, schema: "suicide-corse.projection.book.v0" }).chapters.length, 5);
   for (const patch of [{ id: "../escape" }, { schema: "future.v2" }, { chapters: [] },
-    { chapters: ["a.md", "a.md"] }, { outputs: { required: ["epub"] } },
+    { chapters: ["a.md", "a.md"] }, { outputs: { required: ["mobi"] } },
     { outputs: { required: ["html", "html"] } }, { language: null },
     { render_contract: { preserve_epistemic_distinctions: false } }]) {
     assert.throws(() => validateContract({ ...exampleContract, ...patch }));
@@ -105,6 +111,27 @@ test("adapter integration writes required outputs and verifiable provenance with
   }
   assert.deepEqual((await loadProjection(f.corpus, f.projection)).ir, before.ir);
 });
+
+test("epub can be requested alongside html and pdf", async (t) => {
+  const f = await fixture(t);
+  await writeFile(f.projection, stringify({ ...exampleContract, outputs: { required: ["html", "pdf", "epub"] } }));
+  const result = await render({ ...f, quarto: await fakeQuarto(f.root) });
+  const manifest = JSON.parse(await readFile(path.join(result.directory, "manifest.json"), "utf8"));
+  assert.deepEqual(manifest.outputs.map((o) => o.format), ["html", "pdf", "epub"]);
+  const epub = manifest.outputs.find((o) => o.format === "epub");
+  assert.equal(epub.path, `_book/${manifest.edition_id}.epub`);
+  const bytes = await readFile(path.join(result.directory, epub.path));
+  assert.equal(bytes.subarray(0, 4).toString("latin1"), "PK\x03\x04");
+});
+
+for (const mode of ["missing-epub", "invalid-epub"]) {
+  test(`failed epub renderer (${mode}) leaves no success manifest or partial edition`, async (t) => {
+    const f = await fixture(t);
+    await writeFile(f.projection, stringify({ ...exampleContract, outputs: { required: ["html", "epub"] } }));
+    await assert.rejects(render({ ...f, quarto: await fakeQuarto(f.root, mode) }), /required epub|Invalid epub/);
+    await assert.rejects(access(f.output));
+  });
+}
 
 test("repository-relative documentary paths resolve and Git commit is recorded", async (t) => {
   const f = await fixture(t);

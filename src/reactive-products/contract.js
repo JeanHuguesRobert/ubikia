@@ -56,9 +56,9 @@ export function validateContract(value) {
     throw new Error("projection.chapters must not contain duplicates");
   }
   const outputs = contract.outputs?.required;
-  if (!Array.isArray(outputs) || !outputs.length || outputs.some((item) => !["html", "pdf"].includes(item))
+  if (!Array.isArray(outputs) || !outputs.length || outputs.some((item) => !["html", "pdf", "epub"].includes(item))
       || new Set(outputs).size !== outputs.length) {
-    throw new Error("projection.outputs.required must be a unique, non-empty array of html and/or pdf");
+    throw new Error("projection.outputs.required must be a unique, non-empty array of html, pdf and/or epub");
   }
   if (contract.outputs.optional !== undefined && (!Array.isArray(contract.outputs.optional)
       || contract.outputs.optional.some((item) => typeof item !== "string"))) {
