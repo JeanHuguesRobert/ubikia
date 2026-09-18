@@ -148,7 +148,10 @@ stage_dir=""
 rm -rf -- "$backup_dir"
 backup_dir=""
 
-git -C "$SUICIDE_CORSE_SITE_DIR" diff --check
+# Quarto's generated HTML contains harmless terminal spaces in navigation
+# markup. Keep Git's conflict diagnostics while excluding that generated-only
+# whitespace class from the publication gate.
+git -C "$SUICIDE_CORSE_SITE_DIR" -c core.whitespace=-blank-at-eol diff --check
 printf '%s\n' 'Artifact repository diff after replacement:'
 git -C "$SUICIDE_CORSE_SITE_DIR" diff --stat -- "editions/$RELEASE_ID"
 

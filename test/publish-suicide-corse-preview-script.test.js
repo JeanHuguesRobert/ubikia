@@ -23,7 +23,7 @@ test("Suicide Corse preview procedure is syntactically valid and explicit about 
   assert.match(source, /publication_status !== 'draft'/);
   assert.match(source, /const required = \['html', 'pdf', 'epub'\]/);
   assert.match(source, /Validated rendered EPUB/);
-  assert.match(source, /git -C "\$SUICIDE_CORSE_SITE_DIR" diff --check/);
+  assert.match(source, /git -C "\$SUICIDE_CORSE_SITE_DIR" -c core\.whitespace=-blank-at-eol diff --check/);
   assert.match(source, /cp -a -- "\$build_dir\/_book\/\." "\$stage_dir\//);
   assert.match(source, /git -C "\$SUICIDE_CORSE_SITE_DIR" add -- "editions\/\$RELEASE_ID"/);
 });

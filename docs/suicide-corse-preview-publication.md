@@ -66,6 +66,10 @@ Directory replacement is staged beside the release and renamed only after
 validation. A temporary previous-directory backup permits restoration if that
 rename fails. The build directory is disposable and is removed at exit.
 
+Quarto may emit terminal spaces in generated navigation markup. The artifact
+diff gate therefore retains Git conflict diagnostics while excluding only that
+generated whitespace class; it does not alter the rendered files.
+
 ## Cover contract
 
 When a projection declares `cover`, the generic reactive-product renderer
