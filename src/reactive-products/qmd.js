@@ -8,7 +8,7 @@ export function generateQmd(ir) {
   if (ir.subtitle !== undefined) book.subtitle = ir.subtitle;
   if (ir.author !== undefined) book.author = ir.author;
   if (ir.cover !== null) book["cover-image"] = ir.cover.outputPath;
-  book.chapters = names;
+  book.chapters = ir.cover === null ? names : ["index.qmd", ...names];
   files["_quarto.yml"] = stringify({
     project: { type: "book", "output-dir": "_book" },
     book,

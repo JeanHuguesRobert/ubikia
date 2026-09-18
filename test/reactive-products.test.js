@@ -150,6 +150,7 @@ test("a declared PNG cover is preserved, rendered centrally, and recorded in pro
   const qmd = generateQmd(ir);
   assert.match(qmd["index.qmd"], /central graphic element: Minimal reactive book/);
   assert.match(qmd["index.qmd"], /cover\/cover.png/);
+  assert.deepEqual(parseYaml(qmd["_quarto.yml"], "generated").book.chapters.slice(0, 2), ["index.qmd", "chapter-001.qmd"]);
   assert.equal(qmd["chapter-001.qmd"].includes("# Opening"), true);
   const result = await render({ ...f, quarto: await fakeQuarto(f.root) });
   const manifest = JSON.parse(await readFile(path.join(result.directory, "manifest.json"), "utf8"));
