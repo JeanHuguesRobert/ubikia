@@ -58,13 +58,30 @@ scripts/publish-suicide-corse-preview.sh --apply --commit --push
 The script reads the generated manifest rather than assuming a PDF filename. It
 requires HTML, PDF, and EPUB outputs, requires `publication_status: draft`, checks that
 the manifest's source commit is the checked-out `barons-Mariani` HEAD, and
-copies only `_book/` plus `manifest.json` into
-`suicide-corse/editions/2026-09-17/`. The landing page, `CNAME`, and
-`temoigner.html` are outside its write target.
+copies `_book/` plus `manifest.json` into `suicide-corse/editions/2026-09-17/`.
+It also derives `questions-ouvertes.html` from the canonical Corpus file
+`projects/suicide-corse/manuscript/questions-ouvertes.md`, verifies that the
+embedded source commit matches the same `barons-Mariani` revision as the book
+manifest, and stages that page at the publication root. The landing page,
+`CNAME`, and `temoigner.html` remain outside the script's write target.
 
 Directory replacement is staged beside the release and renamed only after
 validation. A temporary previous-directory backup permits restoration if that
-rename fails. The build directory is disposable and is removed at exit.
+rename fails. The open-questions page follows the same staged replacement
+principle. The build directory is disposable and is removed at exit.
+
+## Open questions projection
+
+`scripts/render-suicide-corse-open-questions.mjs` is deliberately narrow. It
+reads the canonical Markdown source, strips its frontmatter, renders only the
+small Markdown subset currently used by that document, and writes a standalone
+HTML page containing the exact source commit in both metadata and visible
+provenance. It also links back to `temoigner.html` rather than duplicating the
+call-for-testimony content.
+
+The open-questions HTML is a derived product, not a new source. Editorial
+changes belong in `barons-Mariani`; rerunning the preview pipeline regenerates
+the public projection.
 
 Quarto may emit terminal spaces in generated navigation markup. The artifact
 diff gate therefore retains Git conflict diagnostics while excluding only that
