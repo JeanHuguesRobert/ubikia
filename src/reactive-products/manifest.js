@@ -21,12 +21,17 @@ export function buildManifest({ ir, corpus, projection, rendererVersion, generat
   const sources = [...new Map(corpus.sources.map((source) => [source.path, source])).values()];
   const gitStatus = corpus.repositoryRoot === null ? null
     : gitValue(corpus.repositoryRoot, ["status", "--porcelain", "--untracked-files=normal"]);
+  const cover = ir.cover === null ? null : (() => {
+    const { image, outputPath, ...metadata } = ir.cover;
+    return { ...metadata, source: fingerprint(image), output_path: outputPath };
+  })();
   return {
     schema: "ubikia.reactive-build.v0",
     edition_id: ir.editionId,
     medium: ir.medium,
     previous_edition_id: ir.previousEditionId,
     parent_edition_id: ir.parentEditionId,
+    cover,
     built_at: new Date().toISOString(),
     publication_status: "draft",
     projection: { ...fingerprint(projection), schema: projection.data.schema, contract: projection.data },

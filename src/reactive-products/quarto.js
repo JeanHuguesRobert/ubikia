@@ -3,10 +3,10 @@ import { promisify } from "node:util";
 
 const execute = promisify(execFile);
 
-export function createQuartoAdapter({ executable = "quarto" } = {}) {
+export function createQuartoAdapter({ executable = "quarto", arguments: executableArguments = [] } = {}) {
   async function run(args, cwd) {
     try {
-      return await execute(executable, args, { cwd, maxBuffer: 16 * 1024 * 1024, timeout: 600000 });
+      return await execute(executable, [...executableArguments, ...args], { cwd, maxBuffer: 16 * 1024 * 1024, timeout: 600000 });
     } catch (error) {
       if (error.code === "ENOENT") {
         throw new Error(`Quarto executable not found: ${executable}. Install Quarto and a TeX distribution for PDF, then retry.`);

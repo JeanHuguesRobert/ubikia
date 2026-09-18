@@ -1,4 +1,5 @@
 import { readFile, realpath } from "node:fs/promises";
+import path from "node:path";
 import { parse, stringify } from "yaml";
 
 export { stringify };
@@ -63,6 +64,18 @@ export function validateContract(value) {
   if (contract.outputs.optional !== undefined && (!Array.isArray(contract.outputs.optional)
       || contract.outputs.optional.some((item) => typeof item !== "string"))) {
     throw new Error("projection.outputs.optional must be an array of format names");
+  }
+  if (contract.cover !== undefined) {
+    const cover = mapping(contract.cover, "projection.cover");
+    for (const field of ["title", "subtitle", "issue", "edition", "anniversary", "author", "author_title", "image", "image_role"]) {
+      nonempty(cover[field], `projection.cover.${field}`);
+    }
+    if (path.isAbsolute(cover.image)) {
+      throw new Error("projection.cover.image must be relative to the projection");
+    }
+    if (cover.preserve_source_image !== true) {
+      throw new Error("projection.cover.preserve_source_image must be true");
+    }
   }
   const invariants = {
     canonical_source_format: "markdown",

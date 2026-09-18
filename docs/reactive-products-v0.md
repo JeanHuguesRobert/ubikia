@@ -91,8 +91,8 @@ Optional metadata: `subtitle`, `author`, `medium` (string, default `book`),
 Additional contract metadata, including status, review, provenance requirements
 and open questions, is retained in the manifest; it is not treated as Quarto
 configuration or evidence of review. Conflicting `render_contract` invariants
-fail explicitly. Optional output requests such as EPUB are recorded but not
-rendered in v0. Unsupported required outputs fail.
+fail explicitly. Required HTML, PDF, and EPUB outputs are rendered together;
+unsupported required outputs fail.
 
 - `source_manifest` and chapter paths resolve relative to the projection file.
   The explicit `--corpus` must resolve to that same manifest.
@@ -108,7 +108,11 @@ rendered in v0. Unsupported required outputs fail.
 
 ## Generated book and manifest
 
-The first chapter becomes `index.qmd`, followed by numbered QMD files.
+Without a cover, the first chapter becomes `index.qmd`, followed by numbered
+QMD files. A declared `cover` becomes `index.qmd` and shifts the canonical
+chapters to numbered QMD files; its declared PNG is copied byte-for-byte into
+the disposable build, used as Quarto's EPUB cover image, and fingerprinted in
+the build manifest.
 `_quarto.yml` uses Quarto's [book backend](https://quarto.org/docs/reference/projects/books.html).
 Canonical frontmatter is nested under `ubikia_source` in each QMD file and
 retained in `manifest.chapters`, preventing source metadata from becoming

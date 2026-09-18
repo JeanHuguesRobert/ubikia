@@ -21,7 +21,7 @@
     "outputs": {
       "type": "object", "required": ["required"],
       "properties": {
-        "required": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "enum": ["html", "pdf"] } },
+        "required": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "enum": ["html", "pdf", "epub"] } },
         "optional": { "type": "array", "items": { "type": "string" } }
       }
     },
@@ -33,6 +33,22 @@
         "preserve_frontmatter_provenance": { "const": true },
         "preserve_epistemic_distinctions": { "const": true },
         "frozen_release_mutable": { "const": false }
+      }
+    },
+    "cover": {
+      "type": "object",
+      "required": ["title", "subtitle", "issue", "edition", "anniversary", "author", "author_title", "image", "image_role", "preserve_source_image"],
+      "properties": {
+        "title": { "type": "string", "pattern": "\\S" },
+        "subtitle": { "type": "string", "pattern": "\\S" },
+        "issue": { "type": "string", "pattern": "\\S" },
+        "edition": { "type": "string", "pattern": "\\S" },
+        "anniversary": { "type": "string", "pattern": "\\S" },
+        "author": { "type": "string", "pattern": "\\S" },
+        "author_title": { "type": "string", "pattern": "\\S" },
+        "image": { "type": "string", "pattern": "\\S" },
+        "image_role": { "type": "string", "pattern": "\\S" },
+        "preserve_source_image": { "const": true }
       }
     }
   }

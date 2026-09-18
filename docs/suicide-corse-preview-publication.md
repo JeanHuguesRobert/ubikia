@@ -56,7 +56,7 @@ scripts/publish-suicide-corse-preview.sh --apply --commit --push
 ```
 
 The script reads the generated manifest rather than assuming a PDF filename. It
-requires HTML and PDF outputs, requires `publication_status: draft`, checks that
+requires HTML, PDF, and EPUB outputs, requires `publication_status: draft`, checks that
 the manifest's source commit is the checked-out `barons-Mariani` HEAD, and
 copies only `_book/` plus `manifest.json` into
 `suicide-corse/editions/2026-09-17/`. The landing page, `CNAME`, and
@@ -65,6 +65,15 @@ copies only `_book/` plus `manifest.json` into
 Directory replacement is staged beside the release and renamed only after
 validation. A temporary previous-directory backup permits restoration if that
 rename fails. The build directory is disposable and is removed at exit.
+
+## Cover contract
+
+When a projection declares `cover`, the generic reactive-product renderer
+validates every supplied cover field and requires `preserve_source_image: true`.
+It copies the declared PNG byte-for-byte into the disposable build, records its
+source SHA-256 in `manifest.json`, uses it as Quarto's EPUB cover image, and
+places it as the central graphic on the generated HTML/PDF cover page. The
+source image is neither modified nor regenerated.
 
 ## Boundaries
 

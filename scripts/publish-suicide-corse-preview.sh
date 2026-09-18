@@ -95,7 +95,7 @@ mapfile -t manifest_values < <(node - "$manifest" <<'NODE'
 const fs = require('node:fs');
 const manifest = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
 if (manifest.publication_status !== 'draft') throw new Error('preview manifest must remain draft');
-const required = ['html', 'pdf'];
+const required = ['html', 'pdf', 'epub'];
 const paths = Object.fromEntries((manifest.outputs ?? []).map((output) => [output.format, output.path]));
 for (const format of required) {
   if (typeof paths[format] !== 'string' || !paths[format]) throw new Error(`manifest lacks ${format} output`);
@@ -104,18 +104,22 @@ for (const format of required) {
 if (!manifest.source_git_commit) throw new Error('manifest lacks source_git_commit');
 console.log(paths.html);
 console.log(paths.pdf);
+console.log(paths.epub);
 console.log(manifest.source_git_commit);
 NODE
 ) || fail 'invalid preview manifest'
 
 html_path="${manifest_values[0]:-}"
 pdf_path="${manifest_values[1]:-}"
-source_commit="${manifest_values[2]:-}"
+epub_path="${manifest_values[2]:-}"
+source_commit="${manifest_values[3]:-}"
 [[ -f "$build_dir/$html_path" ]] || fail "missing rendered HTML: $html_path"
 [[ -f "$build_dir/$pdf_path" ]] || fail "missing rendered PDF: $pdf_path"
+[[ -f "$build_dir/$epub_path" ]] || fail "missing rendered EPUB: $epub_path"
 [[ "$source_commit" == "$(git -C "$BARONS_MARIANI_DIR" rev-parse HEAD)" ]] || fail 'manifest source commit is not the current Corpus revision'
 printf 'Validated preview source commit: %s\n' "$source_commit"
 printf 'Validated rendered PDF: %s\n' "$pdf_path"
+printf 'Validated rendered EPUB: %s\n' "$epub_path"
 
 if ! "$apply"; then
   printf 'Dry run complete. No repository was changed.\n'

@@ -51,7 +51,7 @@ if (formats.includes('epub') && ${JSON.stringify(mode)} !== 'missing-epub') {
   fs.writeFileSync('_book/' + id + '.epub', ${JSON.stringify(mode)} === 'invalid-epub' ? 'wrong' : Buffer.from('PK\\x03\\x04TEST DOUBLE'));
 }
 `, { mode: 0o755 });
-  return createQuartoAdapter({ executable });
+  return createQuartoAdapter({ executable: process.execPath, arguments: [executable] });
 }
 
 test("minimal and Suicide Corse contracts validate; contradictory or malformed fields fail", () => {
@@ -122,6 +122,50 @@ test("epub can be requested alongside html and pdf", async (t) => {
   assert.equal(epub.path, `_book/${manifest.edition_id}.epub`);
   const bytes = await readFile(path.join(result.directory, epub.path));
   assert.equal(bytes.subarray(0, 4).toString("latin1"), "PK\x03\x04");
+});
+
+test("a declared PNG cover is preserved, rendered centrally, and recorded in provenance", async (t) => {
+  const f = await fixture(t);
+  const coverDirectory = path.join(f.source, "assets");
+  const coverPath = path.join(coverDirectory, "cover.png");
+  const coverBytes = Buffer.from("PNG source bytes must remain unchanged");
+  await mkdir(coverDirectory, { recursive: true });
+  await writeFile(coverPath, coverBytes);
+  await writeFile(f.projection, stringify({
+    ...exampleContract,
+    cover: {
+      title: "Minimal reactive book",
+      subtitle: "A faithful projection",
+      issue: "No. 1",
+      edition: "Preview",
+      anniversary: "First anniversary",
+      author: "Example author",
+      author_title: "editor",
+      image: "../assets/cover.png",
+      image_role: "central graphic element",
+      preserve_source_image: true,
+    },
+  }));
+  const { ir } = await loadProjection(f.corpus, f.projection);
+  const qmd = generateQmd(ir);
+  assert.match(qmd["index.qmd"], /central graphic element: Minimal reactive book/);
+  assert.match(qmd["index.qmd"], /cover\/cover.png/);
+  assert.equal(qmd["chapter-001.qmd"].includes("# Opening"), true);
+  const result = await render({ ...f, quarto: await fakeQuarto(f.root) });
+  const manifest = JSON.parse(await readFile(path.join(result.directory, "manifest.json"), "utf8"));
+  assert.equal(manifest.cover.preserve_source_image, true);
+  assert.equal(manifest.cover.source.sha256, sha256(coverBytes));
+  assert.equal(await readFile(path.join(result.directory, "cover/cover.png"), "utf8"), coverBytes.toString("utf8"));
+});
+
+test("a cover requires a relative PNG and explicit image-preservation invariant", () => {
+  const cover = {
+    title: "Book", subtitle: "Subtitle", issue: "No. 1", edition: "Preview", anniversary: "First",
+    author: "Author", author_title: "editor", image: "../assets/cover.png", image_role: "central", preserve_source_image: true,
+  };
+  assert.equal(validateContract({ ...exampleContract, cover }).cover.image, "../assets/cover.png");
+  assert.throws(() => validateContract({ ...exampleContract, cover: { ...cover, preserve_source_image: false } }), /preserve_source_image/);
+  assert.throws(() => validateContract({ ...exampleContract, cover: { ...cover, image: "C:\\cover.png" } }), /must be relative/);
 });
 
 for (const mode of ["missing-epub", "invalid-epub"]) {
