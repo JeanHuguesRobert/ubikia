@@ -133,6 +133,7 @@ test("a declared PNG cover is preserved, rendered centrally, and recorded in pro
   await writeFile(coverPath, coverBytes);
   await writeFile(f.projection, stringify({
     ...exampleContract,
+    outputs: { required: ["html", "pdf", "epub"] },
     cover: {
       title: "Minimal reactive book",
       subtitle: "A faithful projection",
@@ -150,7 +151,12 @@ test("a declared PNG cover is preserved, rendered centrally, and recorded in pro
   const qmd = generateQmd(ir);
   assert.match(qmd["index.qmd"], /central graphic element: Minimal reactive book/);
   assert.match(qmd["index.qmd"], /cover\/cover.png/);
-  assert.deepEqual(parseYaml(qmd["_quarto.yml"], "generated").book.chapters.slice(0, 2), ["index.qmd", "chapter-001.qmd"]);
+  assert.doesNotMatch(qmd["index.qmd"], /## A faithful projection/);
+  assert.match(qmd["index.qmd"], /::: \{\.cover-subtitle\}/);
+  const config = parseYaml(qmd["_quarto.yml"], "generated");
+  assert.deepEqual(config.book.chapters.slice(0, 2), ["index.qmd", "chapter-001.qmd"]);
+  assert.equal(config.book["cover-image"], undefined);
+  assert.equal(config.format.epub["epub-cover-image"], "cover/cover.png");
   assert.equal(qmd["chapter-001.qmd"].includes("# Opening"), true);
   const result = await render({ ...f, quarto: await fakeQuarto(f.root) });
   const manifest = JSON.parse(await readFile(path.join(result.directory, "manifest.json"), "utf8"));
