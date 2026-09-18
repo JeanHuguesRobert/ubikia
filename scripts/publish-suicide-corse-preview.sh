@@ -172,7 +172,7 @@ stage_dir=""
 rm -rf -- "$backup_dir"
 backup_dir=""
 if [[ -f "$OPEN_QUESTIONS_TARGET" ]]; then
-  open_questions_backup="$SUICIDE_CORSE_SITE_DIR/.questions-ouvertes.previous.$.${RANDOM}"
+  open_questions_backup="$SUICIDE_CORSE_SITE_DIR/.questions-ouvertes.previous.$$.${RANDOM}"
   mv -- "$OPEN_QUESTIONS_TARGET" "$open_questions_backup"
 fi
 mv -- "$open_questions_stage" "$OPEN_QUESTIONS_TARGET"
