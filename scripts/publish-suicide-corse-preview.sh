@@ -11,6 +11,8 @@ readonly SUICIDE_CORSE_SITE_DIR="${SUICIDE_CORSE_SITE_DIR:-$(cd "$UBIKIA_DIR/../
 readonly CORPUS_PATH="$BARONS_MARIANI_DIR/projects/suicide-corse/corpus.yml"
 readonly PROJECTION_PATH="$BARONS_MARIANI_DIR/projects/suicide-corse/projections/book-2026-09-17-anniversaire.yml"
 readonly TARGET_DIR="$SUICIDE_CORSE_SITE_DIR/editions/$RELEASE_ID"
+readonly OPEN_QUESTIONS_SOURCE="$BARONS_MARIANI_DIR/projects/suicide-corse/manuscript/questions-ouvertes.md"
+readonly OPEN_QUESTIONS_TARGET="$SUICIDE_CORSE_SITE_DIR/questions-ouvertes.html"
 
 apply=false
 commit=false
@@ -18,6 +20,8 @@ push=false
 work_dir=""
 stage_dir=""
 backup_dir=""
+open_questions_stage=""
+open_questions_backup=""
 
 usage() {
   cat <<'EOF'
@@ -44,6 +48,10 @@ cleanup() {
     mv -- "$backup_dir" "$TARGET_DIR" || true
   fi
   [[ -z "$stage_dir" || ! -d "$stage_dir" ]] || rm -rf -- "$stage_dir"
+  if [[ -n "$open_questions_backup" && -f "$open_questions_backup" && ! -f "$OPEN_QUESTIONS_TARGET" ]]; then
+    mv -- "$open_questions_backup" "$OPEN_QUESTIONS_TARGET" || true
+  fi
+  [[ -z "$open_questions_stage" || ! -f "$open_questions_stage" ]] || rm -f -- "$open_questions_stage"
   [[ -z "$work_dir" || ! -d "$work_dir" ]] || rm -rf -- "$work_dir"
 }
 trap cleanup EXIT
@@ -72,6 +80,7 @@ done
 
 [[ -f "$CORPUS_PATH" ]] || fail "missing corpus: $CORPUS_PATH"
 [[ -f "$PROJECTION_PATH" ]] || fail "missing projection: $PROJECTION_PATH"
+[[ -f "$OPEN_QUESTIONS_SOURCE" ]] || fail "missing open questions source: $OPEN_QUESTIONS_SOURCE"
 [[ "$TARGET_DIR" == "$SUICIDE_CORSE_SITE_DIR/editions/$RELEASE_ID" ]] || fail 'unsafe target directory'
 
 if "$apply"; then
@@ -121,6 +130,14 @@ printf 'Validated preview source commit: %s\n' "$source_commit"
 printf 'Validated rendered PDF: %s\n' "$pdf_path"
 printf 'Validated rendered EPUB: %s\n' "$epub_path"
 
+open_questions_render="$work_dir/questions-ouvertes.html"
+open_questions_commit="$(node "$UBIKIA_DIR/scripts/render-suicide-corse-open-questions.mjs" --source "$OPEN_QUESTIONS_SOURCE" --source-repo "$BARONS_MARIANI_DIR" --output "$open_questions_render")"
+[[ -f "$open_questions_render" ]] || fail "open questions renderer produced no HTML"
+[[ "$open_questions_commit" == "$source_commit" ]] || fail "open questions provenance does not match preview source commit"
+grep -Fq "data-source-commit=\"$source_commit\"" "$open_questions_render" || fail "open questions HTML lacks source commit provenance"
+grep -Fq 'href="temoigner.html"' "$open_questions_render" || fail "open questions HTML lacks testimony link"
+printf 'Validated open questions projection: %s\n' "$source_commit"
+
 if ! "$apply"; then
   printf 'Dry run complete. No repository was changed.\n'
   exit 0
@@ -131,12 +148,19 @@ mkdir -p -- "$release_parent"
 stage_dir="$(mktemp -d "$release_parent/.${RELEASE_ID}.stage.XXXXXX")"
 cp -a -- "$build_dir/_book/." "$stage_dir/"
 cp -- "$manifest" "$stage_dir/manifest.json"
+open_questions_stage="$(mktemp "$SUICIDE_CORSE_SITE_DIR/.questions-ouvertes.stage.XXXXXX")"
+cp -- "$open_questions_render" "$open_questions_stage"
 
 printf '%s\n' 'Planned artifact-repository diff:'
 if [[ -d "$TARGET_DIR" ]]; then
   git -C "$SUICIDE_CORSE_SITE_DIR" diff --no-index --stat -- "$TARGET_DIR" "$stage_dir" || true
 else
   git -C "$SUICIDE_CORSE_SITE_DIR" diff --no-index --stat -- /dev/null "$stage_dir" || true
+fi
+if [[ -f "$OPEN_QUESTIONS_TARGET" ]]; then
+  git -C "$SUICIDE_CORSE_SITE_DIR" diff --no-index --stat -- "$OPEN_QUESTIONS_TARGET" "$open_questions_stage" || true
+else
+  git -C "$SUICIDE_CORSE_SITE_DIR" diff --no-index --stat -- /dev/null "$open_questions_stage" || true
 fi
 
 if [[ -d "$TARGET_DIR" ]]; then
@@ -147,16 +171,24 @@ mv -- "$stage_dir" "$TARGET_DIR"
 stage_dir=""
 rm -rf -- "$backup_dir"
 backup_dir=""
+if [[ -f "$OPEN_QUESTIONS_TARGET" ]]; then
+  open_questions_backup="$SUICIDE_CORSE_SITE_DIR/.questions-ouvertes.previous.$.${RANDOM}"
+  mv -- "$OPEN_QUESTIONS_TARGET" "$open_questions_backup"
+fi
+mv -- "$open_questions_stage" "$OPEN_QUESTIONS_TARGET"
+open_questions_stage=""
+rm -f -- "$open_questions_backup"
+open_questions_backup=""
 
 # Quarto's generated HTML contains harmless terminal spaces in navigation
 # markup. Keep Git's conflict diagnostics while excluding that generated-only
 # whitespace class from the publication gate.
 git -C "$SUICIDE_CORSE_SITE_DIR" -c core.whitespace=-blank-at-eol diff --check
 printf '%s\n' 'Artifact repository diff after replacement:'
-git -C "$SUICIDE_CORSE_SITE_DIR" diff --stat -- "editions/$RELEASE_ID"
+git -C "$SUICIDE_CORSE_SITE_DIR" diff --stat -- "editions/$RELEASE_ID" "questions-ouvertes.html"
 
 if "$commit"; then
-  git -C "$SUICIDE_CORSE_SITE_DIR" add -- "editions/$RELEASE_ID"
+  git -C "$SUICIDE_CORSE_SITE_DIR" add -- "editions/$RELEASE_ID" "questions-ouvertes.html"
   git -C "$SUICIDE_CORSE_SITE_DIR" commit -m "Update Suicide Corse preview $RELEASE_ID"
 fi
 if "$push"; then
