@@ -9,7 +9,7 @@ readonly UBIKIA_DIR="${UBIKIA_DIR:-$(cd "$SCRIPT_DIR/.." && pwd)}"
 readonly BARONS_MARIANI_DIR="${BARONS_MARIANI_DIR:-$(cd "$UBIKIA_DIR/../barons-Mariani" && pwd)}"
 readonly SUICIDE_CORSE_SITE_DIR="${SUICIDE_CORSE_SITE_DIR:-$(cd "$UBIKIA_DIR/../suicide-corse" && pwd)}"
 readonly CORPUS_PATH="$BARONS_MARIANI_DIR/projects/suicide-corse/corpus.yml"
-readonly PROJECTION_PATH="$BARONS_MARIANI_DIR/projects/suicide-corse/projections/book-2026-09-17-anniversaire.yml"
+readonly PROJECTION_INPUT="${SUICIDE_CORSE_PROJECTION_PATH:-$BARONS_MARIANI_DIR/projects/suicide-corse/projections/book-2026-09-17-anniversaire.yml}"
 readonly TARGET_DIR="$SUICIDE_CORSE_SITE_DIR/editions/$RELEASE_ID"
 
 apply=false
@@ -24,13 +24,16 @@ usage() {
 Usage: scripts/publish-suicide-corse-preview.sh [--dry-run] [--apply] [--commit] [--push]
 
   --dry-run  Render and validate a fresh preview, without changing any repository (default).
-  --apply    Replace only editions/2026-09-17 in the artifact repository after validation.
+  --apply    Replace only editions/$SUICIDE_CORSE_RELEASE_ID in the artifact repository after validation.
   --commit   Commit that replacement after showing the repository diff (requires --apply).
   --push     Push that commit to its configured Git remote (requires --commit).
 
 Repository paths may be supplied through UBIKIA_DIR, BARONS_MARIANI_DIR and
-SUICIDE_CORSE_SITE_DIR. The default layout expects sibling checkouts named
-ubikia, barons-Mariani and suicide-corse.
+SUICIDE_CORSE_SITE_DIR. Set SUICIDE_CORSE_RELEASE_ID to choose the target
+edition directory and SUICIDE_CORSE_PROJECTION_PATH to choose a projection
+under projects/suicide-corse/projections/. Defaults preserve the 2026-09-17
+preview behavior. The default layout expects sibling checkouts named ubikia,
+barons-Mariani and suicide-corse.
 EOF
 }
 
@@ -71,7 +74,12 @@ for repository in "$UBIKIA_DIR" "$BARONS_MARIANI_DIR" "$SUICIDE_CORSE_SITE_DIR";
 done
 
 [[ -f "$CORPUS_PATH" ]] || fail "missing corpus: $CORPUS_PATH"
-[[ -f "$PROJECTION_PATH" ]] || fail "missing projection: $PROJECTION_PATH"
+[[ -f "$PROJECTION_INPUT" ]] || fail "missing projection: $PROJECTION_INPUT"
+readonly PROJECTION_PATH="$(realpath "$PROJECTION_INPUT")"
+case "$PROJECTION_PATH" in
+  "$BARONS_MARIANI_DIR"/projects/suicide-corse/projections/*) ;;
+  *) fail "projection must live under projects/suicide-corse/projections: $PROJECTION_PATH" ;;
+esac
 [[ "$TARGET_DIR" == "$SUICIDE_CORSE_SITE_DIR/editions/$RELEASE_ID" ]] || fail 'unsafe target directory'
 
 if "$apply"; then
