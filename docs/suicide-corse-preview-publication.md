@@ -23,7 +23,9 @@ provenance:
 # Suicide Corse preview publication procedure
 
 `scripts/publish-suicide-corse-preview.sh` is a deliberately bounded operator
-procedure for rendering and staging the 2026-09-17 Suicide Corse preview. It
+procedure for rendering and staging a Suicide Corse preview. Its defaults
+preserve the 2026-09-17 edition, while explicit environment variables can
+select a later projection and release. It
 does not alter editorial source material and it does not treat a successful
 render as a final edition.
 
@@ -33,7 +35,9 @@ Run on a POSIX host with sibling, clean Git checkouts of `ubikia`,
 `barons-Mariani`, and `suicide-corse`; Node 20+, installed Ubikia dependencies,
 Quarto, and a working TeX distribution are also required. The default paths can
 be overridden with `UBIKIA_DIR`, `BARONS_MARIANI_DIR`, and
-`SUICIDE_CORSE_SITE_DIR`.
+`SUICIDE_CORSE_SITE_DIR`. `SUICIDE_CORSE_PROJECTION_PATH` selects a projection
+inside `projects/suicide-corse/projections/`, and `SUICIDE_CORSE_RELEASE_ID`
+selects the corresponding artifact directory under `editions/`.
 
 The procedure refuses tracked or untracked work in all three repositories. In
 apply mode it first performs `git pull --ff-only` in each checkout, then renders
@@ -41,8 +45,13 @@ from the current Corpus revision.
 
 ## Modes
 
-```sh
-# Render and validate a fresh, disposable preview. No Git state changes.
+~~~sh
+# Render and validate the historical default preview.
+scripts/publish-suicide-corse-preview.sh --dry-run
+
+# Render and validate Suicide Corse n°2.
+SUICIDE_CORSE_RELEASE_ID=2026-09-20-n2 \
+SUICIDE_CORSE_PROJECTION_PATH="$PWD/../barons-Mariani/projects/suicide-corse/projections/book-2026-09-20-n2.yml" \
 scripts/publish-suicide-corse-preview.sh --dry-run
 
 # Replace only editions/2026-09-17 locally after a successful render.
@@ -53,13 +62,13 @@ scripts/publish-suicide-corse-preview.sh --apply --commit
 
 # Explicitly request the remote Git push only after the preceding checks.
 scripts/publish-suicide-corse-preview.sh --apply --commit --push
-```
+~~~
 
 The script reads the generated manifest rather than assuming a PDF filename. It
 requires HTML, PDF, and EPUB outputs, requires `publication_status: draft`, checks that
 the manifest's source commit is the checked-out `barons-Mariani` HEAD, and
-copies only `_book/` plus `manifest.json` into
-`suicide-corse/editions/2026-09-17/`. The landing page, `CNAME`, and
+copies only `_book/` plus `manifest.json` into the selected
+`suicide-corse/editions/<release-id>/`. The landing page, `CNAME`, and
 `temoigner.html` are outside its write target.
 
 Directory replacement is staged beside the release and renamed only after
