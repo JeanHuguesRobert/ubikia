@@ -235,6 +235,42 @@ A persona must remain subordinate to the source.
 
 If the persona reshapes the source because it performs better, persona capture has begun.
 
+### Representation, capability, and expressive persona
+
+Ubikia MUST NOT collapse these layers:
+
+~~~text
+principal
+≠ representation / digital twin
+≠ capability or guide
+≠ situated persona
+≠ expressive persona
+≠ audience / form / platform
+~~~
+
+A **representation** models or speaks under mandate for a principal. A **capability / guide** selects situated competence. A **situated persona** governs appearance for a scene or role. An **expressive persona** may govern a stable communication discipline across several guides or scenes.
+
+Example:
+
+~~~text
+Jean Hugues (principal)
+→ Agent John (artificial representation)
+→ Legal Guide (capability)
+→ The Temple Child (expressive persona)
+→ conversation (form)
+~~~
+
+The expressive layer may change vocabulary, ordering, examples, analogy, rhythm, and explanation depth. It must not change facts, uncertainty, authority, provenance, commitments, values, or mandate.
+
+Canonical non-capture test:
+
+~~~text
+remove persona layer
+→ semantic claims, uncertainty, authority, and provenance remain invariant
+~~~
+
+No persona, however stable or persuasive, becomes the principal or the representation it styles.
+
 ---
 
 ## 9. Audience
