@@ -75,7 +75,15 @@ test("ordered chapters preserve documentary metadata and generate deterministic 
   assert.match(first["index.qmd"], /origin_ref: unknown/);
   assert.match(first["chapter-002.qmd"], /hypothesis, not an established fact/);
   assert.ok(first["index.qmd"].endsWith(ir.chapters[0].content));
-  assert.equal(parseYaml(first["_quarto.yml"], "generated").execute.enabled, false);
+  const generatedConfig = parseYaml(first["_quarto.yml"], "generated");
+  assert.equal(generatedConfig.execute.enabled, false);
+  assert.equal(generatedConfig.format.pdf.documentclass, "scrreprt");
+  const glyphHeader = generatedConfig.format.pdf["include-in-header"].text;
+  assert.match(glyphHeader, /\\usepackage\{newunicodechar\}/);
+  assert.match(glyphHeader, /\\newunicodechar\{≠\}\{\\ensuremath\{\\neq\}\}/);
+  assert.match(glyphHeader, /\\newunicodechar\{≈\}\{\\ensuremath\{\\approx\}\}/);
+  assert.match(glyphHeader, /\\newunicodechar\{│\}\{\|\}/);
+  assert.match(glyphHeader, /\\newunicodechar\{─\}\{-\}/);
   assert.doesNotMatch(first["_quarto.yml"], /built_at/);
 });
 

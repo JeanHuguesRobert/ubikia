@@ -1,5 +1,15 @@
 import { stringify } from "./contract.js";
 
+// Latin Modern, the PDF default, has no glyph for these signs. Map each one
+// onto a character the math or text font can draw, including inside verbatim.
+const PDF_MISSING_GLYPH_HEADER = [
+  "\\usepackage{newunicodechar}",
+  "\\newunicodechar{≠}{\\ensuremath{\\neq}}",
+  "\\newunicodechar{≈}{\\ensuremath{\\approx}}",
+  "\\newunicodechar{│}{|}",
+  "\\newunicodechar{─}{-}",
+].join("\n");
+
 export function generateQmd(ir) {
   const files = {};
   const names = ir.chapters.map((_, index) => ir.cover === null && index === 0
@@ -14,7 +24,10 @@ export function generateQmd(ir) {
     lang: ir.language,
     execute: { enabled: false },
     format: Object.fromEntries(ir.outputs.map((format) => [format, {
-      ...(format === "pdf" ? { "documentclass": "scrreprt" } : {}),
+      ...(format === "pdf" ? {
+        documentclass: "scrreprt",
+        "include-in-header": { text: PDF_MISSING_GLYPH_HEADER },
+      } : {}),
       ...(ir.cover !== null && format !== "pdf" ? { css: "cover.css" } : {}),
       ...(ir.cover !== null && format === "epub" ? { "epub-cover-image": ir.cover.outputPath } : {}),
     }])),
