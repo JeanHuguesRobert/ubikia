@@ -67,9 +67,10 @@ export function validateContract(value) {
   }
   if (contract.cover !== undefined) {
     const cover = mapping(contract.cover, "projection.cover");
-    for (const field of ["title", "subtitle", "issue", "edition", "anniversary", "author", "author_title", "image", "image_role"]) {
+    for (const field of ["title", "subtitle", "issue", "edition", "author", "author_title", "image", "image_role"]) {
       nonempty(cover[field], `projection.cover.${field}`);
     }
+    if (cover.anniversary !== undefined) nonempty(cover.anniversary, "projection.cover.anniversary");
     if (path.isAbsolute(cover.image)) {
       throw new Error("projection.cover.image must be relative to the projection");
     }

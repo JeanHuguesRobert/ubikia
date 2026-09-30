@@ -161,6 +161,9 @@ test("a declared PNG cover is preserved, rendered centrally, and recorded in pro
   assert.match(qmd["index.qmd"], /cover\/cover.png/);
   assert.doesNotMatch(qmd["index.qmd"], /## A faithful projection/);
   assert.match(qmd["index.qmd"], /::: \{\.cover-subtitle\}/);
+  assert.match(qmd["index.qmd"], /First anniversary/);
+  const specialCoverQmd = generateQmd({ ...ir, cover: { ...ir.cover, anniversary: undefined } });
+  assert.doesNotMatch(specialCoverQmd["index.qmd"], /First anniversary|undefined/);
   const config = parseYaml(qmd["_quarto.yml"], "generated");
   assert.deepEqual(config.book.chapters.slice(0, 2), ["index.qmd", "chapter-001.qmd"]);
   assert.equal(config.book["cover-image"], undefined);
@@ -181,6 +184,10 @@ test("a cover requires a relative PNG and explicit image-preservation invariant"
   assert.equal(validateContract({ ...exampleContract, cover }).cover.image, "../assets/cover.png");
   assert.throws(() => validateContract({ ...exampleContract, cover: { ...cover, preserve_source_image: false } }), /preserve_source_image/);
   assert.throws(() => validateContract({ ...exampleContract, cover: { ...cover, image: "C:\\cover.png" } }), /must be relative/);
+  const specialIssueCover = { ...cover, issue: "No. 3", edition: "Senatorial special" };
+  delete specialIssueCover.anniversary;
+  assert.equal(validateContract({ ...exampleContract, cover: specialIssueCover }).cover.anniversary, undefined);
+  assert.throws(() => validateContract({ ...exampleContract, cover: { ...specialIssueCover, anniversary: "" } }), /cover.anniversary/);
 });
 
 for (const mode of ["missing-epub", "invalid-epub"]) {
