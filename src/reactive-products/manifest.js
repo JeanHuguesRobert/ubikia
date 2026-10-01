@@ -22,8 +22,9 @@ export function buildManifest({ ir, corpus, projection, rendererVersion, generat
   const gitStatus = corpus.repositoryRoot === null ? null
     : gitValue(corpus.repositoryRoot, ["status", "--porcelain", "--untracked-files=normal"]);
   const cover = ir.cover === null ? null : (() => {
-    const { image, outputPath, ...metadata } = ir.cover;
-    return { ...metadata, source: fingerprint(image), output_path: outputPath };
+    const { image, outputPath, printPdf, printPdfOutputPath, ...metadata } = ir.cover;
+    return { ...metadata, source: fingerprint(image), output_path: outputPath,
+      print_pdf: printPdf === null ? null : { source: fingerprint(printPdf), output_path: printPdfOutputPath } };
   })();
   return {
     schema: "ubikia.reactive-build.v0",

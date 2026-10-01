@@ -16,7 +16,8 @@ export async function render({ corpus: corpusPath, projection: projectionPath, o
   if (!corpusPath || !projectionPath) throw new Error("Both --corpus and --projection are required");
   const loaded = await loadProjection(corpusPath, projectionPath);
   const { corpus, projection, ir } = loaded;
-  const inputs = [corpus, projection, ...corpus.sources, ...(ir.cover === null ? [] : [ir.cover.image])];
+  const inputs = [corpus, projection, ...corpus.sources, ...(ir.cover === null ? []
+    : [ir.cover.image, ...(ir.cover.printPdf === null ? [] : [ir.cover.printPdf])])];
   const roots = inputs.map((source) => gitValue(path.dirname(source.path), ["rev-parse", "--show-toplevel"])
     ?? path.dirname(source.path));
   const parent = await realpath(output ? path.dirname(path.resolve(output)) : tmpdir());
@@ -42,6 +43,10 @@ export async function render({ corpus: corpusPath, projection: projectionPath, o
       const coverDestination = path.join(directory, ir.cover.outputPath);
       await mkdir(path.dirname(coverDestination), { recursive: true });
       await writeFile(coverDestination, ir.cover.image.bytes, { flag: "wx" });
+      if (ir.cover.printPdf !== null) {
+        const printDestination = path.join(directory, ir.cover.printPdfOutputPath);
+        await writeFile(printDestination, ir.cover.printPdf.bytes, { flag: "wx" });
+      }
     }
     await quarto.render(directory);
     const artifacts = await outputFiles(directory);

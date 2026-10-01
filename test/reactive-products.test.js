@@ -176,6 +176,39 @@ test("a declared PNG cover is preserved, rendered centrally, and recorded in pro
   assert.equal(await readFile(path.join(result.directory, "cover/cover.png"), "utf8"), coverBytes.toString("utf8"));
 });
 
+test("an optional composed print cover separates PDF front matter from the HTML and EPUB home", async (t) => {
+  const f = await fixture(t);
+  const coverDirectory = path.join(f.source, "assets");
+  await mkdir(coverDirectory, { recursive: true });
+  const imageBytes = Buffer.from("SOURCE PNG BYTES");
+  const pdfBytes = Buffer.from("%PDF-1.7\nSOURCE PRINT COVER");
+  await writeFile(path.join(coverDirectory, "cover.png"), imageBytes);
+  await writeFile(path.join(coverDirectory, "print-cover.pdf"), pdfBytes);
+  const cover = { title: "Minimal reactive book", subtitle: "A faithful projection",
+    issue: "No. 3", edition: "Preview", author: "Example author", author_title: "editor",
+    image: "../assets/cover.png", print_pdf: "../assets/print-cover.pdf",
+    image_role: "central graphic element", preserve_source_image: true };
+  await writeFile(f.projection, stringify({ ...exampleContract,
+    outputs: { required: ["html", "pdf", "epub"] }, cover }));
+  const { ir } = await loadProjection(f.corpus, f.projection);
+  const generated = generateQmd(ir);
+  const config = parseYaml(generated["_quarto.yml"], "generated");
+  assert.match(generated["index.qmd"], /content-visible when-format="html"/);
+  assert.match(generated["before-body.tex"], /\\includepdf\[pages=1,pagecommand=\{\\thispagestyle\{empty\}\}\]\{cover\/print-cover.pdf\}/);
+  assert.match(generated["drop-cover.lua"], /Expected cover chapter/);
+  assert.deepEqual(config.format.pdf["template-partials"], ["before-body.tex"]);
+  assert.deepEqual(config.format.pdf.filters, ["drop-cover.lua"]);
+  assert.deepEqual(config.format.pdf.classoption, ["DIV=11", "numbers=noendperiod"]);
+  assert.match(config.format.pdf["include-in-header"].text, /\\usepackage\{pdfpages\}/);
+  assert.equal(config.format.pdf.toc, true);
+  assert.equal(config.format.epub["epub-cover-image"], "cover/cover.png");
+  const result = await render({ ...f, quarto: await fakeQuarto(f.root) });
+  assert.deepEqual(await readFile(path.join(result.directory, "cover/print-cover.pdf")), pdfBytes);
+  assert.equal(result.manifest.cover.print_pdf.source.sha256, sha256(pdfBytes));
+  assert.equal(result.manifest.cover.print_pdf.output_path, "cover/print-cover.pdf");
+  assert.equal(result.manifest.cover.source.sha256, sha256(imageBytes));
+});
+
 test("a cover requires a relative PNG and explicit image-preservation invariant", () => {
   const cover = {
     title: "Book", subtitle: "Subtitle", issue: "No. 1", edition: "Preview", anniversary: "First",
@@ -188,6 +221,10 @@ test("a cover requires a relative PNG and explicit image-preservation invariant"
   delete specialIssueCover.anniversary;
   assert.equal(validateContract({ ...exampleContract, cover: specialIssueCover }).cover.anniversary, undefined);
   assert.throws(() => validateContract({ ...exampleContract, cover: { ...specialIssueCover, anniversary: "" } }), /cover.anniversary/);
+  assert.throws(() => validateContract({ ...exampleContract, cover: { ...cover, print_pdf: "C:\\print.pdf" } }), /print_pdf must be relative/);
+  assert.throws(() => validateContract({ ...exampleContract, cover: { ...cover, print_pdf: "../assets/print cover.pdf" } }), /simple PDF basename/);
+  assert.throws(() => validateContract({ ...exampleContract, outputs: { required: ["html"] },
+    cover: { ...cover, print_pdf: "../assets/print.pdf" } }), /requires a PDF output/);
 });
 
 for (const mode of ["missing-epub", "invalid-epub"]) {

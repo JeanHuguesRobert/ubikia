@@ -10,8 +10,15 @@ export async function loadProjection(corpusPath, projectionPath) {
   const coverImage = contract.cover === undefined ? null : await readInput(
     path.resolve(path.dirname(projection.path), contract.cover.image),
   );
+  const printPdf = contract.cover?.print_pdf === undefined ? null : await readInput(
+    path.resolve(path.dirname(projection.path), contract.cover.print_pdf),
+  );
   if (coverImage !== null && path.extname(coverImage.path).toLowerCase() !== ".png") {
     throw new Error(`projection.cover.image must be a PNG: ${coverImage.path}`);
+  }
+  if (printPdf !== null && (path.extname(printPdf.path).toLowerCase() !== ".pdf"
+      || printPdf.bytes.subarray(0, 5).toString() !== "%PDF-")) {
+    throw new Error(`projection.cover.print_pdf must be a PDF: ${printPdf.path}`);
   }
   const ir = {
     editionId: contract.id,
@@ -30,6 +37,8 @@ export async function loadProjection(corpusPath, projectionPath) {
       ...contract.cover,
       image: coverImage,
       outputPath: path.posix.join("cover", path.basename(coverImage.path)),
+      printPdf,
+      printPdfOutputPath: printPdf === null ? null : path.posix.join("cover", path.basename(printPdf.path)),
     },
   };
   return { ir, corpus, projection };
