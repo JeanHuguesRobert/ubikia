@@ -18,9 +18,11 @@ export function validateFilingContract(value) {
   mapping(c.artifact, "filing.artifact");
   nonempty(c.artifact.filename, "filing.artifact.filename");
   if (!/^[^/\\\\]+\.pdf$/i.test(c.artifact.filename)) throw new Error("filing.artifact.filename must be a PDF basename");
-  mapping(c.release, "filing.release");
-  for (const f of ["repository","tag","title"]) nonempty(c.release[f], `filing.release.${f}`);
-  if (c.release.immutable_required !== true) throw new Error("filing.release.immutable_required must be true");
+  if (c.release !== undefined && c.release !== null) {
+    mapping(c.release, "filing.release");
+    for (const f of ["repository","tag","title"]) nonempty(c.release[f], `filing.release.${f}`);
+    if (c.release.immutable_required !== true) throw new Error("filing.release.immutable_required must be true");
+  }
   if (!Array.isArray(c.sections) || !c.sections.length) throw new Error("filing.sections must be non-empty");
   const ids = new Set();
   for (const section of c.sections) {
