@@ -20,6 +20,7 @@ async function gh(args) {
 export async function freezeFilingPackage({contract, build, apply=false}={}) {
   if(!contract||!build) throw new Error("--contract and --build are required");
   const c=await loadFilingContract(contract);
+  if (!c.data.release) throw new Error("This filing contract is local-only: no release is configured");
   const manifest=JSON.parse(await readFile(path.join(path.resolve(build),"manifest.json"),"utf8"));
   const artifact=path.join(path.resolve(build),c.data.artifact.filename);
   const local=await readFile(artifact); const digest=sha256(local);
@@ -50,6 +51,7 @@ export async function freezeFilingPackage({contract, build, apply=false}={}) {
 export async function publishFilingPackage({contract,apply=false}={}) {
   if(!contract) throw new Error("--contract is required");
   const c=await loadFilingContract(contract);
+  if (!c.data.release) throw new Error("This filing contract is local-only: no release is configured");
   const command=["gh","release","edit",c.data.release.tag,"--repo",c.data.release.repository,"--draft=false"];
   if(!apply) return {mode:"dry-run",command,warning:"Publishing is the irreversible immutable-release boundary."};
   await gh(command.slice(1));
