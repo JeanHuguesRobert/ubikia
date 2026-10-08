@@ -1,6 +1,10 @@
 name: Ubikia CC Provenance Text Build
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/cc-provenance-text-build.yml"
 permissions:
   contents: read
 jobs:
