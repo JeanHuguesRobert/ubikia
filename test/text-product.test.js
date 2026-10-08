@@ -1,0 +1,30 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import { mkdtemp, writeFile, readFile, mkdir } from "node:fs/promises";
+import { execFileSync } from "node:child_process";
+import os from "node:os";
+import path from "node:path";
+import { buildTextProduct } from "../src/text-product/build.js";
+
+test("reproduces exact Git-committed source and provenance", async () => {
+  const dir = await mkdtemp(path.join(os.tmpdir(), "ubikia-text-"));
+  const repo = path.join(dir, "repo");
+  await mkdir(repo);
+  const g = (...args) => execFileSync("git", args, { cwd: repo, encoding: "utf8" }).trim();
+  g("init"); g("config", "user.name", "Test"); g("config", "user.email", "test@example.org");
+  g("remote", "add", "origin", "https://github.com/example/source.git");
+  const source = "# QPC\nTexte exact.\n";
+  await writeFile(path.join(repo, "qpc.md"), source);
+  g("add", "."); g("commit", "-m", "fixture");
+  const ref = g("rev-parse", "HEAD");
+  await writeFile(path.join(repo, "qpc.md"), "UNCOMMITTED ALTERATION");
+  const contract = path.join(dir, "contract.yaml");
+  await writeFile(contract, ['schema: ubikia.text-product.v1', 'title: Test', 'sections:', '  - kind: literal', '    text: "Ouverture"', '  - kind: github-verbatim', '    repository: example/source', '    ref: ' + ref, '    file: qpc.md'].join("\n"));
+  const output = path.join(dir, "out.md");
+  const result = await buildTextProduct({ contract, output, checkouts: { "example/source": repo } });
+  assert.equal(await readFile(output, "utf8"), "Ouverture\n\n" + source);
+  assert.equal(result.sources[0].ref, ref);
+  assert.match(result.sources[0].immutable_url, new RegExp(ref));
+  assert.ok(result.output.sha256);
+  await assert.rejects(() => buildTextProduct({contract, output, checkouts: { "example/source": repo }}), /EEXIST/);
+});
