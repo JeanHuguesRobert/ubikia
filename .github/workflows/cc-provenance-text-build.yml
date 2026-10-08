@@ -1,0 +1,50 @@
+name: Ubikia CC Provenance Text Build
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout trusted Ubikia generator
+        uses: actions/checkout@v4
+        with:
+          path: ubikia
+      - name: Checkout barons-Mariani corpus and historic commit
+        uses: actions/checkout@v4
+        with:
+          repository: JeanHuguesRobert/barons-Mariani
+          ref: main
+          fetch-depth: 0
+          path: barons-Mariani
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install pinned dependencies
+        working-directory: ubikia
+        run: npm ci
+      - name: Validate generator
+        working-directory: ubikia
+        run: node --test test/text-product.test.js
+      - name: Assemble source-preserving text
+        run: |
+          node ubikia/cli/text-product.js \
+            --contract barons-Mariani/research/senatoriales-2026/build/provenance-email.ubikia.yaml \
+            --checkout JeanHuguesRobert/barons-Mariani="$GITHUB_WORKSPACE/barons-Mariani" \
+            --output "$RUNNER_TEMP/2026-6589-SEN-provenance-email.md"
+      - name: Verify final text and provenance
+        run: |
+          test -s "$RUNNER_TEMP/2026-6589-SEN-provenance-email.md"
+          test -s "$RUNNER_TEMP/2026-6589-SEN-provenance-email.md.manifest.json"
+          sha256sum "$RUNNER_TEMP/2026-6589-SEN-provenance-email.md"
+      - name: Upload draft artifact and provenance
+        uses: actions/upload-artifact@v4
+        with:
+          name: 2026-6589-SEN-provenance-email-DRAFT
+          path: |
+            ${{ runner.temp }}/2026-6589-SEN-provenance-email.md
+            ${{ runner.temp }}/2026-6589-SEN-provenance-email.md.manifest.json
+          retention-days: 14
