@@ -70,6 +70,8 @@ Ubikia therefore keeps:
 |------|------|
 | `ledger/publications.json` | Machine-readable ledger of known public appearances |
 | `README.md` | This note |
+| [`2026-10-25-manifeste-possibiliste.md`](2026-10-25-manifeste-possibiliste.md) | Local Substack package for review; no remote draft or publication is recorded |
+| [`2026-10-25-manifeste-possibiliste-review.md`](2026-10-25-manifeste-possibiliste-review.md) | Review checklist and separately mandated handoff |
 
 ## Updating the ledger
 
