@@ -75,3 +75,18 @@ Jean Hugues Noël Robert publie le 27 octobre 2026 une note intitulée « La Cor
 Le 27 octobre 2026, l'auteur confirme explicitement que le contenu public de l'article Substack est correct. Cela **lève le blocage de validation éditoriale** pour préparer les références, mais ne constitue ni une comparaison technique ligne à ligne ni une autorisation de publier sur d'autres canaux ou de contacter des tiers.
 
 Les relais descriptifs documentaires ci-dessus peuvent être réutilisés pour des index internes, sans transformer les prises de position de l'auteur en faits indépendants.
+
+
+## Vérification depuis le tableau de bord Substack — 27 octobre 2026
+
+Lecture directe de l'onglet Substack connecté (centre de partage) : le billet **La Corse selon E. Macron : autopsie d'une manœuvre avortée** affiche **« Publié à 12:48 »**, avec l'identifiant de publication **222323343** et la catégorie d'interface `Posts`.
+
+- **Page publique de référence :** https://jeanhugues.substack.com/p/la-corse-selon-e-macron-autopsie
+- **Centre de partage** (accès auteur) : https://jeanhugues.substack.com/publish/posts/detail/222323343/share-center
+- **Lien de partage avec paramètres de suivi** (observé dans l'interface) : https://jeanhugues.substack.com/p/la-corse-selon-e-macron-autopsie?r=2e469d&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true
+- **Statut prouvé par interface :** publié, 27 octobre 2026 à 12:48 (heure affichée dans le tableau de bord).
+- **Tags visibles partiellement :** `suvranu`, `autonomie`, deux autres non détaillés dans l'extrait.
+- **Visuels natifs disponibles :** centre de partage Substack, déclinaisons `stories` et `grid` (URL de génération dépendant de l'interface ; aucune image téléchargée ni republiée).
+- **Contrôle sémantique du corps :** validation de l'auteur ; comparaison technique intégrale non effectuée.
+
+Il n'y a **aucune preuve** dans ce relevé de diffusion sur X, Facebook ou LinkedIn ; la présence de boutons de partage ne vaut pas partage effectif.
