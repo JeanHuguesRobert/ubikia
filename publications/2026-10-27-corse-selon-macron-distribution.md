@@ -29,7 +29,7 @@ related_documents:
 - **Sujet :** rejet parlementaire du projet de révision constitutionnelle sur l'autonomie de la Corse et réflexion sur l'effectivité de la devise républicaine
 - **Auteur :** Jean Hugues Noël Robert (Baron Mariani)
 - **Publication déclarée par l'auteur :** 27 octobre 2026
-- **Validation de concordance Substack/source GitHub :** en attente de comparaison des corps
+- **Validation éditoriale de la version publique :** confirmée par l'auteur le 27 octobre 2026 ; comparaison technique mot à mot non effectuée
 - **Journal de diffusion :** aucune publication supplémentaire ni sollicitation de tiers effectuée depuis ce paquet
 
 ## Fiche pour bibliographies et agrégateurs
@@ -68,3 +68,10 @@ Jean Hugues Noël Robert publie le 27 octobre 2026 une note intitulée « La Cor
 - Ne pas attribuer à des journalistes ou interlocuteurs un soutien non établi.
 - N'effectuer aucune publication sur réseau, aucun DM ou courriel sans mandat explicite et spécifique à l'action.
 - Après chaque acte autorisé, enregistrer l'URL réellement observée et les corrections résultantes.
+
+
+## Revue éditoriale — confirmation de l'auteur
+
+Le 27 octobre 2026, l'auteur confirme explicitement que le contenu public de l'article Substack est correct. Cela **lève le blocage de validation éditoriale** pour préparer les références, mais ne constitue ni une comparaison technique ligne à ligne ni une autorisation de publier sur d'autres canaux ou de contacter des tiers.
+
+Les relais descriptifs documentaires ci-dessus peuvent être réutilisés pour des index internes, sans transformer les prises de position de l'auteur en faits indépendants.
