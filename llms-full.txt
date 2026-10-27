@@ -12,7 +12,7 @@ author: Jean Hugues Noël Robert, baron Mariani
 affiliation: Institut Mariani / C.O.R.S.I.C.A., 1 cours Paoli, F-20250 Corte, Corsica
 license: CC BY-SA 4.0
 last_stamped_at: 2026-09-05T00:00:00.000Z
-last_modified_at: '2026-09-15'
+last_modified_at: '2026-10-04'
 title: What is Potentics?
 date: '2026-05-09'
 status: draft — auto-filled (frontmatter cleanup)
@@ -30,6 +30,9 @@ related_documents:
   - cogentia/research/learning_computer_genese_et_architecture.md
   - research/principe_rossignol.md
 changelog:
+  - '2026-10-04 — pointed the word latent, in §1.1, at the distinction proposed in le_reel_le_virtuel_et_l_actuel.md: already structured and present, not yet exercised. No Potentics claim was changed. The clarification itself is not yet a stabilized publication.'
+  - '2026-09-27 — added the Necessary Means Principle as the reciprocal of early impossibility detection: when a valuable possible lacks a required capability, explore admissible means-to-the-means under Measured Risk rather than confusing absence with impossibility.'
+  - '2026-09-27 — linked Potentics/ERP to early impossibility detection and the Accessible Inputs Gate: prune branches with decisively impossible preconditions early while distinguishing impossible from blocked, unknown or not-yet-available.'
   - '2026-08-15 — integrated research/potentics_the_possible_addendum.md: The Possible vs possibilities (§1.1-1.3), the expanding Realized and Spirit of Synthesis (§3.4-3.5), Rational Exploration as deliberate acceleration (§4.4); addendum marked integrated.'
   - '2026-08-25 — integrated the stable core of research/potentics_exploration_ontology.md: Map/Territory distinction, represented candidates versus The Possible, Possibility Space as corrigible model, optional Fields/Landscapes, and the Map → Reality response → Map'' exploration loop (§1.4).'
   - '2026-09-05 — propagation Issue #55: integrated computational potentics (§3.1, §3.3.1, §3.5.1, §7.2): Compute dimension (chi), collective achievable capacity C_collective(T), RAIX array gain G_RAIX(T) as empirical measure of the Spirit of Synthesis, policy learning, and link to potentics_of_compute.md v0.4 and learning_computer_genese_et_architecture.md.'
@@ -129,6 +132,8 @@ technically possible but socially unseen states
 socially possible but cognitively unnamed states
 ```
 
+In this list, *latent* is not a synonym of unreal, absent, or merely virtual. [Le Réel, le Virtuel et l’Actuel](le_reel_le_virtuel_et_l_actuel.md) proposes to reserve it for a power that is already structured and present, and not yet exercised. A corpus document may be actual as a text and latent as a sovereign authority. Materializing that authority would be an actualization, not the creation of the file. That distinction is a proposed arbitration dated 2026-10-04; it is not yet a stabilized publication.
+
 **The Possible** is stronger because it goes down to the deep constraint layer: what is logically, physically, biologically, technically, institutionally, socially, or economically capable of becoming actual under some configuration of conditions and effort.
 
 ### 1.2 Relation to potentiality
@@ -223,6 +228,78 @@ The detailed exploration vocabulary, including distributed maps, Vehicles, Cogni
 
 > **Do not mistake the current map for The Possible.**
 
+### 1.5 Early impossibility detection
+
+Rational exploration is not only the search for overlooked possibles. It also
+depends on identifying impossibility as early as Reality permits.
+
+A candidate branch that requires a condition already known to be impossible,
+or an input that is materially inaccessible to the actor expected to continue
+the branch, should be pruned before further reasoning, planning, delegation or
+optimization accumulates around it.
+
+```text
+candidate possible
+→ test decisive preconditions early
+→ impossible precondition found
+→ prune / reframe / seek another path
+→ preserve the trace of why
+```
+
+> **It is usually better to discover early that a branch is impossible than to
+> discover late that an apparently well-developed plan never had a feasible
+> first step.**
+
+But this must not become premature closure. Potentics distinguishes:
+
+```text
+impossible
+≠ currently unavailable
+≠ blocked
+≠ unknown
+≠ not-yet-invented
+```
+
+The burden is evidential: prune only what Reality, logic, mandate, resource
+bounds, access conditions or other decisive constraints actually rule out.
+Everything else remains a candidate for exploration with an appropriate
+epistemic status.
+
+This connects directly to the Corpus **Accessible Inputs Gate** for resumable
+agent work: if a future handler cannot access an indispensable input, that
+specific continuation is not presently feasible even if the broader objective
+remains possible.
+### 1.6 Necessary means increase potentiality
+
+The reciprocal move is equally important.
+
+A branch can be possible in principle yet have low current potentiality because
+a necessary means is absent. If the objective remains valuable, Rational
+Exploration should not confuse that absence with impossibility. It should ask
+whether the missing means can itself be obtained, created, substituted, or
+reconfigured.
+
+```text
+valuable possible
+→ necessary means absent
+→ explore means-to-the-means
+→ evaluate acquisition paths under Measured Risk
+→ obtain / create / substitute admissibly
+→ potentiality of the original possible increases
+```
+
+This gives a paired discipline:
+
+> **Detect the Impossible early. Obtain the Necessary deliberately.**
+
+The pair is asymmetric but complementary. Early impossibility detection prunes
+branches Reality has ruled out. The Necessary Means Principle changes the
+conditions around a branch that Reality has **not** ruled out but that lacks a
+required capability.
+
+Necessity is not authority. Any attempt to obtain the missing means remains
+bounded by Mandate, rights, Exposure, recovery, responsibility and hard
+constraints.
 ---
 
 ## 2. From Possibility to Potentiality
@@ -700,6 +777,7 @@ Robert, J. H. (2026). What is Potentics? Toward a science of organized potential
 
 *These documents link to this file:*
 - [Barons Mariani](../README.md)
+- [Capable — Carte doctrinale](../projects/capable/doctrine.md)
 - [Concept Index — barons-Mariani](concepts.md)
 - [La démocratie spectaculaire](la_democratie_spectaculaire.md)
 - [Le Réel, le Virtuel et l’Actuel](le_reel_le_virtuel_et_l_actuel.md)
@@ -707,13 +785,15 @@ Robert, J. H. (2026). What is Potentics? Toward a science of organized potential
 - [Parked: External review of Potentics v1.0-rc1 received — human arbitration pending](../.cogentia/issues/jeanhuguesrobert-barons-mariani/issue-00024.md)
 - [Potentics Addendum — The Possible versus possibilities](potentics_the_possible_addendum.md)
 - [Quand le Réel répond](quand_le_reel_repond_pkd.md)
-- [Reactive Corpus semantic propagation: Learning Computer genesis, Trace primitive, and RAIX array cascades](../.cogentia/issues/jeanhuguesrobert-barons-mariani/issue-00055.md)
 - [Research Index — barons-Mariani](index.md)
 - [Rossignol — l’âne qui interroge le Réel](rossignol.fr.md)
 - [Rossignol — the donkey who questions Reality](rossignol.md)
 - [Sailing the Cognitive Waves](cognitive_waves.md)
+- [Trail — Capable](trails/capable.md)
 - [Ubuesque, kafkaïen et Machine à Empêcher](autonomia/grille_ubuesque_kafkaien_machine_a_empecher.md)
+- [[Reality Test] FractaCognition récursive — transmettre puis vérifier une leçon entre handlers](https://github.com/JeanHuguesRobert/cogentia/issues/261)
 - [Cogentia Workflows](https://github.com/JeanHuguesRobert/cogentia/blob/main/research/cogentia_workflows.md)
+- [FractaXXXX — A Generative Grammar of Possibilities](https://github.com/JeanHuguesRobert/cogentia/blob/main/research/fractaxxxx.md)
 <!-- END_AUTO: backlinks -->
 
 
@@ -1759,8 +1839,8 @@ Attribution requise :
 - [Research Index — barons-Mariani](index.md)
 - [Stigmergie sans limite haute](stigmergie_sans_limite_haute.md)
 - [vigilia - moved](../vigilia.md)
-- [Research Index — Inox](https://github.com/JeanHuguesRobert/Inox/blob/master/research/index.md)
-- [The Iɴᴏx programming language](https://github.com/JeanHuguesRobert/Inox/blob/master/README.md)
+- [Research Index — Inox](https://github.com/JeanHuguesRobert/Inox/blob/main/research/index.md)
+- [The Iɴᴏx programming language](https://github.com/JeanHuguesRobert/Inox/blob/main/README.md)
 <!-- END_AUTO: backlinks -->
 
 
@@ -2260,6 +2340,56 @@ Or, more operationally:
 
 > **A packet should be attracted not by whoever is most visible, but by whoever can most credibly,
 > legitimately, and presently help it advance.**
+
+## Informational viscosity and FractaCache — research cross-reference (2026-10-24)
+
+**Research clarification, non-normative:** informational gravity here measures the contextual, time-bounded attraction of a **mobilizable capacity for a packet**. The proposed concept of *informational viscosity* concerns the expected persistence or change rate of a **knowledge claim's applicability or referent**. It is not an extra gravity factor or a validated universal law. Gravity may take freshness and evidence into account when they affect routing, but a high-gravity capacity cannot certify stale knowledge merely by attracting packets.
+
+See [Locality Principle — Informational viscosity](locality_principle.md#informational-viscosity--expected-rate-of-knowledge-change-candidate) for the candidate definition, distinctions from temperature and confidence, and its testable consequence for FractaCache revalidation. The human-validated v1.0 model above is not revised by this cross-reference.
+
+## Metaphorical mechanics — generative research agenda (2026-10-24)
+
+**Epistemic status: exploratory analogy, not a physical theory or a revised gravity law.** The established, human-validated informational-gravity definition remains the contextual attraction of a mobilizable capacity for a Cognitive Packet. Importing neighboring physical concepts can generate *testable questions*; it does not transfer physical equations or imply universal measurement units.
+
+| Metaphor | Distinct candidate interpretation | Discriminating question |
+|---|---|---|
+| Viscosity | Expected resistance of a claim's referent/applicability to change; not resistance to correcting a belief | Does change-rate-aware revalidation beat fixed TTL? |
+| Inertia | Persistence of an agent's chosen trajectory despite changed input | Does a change-sensitive router escape obsolete plans? |
+| Friction | Boundary-crossing effort: conversion, review, latency, attention | Does explicit friction accounting improve placement? |
+| Pressure | Accumulated unmet needs or contradictions | Does measured pressure predict useful consolidation or escalation? |
+| Diffusion | Selective spread of validated findings across localities | Is bounded propagation better than broadcasting? |
+| Conductivity / permeability | Capacity of a medium or governed boundary to convey admissible knowledge | Which barriers protect privacy without excessive siloing? |
+| Surface tension | Resistance at a domain/community interface | When does boundary cohesion impede necessary correction? |
+| Elasticity / plasticity | Reversible adaptation versus lasting learning | Does a changed behavior survive cold-handler substitution? |
+| Hysteresis | Present state depends on past correction/decision trajectory | Does retaining correction history outperform last-state-only memory? |
+| Entropy | Precisely specified uncertainty or dispersion, not a synonym for disorder | Can a defined entropy estimate predict retrieval difficulty? |
+| Metastability / phase transition | Prolonged local stability then qualitative reorganization | Can a threshold be identified without post-hoc storytelling? |
+| Crystallization | Consolidation of dispersed traces into structured reusable knowledge | Can validation prevent repeated errors becoming doctrine? |
+| Resonance | Selective amplification from alignment of signals and contextual structures | Does amplification improve recall without echo-chamber effects? |
+
+**Do not collapse the variables.** Temperature concerns activation/access effort; viscosity concerns expected change of the referent; inertia concerns persistence of a trajectory; hysteresis concerns path dependence; epistemic confidence concerns evidence; governance defines what is admissible. Stable beliefs may be false; repeated traces may crystallize an error; stronger attraction is not greater truth.
+
+Prefer initial reality tests of **hysteresis, metastability and crystallization** alongside the existing FractaCache viscosity test. For each metaphor, require a specified observed phenomenon, a simpler baseline, falsifying outcomes, measurable costs and explicit domain limitations. Reuse FractaMemory, FractaCognition, Sleep Cycle, COP and Locality before naming another component.
+
+### Next metaphorical source: evolutionary theory
+
+**Research program, not a claim that software or culture undergo biological evolution.** Compare Darwinian descent with modification and natural selection, the modern synthesis (mutation/recombination, inheritance, selection, drift, gene flow), population genetics, ecological interactions, developmental constraints and multilevel selection with observable packet/agent/corpus dynamics.
+
+Provisional correspondences to test:
+
+- *Variation*: competing packet strategies, candidate heuristics, alternative projections and forks, under finite budgets.
+- *Inheritance*: what a successor agent can actually reproduce from durable, attributable traces rather than a predecessor's hidden session.
+- *Selection*: reality-tested outcomes and authorized policy filters; do not confuse popularity or propagation frequency with fitness, truth or desirability.
+- *Drift*: stochastic adoption/forgetting unrelated to demonstrated utility; explicitly test against selection claims.
+- *Ecology and niche*: local task context and available resources change which capacities are useful.
+- *Coevolution*: agents, tools, protocols and corpus instructions adapt in response to each other, risking self-reinforcing errors.
+- *Extinction and refugia*: abandoned ideas can lose activation yet persist in glacial archives for later reassessment.
+- *Exaptation*: an existing ability or artifact finds a new use without implying that it was originally designed for it.
+
+**Necessary boundaries:** biological reproduction and genetic heredity are not identical to copying code or retraining a model; human goals and governance add deliberate selection; Lamarckian inheritance of acquired modifications may describe software practices better than biological inheritance; harmful replicators can spread efficiently. Treat evolutionary vocabulary as a comparison framework, not a normative imperative. First Reality Test: compare a versioned pool of bounded heuristics with and without variation, held-out evaluation, explicit provenance, human-governed selection, and rollback; measure task success, diversity, regression and capture while keeping unchanged task budgets.
+
+Cross-links: [FractaXXXX](fractaxxxx.md), [Locality Principle / FractaCache](locality_principle.md), [Corpus Sleep Cycle](memory_and_corpus_sleep_cycle.md), [FractaCognition](fractacognition_principles.md).
+
 
 
 ---
@@ -2958,6 +3088,7 @@ René, merci. On continue.
 ### Backlinks
 
 *These documents link to this file:*
+- [Affiliation marianiste, résistance à la dépossession et « âme corse »](autonomia/marianisme_ame_corse_hypothese.md)
 - [Alien, l’IA et les intelligences xénoformes](alien_blogpost.md)
 - [Autonomia](autonomia.md)
 - [Barons Mariani](../README.md)
@@ -2969,14 +3100,18 @@ René, merci. On continue.
 - [La seconde méthode comme généralisation prudente de l’agile](agile.md)
 - [Le Réel, le Virtuel et l’Actuel](le_reel_le_virtuel_et_l_actuel.md)
 - [Lettre à mon ami d’outre-tombe, René Descartes — De la joie d’explorer le Possible](lettre_descartes_joie_explorer_possible.md)
+- [Lire Contre l'Académie](manifeste_possibiliste_note_analytique.md)
+- [Mariano da Gaggio — autonomie corse, tradition Mariani et chaîne documentaire](autonomia/mariano_da_gaggio_tradition_mariani.md)
 - [Mauvaise calibration métacognitive face aux intelligences xénoformes](alien_academic.md)
 - [On n’est jamais si bien servi que par soi-même ; demain, cela fera beaucoup de monde](se_demultiplier_pour_explorer_le_possible_blogpost.md)
+- [Qu'est-ce que la politique ? — Cahier des Charges Motivé](../projects/capable/research/ccm-quest-ce-que-la-politique.md)
 - [Quand le Réel répond](quand_le_reel_repond_pkd.md)
 - [Reality Safety](reality_safety_procedural_stabilizers.md)
 - [Research Index — barons-Mariani](index.md)
 - [Rossignol — l’âne qui interroge le Réel](rossignol.fr.md)
 - [Rossignol — the donkey who questions Reality](rossignol.md)
 - [Agent-Resumable CLI](https://github.com/JeanHuguesRobert/cogentia/blob/main/research/agent_resumable_cli.md)
+- [Calculette of the Mind — A Fractal Instrument for Cognitive Economy](https://github.com/JeanHuguesRobert/cogentia/blob/main/research/calculette_of_the_mind.md)
 - [Cogentia](https://github.com/JeanHuguesRobert/cogentia/blob/main/COGENTIA.md)
 - [Cogentia](https://github.com/JeanHuguesRobert/cogentia/blob/main/README.md)
 - [Cogentia Commons](https://github.com/JeanHuguesRobert/cogentia/blob/main/research/cogentia_commons_method_packets.md)
@@ -2987,6 +3122,7 @@ René, merci. On continue.
 - [Cogentia Commons — Substantive Plugin Sub-Specifications](https://github.com/JeanHuguesRobert/cogentia/blob/main/research/cogentia_commons_substantive_plugins.md)
 - [Cogentia Commons — Workflows](https://github.com/JeanHuguesRobert/cogentia/blob/main/research/cogentia_commons_workflows.md)
 - [Cogentia Workflows](https://github.com/JeanHuguesRobert/cogentia/blob/main/research/cogentia_workflows.md)
+- [FractaXXXX — A Generative Grammar of Possibilities](https://github.com/JeanHuguesRobert/cogentia/blob/main/research/fractaxxxx.md)
 - [Pipeline](https://github.com/JeanHuguesRobert/cogentia/blob/main/research/pipeline.md)
 - [Research Index — Cogentia](https://github.com/JeanHuguesRobert/cogentia/blob/main/research/index.md)
 - [The Cogentia Commons Living Corpus](https://github.com/JeanHuguesRobert/cogentia/blob/main/research/cogentia_commons_living_corpus.md)
@@ -2995,7 +3131,7 @@ René, merci. On continue.
 - [FractaVolta](https://github.com/JeanHuguesRobert/FractaVolta/blob/main/README.md)
 - Methodology
 - [Research Index — FractaVolta](https://github.com/JeanHuguesRobert/FractaVolta/blob/main/research/index.md)
-- [Research Index — Inox](https://github.com/JeanHuguesRobert/Inox/blob/master/research/index.md)
+- [Research Index — Inox](https://github.com/JeanHuguesRobert/Inox/blob/main/research/index.md)
 - Inseme
 - [Research Index — Inseme](https://github.com/JeanHuguesRobert/inseme/blob/main/research/index.md)
 - [Agent Brief — Representing Jean Hugues Noël Robert](https://github.com/JeanHuguesRobert/JeanHuguesRobert/blob/main/research/agent_brief.md)
@@ -3004,7 +3140,6 @@ René, merci. On continue.
 - [MareNostrum](https://github.com/JeanHuguesRobert/marenostrum/blob/main/README.md)
 - [Pacte anti-capture solaire et inférentielle](https://github.com/JeanHuguesRobert/marenostrum/blob/main/research/pacte_anti_capture_solaire_inferentielle.md)
 - [Research Index — MareNostrum](https://github.com/JeanHuguesRobert/marenostrum/blob/main/research/index.md)
-- [On n’est jamais si bien servi que par soi-même ; demain, cela fera beaucoup de monde](https://github.com/JeanHuguesRobert/ubikia/blob/main/artifacts/audible/on-nest-jamais-si-bien-servi/source.md)
 <!-- END_AUTO: backlinks -->
 
 
@@ -3015,6 +3150,11 @@ René, merci. On continue.
 ---
 title: Connect MCP clients to Cogentia
 author: unknown
+affiliation: unknown
+license: unknown
+language: en
+status: working-paper
+last_modified_at: '2026-10-24'
 date: '2026-06-30'
 document_role: source
 document_kind: documentation
@@ -3039,8 +3179,11 @@ classification_confidence: "medium"
 # Connect MCP clients to Cogentia
 
 Cogentia exposes the corpus through a read-only MCP surface. The MCP surface is
-an adapter over the Cogentia Context Gateway daemon; it does not read SQLite
-directly, open corpus files, rebuild indexes, or call provider APIs.
+an adapter over shared governed capabilities and the Context Gateway daemon.
+Corpus retrieval uses the daemon; private KYS/AMI capture runs in the MCP
+process. See [private memory capture](memory-capture.md#cli-and-mcp-surfaces-282)
+for its full-view stdio configuration and per-request HTTP authentication.
+Capture does not require a daemon, storage writes or provider API access.
 
 The SQLite index is a reconstructible cache. Git, the registry, and the
 continuation policies remain the source of truth.
@@ -3753,4 +3896,3 @@ After that, Cogentia can add:
 
 
 ---
-
