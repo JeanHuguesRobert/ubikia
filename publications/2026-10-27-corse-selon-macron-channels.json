@@ -1,0 +1,91 @@
+{
+  "schema": "ubikia.distribution-channels.v1",
+  "created_at": "2026-10-27",
+  "umbrella_issue": "https://github.com/JeanHuguesRobert/ubikia/issues/41",
+  "source": {
+    "repository": "JeanHuguesRobert/barons-Mariani",
+    "path": "research/corse_selon_macron_autopsie_manoeuvre_avortee.md",
+    "original_commit": "3b6b591a37a0b77102fd1c0a709b1217b47eef80"
+  },
+  "canonical_publication": {
+    "platform": "substack",
+    "url": "https://jeanhugues.substack.com/p/la-corse-selon-e-macron-autopsie",
+    "post_id": "222323343",
+    "status": "published",
+    "publication_time_displayed": "2026-10-27 12:48",
+    "content_approved_by_author": true,
+    "verification": "owner_dashboard"
+  },
+  "references": [
+    {
+      "channel": "github_author_notice",
+      "url": "https://github.com/JeanHuguesRobert/barons-Mariani/blob/main/research/notice_baron_mariani_medias.md",
+      "status": "committed",
+      "commit": "419ba13f8ae109486f69c954cd42b297e5de7e75"
+    },
+    {
+      "channel": "github_press_index",
+      "url": "https://github.com/JeanHuguesRobert/barons-Mariani/blob/main/research/senatoriales-2026/dossier_presse_2026-09.md",
+      "status": "committed",
+      "commit": "0c81c2993e18163248306193c67d2f357e4b9c2b"
+    },
+    {
+      "channel": "capable_site_source",
+      "url": "https://github.com/JeanHuguesRobert/barons-Mariani/blob/main/projects/capable/site/en-preparation.html",
+      "status": "committed_deployment_unverified",
+      "commit": "726fbecfbed7742d83bbbbc7ef0d2657051492a3"
+    }
+  ],
+  "proposed_channels": [
+    {
+      "id": "substack_note",
+      "state": "not_created",
+      "authorization": "specific_authorization_required",
+      "proof": null
+    },
+    {
+      "id": "x",
+      "state": "not_published",
+      "authorization": "specific_authorization_required",
+      "proof": null
+    },
+    {
+      "id": "facebook",
+      "state": "not_published",
+      "authorization": "specific_authorization_required",
+      "proof": null
+    },
+    {
+      "id": "linkedin",
+      "state": "not_published",
+      "authorization": "specific_authorization_required",
+      "proof": null
+    },
+    {
+      "id": "press_information",
+      "state": "not_sent",
+      "authorization": "specific_authorization_required",
+      "proof": null
+    }
+  ],
+  "media_resources": {
+    "substack_author_share_center": "https://jeanhugues.substack.com/publish/posts/detail/222323343/share-center",
+    "native_templates": [
+      "stories",
+      "grid"
+    ],
+    "asset_downloaded": false
+  },
+  "observability": {
+    "capable_live_page": "https://capable.lepp.fr/en-preparation.html",
+    "capable_live_check": "inconclusive_tool_inaccessible",
+    "article_public_fetch": "tool_access_disabled",
+    "technical_body_diff": "not_performed"
+  },
+  "invariants": [
+    "Do not infer sharing from share button presence",
+    "No external publishing or messaging without specific approval",
+    "Never expose session cookies",
+    "Separate observed appearance from interpretation"
+  ]
+}
