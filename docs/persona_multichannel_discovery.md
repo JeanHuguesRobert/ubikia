@@ -86,7 +86,7 @@ of a personal account. No external account was inspected.
 | Channel | Status | Evidence | Current safe level |
 | --- | --- | --- | --- |
 | YouTube | confirmed | Local package, validation, and human-confirmed record workflow. | L0–L1 locally; recorded publication only after human confirmation. |
-| Substack | inferred | Draft-oriented helper and adapter registry exist. | L0–L1 by default; any remote draft needs a separate mandate. |
+| Substack | implemented | The unified `cli/publish.js --target=substack` adapter creates a remote draft and resolves configuration from the Twin Vault or environment. See [`docs/substack_draft_runbook.md`](substack_draft_runbook.md). | A remote draft still requires a task-specific mandate; creation does not authorize publication or email distribution. |
 | Facebook | historical | Historical prototype and current package conventions, but no active connector evidence. | L0–L1 package only. |
 | Instagram | unknown | Historical mock flow; current media pipeline names `instagram_reel_future`, but there is no adapter, account evidence, or current official integration. | L0–L1 package only, after a future implementation lot. |
 | TikTok | unknown | Planning target only. | L0–L1 package only, after a future implementation lot. |

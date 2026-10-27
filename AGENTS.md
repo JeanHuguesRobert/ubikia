@@ -186,6 +186,10 @@ A useful derived product is not merely shorter or more accessible.
 
 It is a situated appearance of the source that does not betray the source.
 
+### Publication Substack
+
+For a task that calls for a Substack draft, consult [`docs/substack_draft_runbook.md`](docs/substack_draft_runbook.md) and use the unified `cli/publish.js --target=substack` path when its trusted environment and Twin Vault are available. Verify whether a matching draft already exists before creation. Draft creation, author review, publication, and subscriber email are separate states and permissions.
+
 ## Platform discipline
 
 For platform-specific outputs, distinguish:

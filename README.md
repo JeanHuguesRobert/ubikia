@@ -37,6 +37,7 @@ status: working-paper
 
 ## Quick Orientation
 
+- [`docs/substack_draft_runbook.md`](docs/substack_draft_runbook.md) — discovery, Twin Vault configuration, safe creation, review, and publication trace for Substack drafts
 - [`docs/reactive-products-v0.md`](docs/reactive-products-v0.md) — render a Markdown corpus as a Quarto book, HTML/PDF and provenance manifest with `npm run render`
 - [`research/index.md`](research/index.md) — generated document catalog
 - [`research/corpus-status.md`](research/corpus-status.md) — generated status, backlinks, and navigation checks
