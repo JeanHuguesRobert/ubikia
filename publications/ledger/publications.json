@@ -135,6 +135,39 @@
       },
       "platform_as_backup": true,
       "notes": "Saisie par l'assistant de navigation, envoi manuel par l'auteur; le post publié inclut les hashtags #suvranu et #Capable, absents du texte initial proposé. Procédure documentée dans docs/hosted-browser-social-composition-reality-test-2026-11-02.md."
+    },
+    {
+      "id": "instagram:DfPPA47jGN5",
+      "platform": "instagram",
+      "url": "https://www.instagram.com/p/DfPPA47jGN5/",
+      "canonical_url": "https://www.instagram.com/jeanhuguesnoelrobert/p/DfPPA47jGN5/",
+      "platform_id": "DfPPA47jGN5",
+      "title": "Une candidature corse Capable pour 2027",
+      "visibility": "public",
+      "status": "published",
+      "published_at": "2026-11-02",
+      "recorded_at": "2026-11-02",
+      "recorded_by": "Jean Hugues Noël Robert (publication manuelle) ; Agent JHN (vérification HTTP des métadonnées)",
+      "evidence": {
+        "type": "human_link_and_public_http_metadata",
+        "remote_verification": "HTTP 200; og:title, og:description et og:url correspondent au compte jeanhuguesnoelrobert, au texte Capable, au lien Substack et aux 5 hashtags; vérifié le 2 novembre 2026 via Fracta2",
+        "published_at_exact": "not_verified",
+        "media_content": "image choisie par l'auteur, non inspectée"
+      },
+      "slug": "candidature-corse-capable-2027-instagram",
+      "source": {
+        "repository": "JeanHuguesRobert/barons-Mariani",
+        "path": "publications/2026-11-02-candidature-corse-capable-substack.md",
+        "substack_url": "https://jeanhugues.substack.com/p/une-candidature-corse-capable-pour"
+      },
+      "product": {
+        "kind": "campaign_note_share",
+        "form": "image_caption_post",
+        "platform_package": "instagram",
+        "persona": "Jean Hugues Noël Robert"
+      },
+      "platform_as_backup": true,
+      "notes": "Image et publication manuelles par l'auteur. L'agent n'a pas pu injecter la légende sur le ThinkPad (incident récurrent Cogentia #291). La légende finale affichée dans les métadonnées publiques contient les astérisques Markdown littéraux autour du titre et du slogan ainsi que #Capable #Corse #Présidentielle2027 #DémocratieDirecte #Suvranu."
     }
   ]
 }
