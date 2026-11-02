@@ -111,3 +111,18 @@ L'utilisateur a rechargé l'extension ThinkPad puis a renouvelé explicitement s
 - Aucun `tab_id` Instagram exploitable et **aucun texte injecté**. La séparation `composition` / `publication` demeure stricte.
 
 Le défaut est suivi dans [Cogentia #291](https://github.com/JeanHuguesRobert/cogentia/issues/291) ; la diffusion dans [barons-Mariani #156](https://github.com/JeanHuguesRobert/barons-Mariani/issues/156). Une instance enregistrée ne doit plus être interprétée comme une instance responsive ; instrumenter un contrôle `last_successful_rpc` / `last_response_at`, sans exposer de secrets.
+
+
+## Instagram — publication manuelle vérifiée publiquement
+
+- Le Principal a choisi son image, puis a finalement saisi manuellement la légende et publié sur Instagram, compte `@jeanhuguesnoelrobert`, publication : https://www.instagram.com/p/DfPPA47jGN5/.
+- Vérification indépendante le 2 novembre 2026 depuis Fracta2 : **HTTP 200** à cette URL. Métadonnées `og:title`, `og:description` et `og:url` accessibles et concordantes, URL canonique https://www.instagram.com/jeanhuguesnoelrobert/p/DfPPA47jGN5/.
+- Les métadonnées affichent le titre « Une candidature corse Capable pour 2027 », le texte de présentation de la candidature, le lien Substack et les cinq hashtags `#Capable #Corse #Présidentielle2027 #DémocratieDirecte #Suvranu`. Publication datée du **2 novembre 2026** dans les métadonnées ; **heure exacte non vérifiée**.
+- Écart éditorial mineur : les doubles astérisques Markdown autour du titre et du slogan sont visibles dans le texte exposé par Instagram. Les champs de légende Instagram n'interprètent pas ces marques comme du gras.
+- L'image n'a pas été inspectée par l'agent : aucune description ni provenance ne doit être inventée.
+- La saisie Instagram **n'a pas été réalisée par l'agent**, faute de communication fonctionnelle avec `thinkpad-chrome`. Le Principal a publié de façon autonome. Ce succès éditorial ne doit pas masquer ni clore prématurément l'incident Cogentia #291.
+- Entrée de suivi `instagram:DfPPA47jGN5` dans le [registre Ubikia](https://github.com/JeanHuguesRobert/ubikia/blob/main/publications/ledger/publications.json), commit `27b0d00e3411e8d49225b339f70685b8b89ebff3`.
+
+### Dernière observation de connexion ThinkPad avant publication
+
+Après une séquence `registered` mais `tabs.list` muet, un nouvel essai a renvoyé `browser extension is not connected` (code `-32020`). Un autre contrôle cinq secondes après le rechargement annoncé a montré `fracta2-hosted` seul enregistré. La cause racine du défaut ThinkPad n'est pas établie. L'incident de transport persiste indépendamment de la publication manuelle réussie.
