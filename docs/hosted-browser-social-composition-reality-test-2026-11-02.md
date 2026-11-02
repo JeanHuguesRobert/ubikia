@@ -97,3 +97,17 @@ L'utilisateur a ouvert Instagram dans le navigateur de son ThinkPad, choisi une 
 - Aucune URL ni `tab_id` Instagram fiable n'a pu être obtenu : **aucune saisie tentée** pour éviter un ciblage indéterminé.
 
 **Diagnostic de travail :** inscription/connexion d'instance et aptitude à exécuter un RPC sont deux états distincts. Le timeout peut relever du service worker de l'extension, d'une session WebSocket périmée, d'une extension insuffisamment à jour ou de la disponibilité du ThinkPad ; aucune cause racine n'est encore établie. Vérifier l'extension et son endpoint actif sur le ThinkPad, recharger l'extension si nécessaire, puis retester `browser.instances` et `tabs.list(thinkpad-chrome)` avant toute saisie. Ne pas remplacer silencieusement cette instance par le navigateur Fracta2 ni contourner les protections.
+
+
+## ThinkPad — nouvel essai après rechargement explicite de l'extension
+
+L'utilisateur a rechargé l'extension ThinkPad puis a renouvelé explicitement son autorisation d'insérer la légende dans Instagram, sans effectuer la publication. L'agent a retenté l'inventaire, puis l'appel ciblé sur `thinkpad-chrome`.
+
+- `browser.navigation.instances` via MCP Cogentia : `thinkpad-chrome` et `fracta2-hosted` toujours `registered:true`.
+- `tabs.list(thinkpad-chrome)` par `createGatewaySession` sur `ws://127.0.0.1:8776/assistant` : **`Gateway RPC timeout: tabs.list`**, délai 9 s ; reçu `6dbe9b8e-c32c-41ed-875b-0685c8124562`.
+- Contrôle positif même session/gateway : `tabs.list(fracta2-hosted)` retourne 15 onglets ; `/health` retourne `ok:true` ; reçu `6afb7084-7257-42eb-896b-ee5809c7678c`.
+- Gateway systemd actif ; cause du défaut de réponse du ThinkPad **non identifiée**.
+- Une invocation initiale du shell a été rejetée par des contrôles de sécurité de l'environnement d'outillage, sans exécution ; la variante ciblée a ensuite fonctionné et révélé le timeout. Ce sont **deux incidents distincts**.
+- Aucun `tab_id` Instagram exploitable et **aucun texte injecté**. La séparation `composition` / `publication` demeure stricte.
+
+Le défaut est suivi dans [Cogentia #291](https://github.com/JeanHuguesRobert/cogentia/issues/291) ; la diffusion dans [barons-Mariani #156](https://github.com/JeanHuguesRobert/barons-Mariani/issues/156). Une instance enregistrée ne doit plus être interprétée comme une instance responsive ; instrumenter un contrôle `last_successful_rpc` / `last_response_at`, sans exposer de secrets.
