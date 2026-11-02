@@ -182,10 +182,13 @@
       "recorded_at": "2026-11-02",
       "recorded_by": "Jean Hugues Noël Robert (publication manuelle et lien fourni) ; Agent JHN (enregistrement)",
       "evidence": {
-        "type": "human_confirmation_and_supplied_post_permalink",
-        "remote_verification": "not_verified: public web fetch blocked; anonymous HTTP request from Fracta2 returned 400; ?__a=1 returned generic 200 but no post content",
-        "published_at_exact": "not_verified",
-        "final_hashtags": "two hashtags added by author; values not remotely verified"
+        "type": "human_confirmation_and_authenticated_page_inspection",
+        "remote_verification": "Facebook page in hosted browser tab 94450181, matching permalink, author Jean Hugues Noël, audience Public, post text and Substack preview verified on 2026-11-02",
+        "final_hashtags": [
+          "#suvranu",
+          "#Capable"
+        ],
+        "published_at_exact": "not_verified"
       },
       "slug": "candidature-corse-capable-2027-facebook",
       "source": {
