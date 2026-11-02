@@ -1,6 +1,6 @@
 {
   "schema": "ubikia.publication-ledger.v0.1",
-  "updated_at": "2026-07-19T09:12:08.360Z",
+  "updated_at": "2026-11-02",
   "notes": [
     "This ledger is the repository-visible memory of publication appearances.",
     "Detailed media binaries remain local under artifacts/ (gitignored).",
@@ -70,6 +70,39 @@
       "platform_as_backup": true,
       "local_artifact_directory": "artifacts/audible/le-pere-noel-revient",
       "notes": "Reference episode for issue #17. Completed multi-provider (Gradium segments 1–13, Cartesia segment 14) after Gradium quota exhaustion. Mixed-provider imperfections retained as honest synthetic signal."
+    },
+    {
+      "id": "substack:223144948",
+      "platform": "substack",
+      "url": "https://jeanhugues.substack.com/p/une-candidature-corse-capable-pour",
+      "canonical_url": "https://jeanhugues.substack.com/p/une-candidature-corse-capable-pour",
+      "platform_id": "223144948",
+      "title": "Une candidature corse Capable pour 2027",
+      "visibility": "public",
+      "status": "published",
+      "published_at": null,
+      "recorded_at": "2026-11-02",
+      "recorded_by": "Agent JHN / Ubikia (publication par l'auteur)",
+      "evidence": {
+        "type": "human_confirmation_and_public_http",
+        "remote_verification": "public HTTP 200; title, Substack post ID, router link verified 2026-11-02",
+        "published_at_exact": "not_verified"
+      },
+      "slug": "une-candidature-corse-capable-pour",
+      "source": {
+        "repository": "JeanHuguesRobert/barons-Mariani",
+        "path": "projects/capable/editorial/2026-11-02-annonce-naissance-mouvement-capable.md",
+        "commit": "9c35b900c73df8edeaa10a6020d0f26fb3703fc2",
+        "derived_path": "publications/2026-11-02-candidature-corse-capable-substack.md"
+      },
+      "product": {
+        "kind": "campaign_note",
+        "form": "substack_article",
+        "platform_package": "substack",
+        "persona": "Jean Hugues Noël Robert — Baron Mariani"
+      },
+      "platform_as_backup": true,
+      "notes": "Published manually by the author; exact publication time and subscriber email distribution not verified. Subsequent X/Facebook/Instagram propagation tracked as separate events."
     }
   ]
 }
