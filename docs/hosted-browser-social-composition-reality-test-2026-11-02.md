@@ -75,3 +75,25 @@ Les appels de contrôle `browser.hosted.inspect` via `cogentia_john_run` ont fon
 6. Attendre la publication manuelle de l'auteur ; vérifier ensuite l'URL publique et enregistrer une entrée de publication dans le registre Ubikia uniquement après preuve.
 
 Ce chemin est un précédent observé sur X et Facebook, pas une promesse universelle pour tous les éditeurs `contenteditable` ni pour Instagram.
+
+
+## Facebook publié — confirmation du Principal et preuve restante
+
+- Le **2 novembre 2026**, le Principal a déclaré avoir ajouté deux hashtags au texte Facebook précomposé par l'agent, puis avoir **publié manuellement** la publication.
+- L'onglet de composition `94450133` a ensuite été inaccessible pour une vérification du résultat public : `browser.hosted.inspect(action=context, tab_id=94450133)` a renvoyé `BROWSER_EXTENSION_REQUEST_FAILED`, puis l'onglet ne figurait plus dans la liste des onglets hébergés.
+- Une recherche publique de la formule de titre et de l'URL de l'article Substack n'a pas retrouvé de permalien Facebook.
+- **Classement probatoire :** `publication_confirmed_by_principal`, mais `publication_url=unknown`, `final_hashtags=unknown` (deux hashtags ajoutés, non transcrits). Ne pas prétendre avoir lu le post final, ni le compter comme `remote_verified`.
+- **Reprise :** retrouver le permalien depuis la publication de l'auteur, vérifier le texte final et les deux hashtags, puis ajouter une entrée `facebook:<post_id>` au ledger Ubikia.
+
+## ThinkPad Chrome — échec de routage vers Instagram, 2 novembre 2026
+
+L'utilisateur a ouvert Instagram dans le navigateur de son ThinkPad, choisi une image et placé le curseur dans le champ de légende. Le mandat porte **uniquement sur la saisie**, jamais sur le clic de publication.
+
+**Vérifications :**
+- `browser.navigation.instances` via le MCP privé Cogentia : `thinkpad-chrome` et `fracta2-hosted` annoncés `registered=true`.
+- `tabs.list(browser_instance_id='fracta2-hosted')` : répond (15 onglets au second contrôle).
+- `tabs.list(browser_instance_id='thinkpad-chrome')` : deux appels via `ws://127.0.0.1:8776/assistant` ont expiré, dont un après **18 secondes** (reçu shell `af55681a-ca67-4ad3-b2f5-91701c5c800c`).
+- `GET http://127.0.0.1:8776/health` : `ok=true`, `extensionConnected=true` ; ceci indique **au moins une extension** et ne démontre pas que le client ThinkPad répond aux RPC.
+- Aucune URL ni `tab_id` Instagram fiable n'a pu être obtenu : **aucune saisie tentée** pour éviter un ciblage indéterminé.
+
+**Diagnostic de travail :** inscription/connexion d'instance et aptitude à exécuter un RPC sont deux états distincts. Le timeout peut relever du service worker de l'extension, d'une session WebSocket périmée, d'une extension insuffisamment à jour ou de la disponibilité du ThinkPad ; aucune cause racine n'est encore établie. Vérifier l'extension et son endpoint actif sur le ThinkPad, recharger l'extension si nécessaire, puis retester `browser.instances` et `tabs.list(thinkpad-chrome)` avant toute saisie. Ne pas remplacer silencieusement cette instance par le navigateur Fracta2 ni contourner les protections.
