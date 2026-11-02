@@ -140,3 +140,16 @@ https://www.facebook.com/jeanhuguesrobert/posts/pfbid02EnquuhomPDR6jqb7JSebnTb8T
 - **Registre Ubikia :** entrée `facebook:pfbid02EnquuhomPDR6jqb7JSebnTb8T5TyWf6yE3qYPrRr1GvxsEkNNQe5UgGhXB1cD6cFl`, commit `64bd46690ab8ac4e17e4498e29ee5be6d8962c26`.
 - **Réconciliation de la diffusion Capable :** Substack, X, Instagram vérifiés publiquement ; Facebook identifié et confirmé par l'auteur, mais contenu non vérifiable dans cette session sans accès à une page authentifiée.
 
+
+
+## Facebook — vérification authentifiée réussie dans l'onglet hébergé
+
+Le Principal a ouvert le permalien Facebook dans un onglet de son navigateur hébergé Fracta2, permettant une **vérification authentifiée**, après l'échec d'accès HTTP anonyme.
+
+- `browser.hosted.inspect(action=tabs)` : onglet `94450181`, `active=false`, URL identique au permalien communiqué.
+- `browser.hosted.inspect(action=context,tab_id=94450181)` : titre « UNE CANDIDATURE CORSE CAPABLE POUR 2027 », auteur Jean Hugues Noël, audience **Public**, texte de l'annonce (mouvement Capable fondé le 27 septembre, intention de candidature présidentielle 2027, Marche du Soleil et réforme constitutionnelle), aperçu Substack et deux hashtags **`#suvranu #Capable`** vérifiés.
+- Texte final distinct du brouillon de 482 caractères par ajout des hashtags. La page affiche « il y a environ une heure » ; heure exacte de publication non établie.
+- **Statut probatoire définitif au 2 novembre 2026 : `published / authenticated_hosted_browser_verified`**. Cela corrige la seule limite « Facebook non vérifié » notée précédemment ; conserver les essais HTTP 400 comme historique, sans les faire passer pour un échec de publication.
+- Le contrôle fonctionne malgré l'onglet **inactif**, sans action de publication ni modification du post.
+- Registre Ubikia enrichi, commit `e8b0b5afdb5e68c345fb21282a7f4c7db77c54c2`.
+
