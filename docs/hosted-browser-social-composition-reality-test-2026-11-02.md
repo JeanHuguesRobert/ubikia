@@ -126,3 +126,17 @@ Le défaut est suivi dans [Cogentia #291](https://github.com/JeanHuguesRobert/co
 ### Dernière observation de connexion ThinkPad avant publication
 
 Après une séquence `registered` mais `tabs.list` muet, un nouvel essai a renvoyé `browser extension is not connected` (code `-32020`). Un autre contrôle cinq secondes après le rechargement annoncé a montré `fracta2-hosted` seul enregistré. La cause racine du défaut ThinkPad n'est pas établie. L'incident de transport persiste indépendamment de la publication manuelle réussie.
+
+
+## Facebook — permalien fourni par le Principal
+
+Le Principal a transmis le permalien de sa publication Facebook :
+
+https://www.facebook.com/jeanhuguesrobert/posts/pfbid02EnquuhomPDR6jqb7JSebnTb8T5TyWf6yE3qYPrRr1GvxsEkNNQe5UgGhXB1cD6cFl
+
+- **Preuve de publication :** déclaration explicite du Principal (texte précomposé par l'agent, deux hashtags ajoutés avant l'envoi manuel), complétée par un **permalien spécifique fourni par le Principal**. L'identifiant du post est `pfbid02EnquuhomPDR6jqb7JSebnTb8T5TyWf6yE3qYPrRr1GvxsEkNNQe5UgGhXB1cD6cFl`.
+- **Tentatives de vérification distante le 2 novembre 2026 :** récupération publique Web indisponible ; requête HTTPS anonyme depuis Fracta2 avec navigateur simulé : HTTP 400 sur l'URL normale ; version `?__a=1` : HTTP 200 de 346 octets, sans métadonnées du post. Ces résultats **ne permettent ni de vérifier le contenu ni de conclure que le post est inaccessible aux personnes connectées**.
+- **État probatoire :** `published_human_confirmed / permalink_supplied / remote_content_not_verified`. Les deux hashtags définitifs sont toujours non vérifiés. Ne pas le présenter comme `remote_verified`.
+- **Registre Ubikia :** entrée `facebook:pfbid02EnquuhomPDR6jqb7JSebnTb8T5TyWf6yE3qYPrRr1GvxsEkNNQe5UgGhXB1cD6cFl`, commit `64bd46690ab8ac4e17e4498e29ee5be6d8962c26`.
+- **Réconciliation de la diffusion Capable :** Substack, X, Instagram vérifiés publiquement ; Facebook identifié et confirmé par l'auteur, mais contenu non vérifiable dans cette session sans accès à une page authentifiée.
+
