@@ -168,6 +168,39 @@
       },
       "platform_as_backup": true,
       "notes": "Image et publication manuelles par l'auteur. L'agent n'a pas pu injecter la légende sur le ThinkPad (incident récurrent Cogentia #291). La légende finale affichée dans les métadonnées publiques contient les astérisques Markdown littéraux autour du titre et du slogan ainsi que #Capable #Corse #Présidentielle2027 #DémocratieDirecte #Suvranu."
+    },
+    {
+      "id": "facebook:pfbid02EnquuhomPDR6jqb7JSebnTb8T5TyWf6yE3qYPrRr1GvxsEkNNQe5UgGhXB1cD6cFl",
+      "platform": "facebook",
+      "url": "https://www.facebook.com/jeanhuguesrobert/posts/pfbid02EnquuhomPDR6jqb7JSebnTb8T5TyWf6yE3qYPrRr1GvxsEkNNQe5UgGhXB1cD6cFl",
+      "canonical_url": "https://www.facebook.com/jeanhuguesrobert/posts/pfbid02EnquuhomPDR6jqb7JSebnTb8T5TyWf6yE3qYPrRr1GvxsEkNNQe5UgGhXB1cD6cFl",
+      "platform_id": "pfbid02EnquuhomPDR6jqb7JSebnTb8T5TyWf6yE3qYPrRr1GvxsEkNNQe5UgGhXB1cD6cFl",
+      "title": "Une candidature corse Capable pour 2027",
+      "visibility": "public",
+      "status": "published",
+      "published_at": "2026-11-02",
+      "recorded_at": "2026-11-02",
+      "recorded_by": "Jean Hugues Noël Robert (publication manuelle et lien fourni) ; Agent JHN (enregistrement)",
+      "evidence": {
+        "type": "human_confirmation_and_supplied_post_permalink",
+        "remote_verification": "not_verified: public web fetch blocked; anonymous HTTP request from Fracta2 returned 400; ?__a=1 returned generic 200 but no post content",
+        "published_at_exact": "not_verified",
+        "final_hashtags": "two hashtags added by author; values not remotely verified"
+      },
+      "slug": "candidature-corse-capable-2027-facebook",
+      "source": {
+        "repository": "JeanHuguesRobert/barons-Mariani",
+        "path": "publications/2026-11-02-candidature-corse-capable-substack.md",
+        "substack_url": "https://jeanhugues.substack.com/p/une-candidature-corse-capable-pour"
+      },
+      "product": {
+        "kind": "campaign_note_share",
+        "form": "social_post",
+        "platform_package": "facebook",
+        "persona": "Jean Hugues Noël Robert"
+      },
+      "platform_as_backup": true,
+      "notes": "L'assistant a inséré 482 caractères dans le compositeur Facebook de l'onglet Fracta2 inactif, puis a confirmé le brouillon. L'auteur a ajouté deux hashtags et publié manuellement, puis communiqué ce lien permanent. Le contenu final et l'accessibilité distante n'ont pas encore été vérifiés. Documenté dans docs/hosted-browser-social-composition-reality-test-2026-11-02.md."
     }
   ]
 }
