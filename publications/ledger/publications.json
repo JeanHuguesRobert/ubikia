@@ -103,6 +103,38 @@
       },
       "platform_as_backup": true,
       "notes": "Published manually by the author; exact publication time and subscriber email distribution not verified. Subsequent X/Facebook/Instagram propagation tracked as separate events."
+    },
+    {
+      "id": "x:2117204819173851261",
+      "platform": "x",
+      "url": "https://x.com/BaronsMariani/status/2117204819173851261",
+      "canonical_url": "https://x.com/BaronsMariani/status/2117204819173851261",
+      "platform_id": "2117204819173851261",
+      "title": "Annonce de la candidature corse Capable pour 2027",
+      "visibility": "public",
+      "status": "published",
+      "published_at": "2026-11-02T10:38:00",
+      "recorded_at": "2026-11-02",
+      "recorded_by": "Jean Hugues Noël Robert (publication manuelle), contrôle Agent JHN",
+      "evidence": {
+        "type": "hosted_browser_page_observation_and_author_confirmation",
+        "remote_verification": "Page de statut ouverte dans Chromium Fracta2, URL/titre/corps vérifiés",
+        "timestamp_note": "X affiche 10:38 AM · 2 nov. 2026, fuseau de l'interface non vérifié"
+      },
+      "slug": "candidature-corse-capable-2027-x",
+      "source": {
+        "repository": "JeanHuguesRobert/barons-Mariani",
+        "path": "publications/2026-11-02-candidature-corse-capable-substack.md",
+        "substack_url": "https://jeanhugues.substack.com/p/une-candidature-corse-capable-pour"
+      },
+      "product": {
+        "kind": "campaign_note_share",
+        "form": "social_post",
+        "platform_package": "x",
+        "persona": "Barons Mariani"
+      },
+      "platform_as_backup": true,
+      "notes": "Saisie par l'assistant de navigation, envoi manuel par l'auteur; le post publié inclut les hashtags #suvranu et #Capable, absents du texte initial proposé. Procédure documentée dans docs/hosted-browser-social-composition-reality-test-2026-11-02.md."
     }
   ]
 }
