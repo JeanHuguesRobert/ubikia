@@ -2,8 +2,8 @@
 title: "La Marche du Soleil — paquet de diffusion sociale"
 date: "2026-11-21"
 last_modified_at: "2026-11-21"
-version: "0.3"
-status: "substack-facebook-x-published-verified"
+version: "0.4"
+status: "substack-facebook-x-instagram-published-verified"
 document_role: derived
 document_kind: distribution-package
 visibility: public
@@ -24,8 +24,9 @@ platforms:
   - facebook
   - linkedin
   - x
+  - instagram
   - bluesky
-publication_status: "substack-published; facebook-published; x-published; linkedin-and-bluesky-drafts-prepared"
+publication_status: "substack-facebook-x-instagram-published; linkedin-and-bluesky-drafts-prepared"
 ---
 
 # La Marche du Soleil — diffusion sociale préparée
@@ -34,11 +35,11 @@ publication_status: "substack-published; facebook-published; x-published; linked
 - **Date et heure Substack (API) :** 21 novembre 2026, 09:33:57 UTC
 - **Identifiant Substack :** `225903969`
 - **Version source :** [Corpus Barons Mariani](https://github.com/JeanHuguesRobert/barons-Mariani/blob/main/publications/2026-11-21-marche-du-soleil-substack.md), commit `ffb00c3275f344af18084c5b7d0c192fd86e7e70`
-- **Diffusion sociale :** partages Facebook et X publiés par l’auteur et vérifiés sur leurs pages respectives le 21 novembre 2026 ; adaptations LinkedIn et Bluesky préparées seulement.
+- **Diffusion sociale :** partages Facebook, X et Instagram publiés par l’auteur et vérifiés le 21 novembre 2026 ; adaptations LinkedIn et Bluesky préparées seulement.
 - **Facebook :** [publication publique vérifiée](https://www.facebook.com/jeanhuguesrobert/posts/pfbid02TacKoRpK4VgMbrbq2ibtCdUATz4YgQJdWCw2SzsoPF3EnRHeKfVwYV2bRqNcd6gal) sur le profil « Jean Hugues Noël », le 21 novembre 2026. La date est établie ; l’interface a affiché des heures différentes selon la vue. Le texte complet correspond à l’adaptation Facebook préparée et reprend l’aperçu de l’article Substack.
 - **X :** [publication publique vérifiée](https://x.com/BaronsMariani/status/2124078342512972064) par @BaronsMariani, le 21 novembre 2026 à 09:51:54 UTC (heure déduite de l’identifiant du post, cohérente avec l’affichage X 9:51 AM). L’auteur a modifié le texte proposé : formulation plus brève, ajout des hashtags #corse, #capable et #suvranu. Texte final conservé plus bas.
 
-Les textes ci-dessous sont les **adaptations préparées**, distinctes des apparitions effectivement observées. Le texte Facebook a été publié et contrôlé intégralement. Le texte X final publié par l’auteur est reproduit séparément ; les versions LinkedIn et Bluesky restent des brouillons non publiés.
+Les textes ci-dessous distinguent les **adaptations préparées** des publications effectivement observées. Les textes Facebook, X et Instagram ont été vérifiés, la légende Instagram intégrale étant récupérée par le service officiel Instagram oEmbed. LinkedIn et Bluesky restent des brouillons non publiés.
 
 ## Facebook — commentaire pour le partage depuis Substack
 
@@ -126,6 +127,43 @@ https://jeanhugues.substack.com/p/la-marche-du-soleil-de-la-corse-a
 
 Le raccourcisseur X pointe vers la note Substack ; cette version est une apparition autonome, pas une modification du document souverain.
 
+## Instagram — publication effective de l’auteur
+
+- **Permalien :** https://www.instagram.com/p/Df_-wUUFXmK/
+- **Compte :** @jeanhuguesnoelrobert
+- **ID du média Instagram :** `4035219790377613706_4003999066`
+- **Vérification :** service officiel Instagram oEmbed le 21 novembre 2026 : auteur, légende intégrale, aperçu et média vérifiés. Heure exacte de publication non relevée.
+
+### Légende publiée, reprise intégralement
+
+LA MARCHE DU SOLEIL EST OUVERTE.
+
+Le 26 octobre 2026, le Sénat a rejeté le projet d’autonomie de la Corse.
+
+Et si cet échec nous offrait l’occasion d’ouvrir un chemin pour toute la République ?
+
+Notre idée : l’autonomie ne devrait pas être seulement un statut politique. Elle devrait être la capacité réelle des citoyens et des territoires à agir, choisir et coopérer.
+
+Passons de la parole aux actes.
+
+La première mission de la Marche du Soleil est simple : aider TOUS les candidats potentiels à l’élection présidentielle de 2027 à recueillir des promesses de parrainage.
+
+Chaque Marcheur choisit librement le candidat qu’il souhaite aider. Aucune adhésion politique n’est exigée.
+
+Marcher, c’est aller à la rencontre des autres, écouter, convaincre, transmettre et coopérer. Où que l’on soit.
+
+De quoi sommes-nous capables, ensemble ?
+
+Liberté, Égalité, Fraternité. Pour de vrai.
+
+Pour participer :
+https://capable.acorsica.org/marche/
+
+L'article intégral :
+https://jeanhugues.substack.com/p/la-marche-du-soleil-de-la-corse-a
+
+#MarcheDuSoleil #Capable #Corse #Suvranu #Democratie #Presidentielle2027
+
 ## Bluesky
 
 De la Corse à toute la République : la Marche du Soleil est ouverte.
@@ -139,5 +177,6 @@ Lire la note : https://jeanhugues.substack.com/p/la-marche-du-soleil-de-la-corse
 - La publication publique de l'article sur Substack est vérifiée, mais une éventuelle distribution par courriel aux abonnés n'a pas été contrôlée.
 - Partage Facebook confirmé : https://www.facebook.com/jeanhuguesrobert/posts/pfbid02TacKoRpK4VgMbrbq2ibtCdUATz4YgQJdWCw2SzsoPF3EnRHeKfVwYV2bRqNcd6gal
 - Publication X confirmée : https://x.com/BaronsMariani/status/2124078342512972064
+- Publication Instagram confirmée : https://www.instagram.com/p/Df_-wUUFXmK/
 - LinkedIn et Bluesky : aucune publication observée à cette étape. Après chaque publication éventuelle, conserver le texte final et l’URL exacte.
 - Ne pas déduire une publication sociale du seul fait qu'un formulaire de partage a été ouvert.
