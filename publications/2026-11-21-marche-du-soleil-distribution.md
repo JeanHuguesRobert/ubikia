@@ -2,8 +2,8 @@
 title: "La Marche du Soleil — paquet de diffusion sociale"
 date: "2026-11-21"
 last_modified_at: "2026-11-21"
-version: "0.1"
-status: "prepared-not-socially-published"
+version: "0.2"
+status: "substack-published-facebook-verified"
 document_role: derived
 document_kind: distribution-package
 visibility: public
@@ -25,7 +25,7 @@ platforms:
   - linkedin
   - x
   - bluesky
-publication_status: "substack-published; social-drafts-prepared"
+publication_status: "substack-published; facebook-published; other-social-drafts-prepared"
 ---
 
 # La Marche du Soleil — diffusion sociale préparée
@@ -34,10 +34,10 @@ publication_status: "substack-published; social-drafts-prepared"
 - **Date et heure Substack (API) :** 21 novembre 2026, 09:33:57 UTC
 - **Identifiant Substack :** `225903969`
 - **Version source :** [Corpus Barons Mariani](https://github.com/JeanHuguesRobert/barons-Mariani/blob/main/publications/2026-11-21-marche-du-soleil-substack.md), commit `ffb00c3275f344af18084c5b7d0c192fd86e7e70`
-- **Diffusion sociale :** aucun envoi ni publication observé lors de la préparation de ce paquet.
-- **Facebook :** l'auteur a ouvert le formulaire de partage Substack ; l'aperçu de l'article est affiché et le champ de commentaire était vide lors de la consultation. La soumission effective n'a pas été observée.
+- **Diffusion sociale :** partage Facebook publié et vérifié dans le fil authentifié de l’auteur le 21 novembre 2026 ; autres canaux seulement préparés.
+- **Facebook :** publication publique observée sur le fil authentifié du profil « Jean Hugues Noël » le samedi 21 novembre 2026 à 09 h 40 (heure affichée par Facebook, fuseau non vérifié). Elle commence par « Le 26 octobre, le Sénat a rejeté le projet d’autonomie de la Corse. Et si cet échec nous offrait l’occasion d’ouvrir un chemin pour toute la République ? » ; elle affiche l’aperçu Substack « La Marche du Soleil : de la Corse à toute la République ». La consultation n’a pas exposé de permalien propre au post ; locator provisoire : https://www.facebook.com/jeanhuguesrobert . Le reste du texte, replié sous « En voir plus », n’a pas été contrôlé mot à mot.
 
-Les textes ci-dessous sont des **adaptations préparées**, distinctes de l'article approuvé. Ils restent révisables. Ils n'ont pas été transmis aux plateformes.
+Les textes ci-dessous sont les **adaptations préparées** : la variante Facebook a servi au partage constaté (début du texte et aperçu vérifiés). Les propositions LinkedIn, X et Bluesky n’ont pas été transmises aux plateformes.
 
 ## Facebook — commentaire pour le partage depuis Substack
 
@@ -124,5 +124,5 @@ Lire la note : https://jeanhugues.substack.com/p/la-marche-du-soleil-de-la-corse
 ## Suites de publication
 
 - La publication publique de l'article sur Substack est vérifiée, mais une éventuelle distribution par courriel aux abonnés n'a pas été contrôlée.
-- Après partage effectif sur Facebook, enregistrer son URL publique et sa date ; idem pour les autres réseaux.
+- Partage Facebook vérifié le 21 novembre 2026 (affiché à 09 h 40) ; compléter la référence avec le **permalien précis** quand il sera disponible, puis enregistrer les autres éventuelles publications sociales.
 - Ne pas déduire une publication sociale du seul fait qu'un formulaire de partage a été ouvert.
