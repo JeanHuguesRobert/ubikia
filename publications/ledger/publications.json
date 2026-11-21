@@ -236,6 +236,39 @@
       },
       "platform_as_backup": true,
       "notes": "Réseaux sociaux : adaptations préparées seulement ; partage Facebook ouvert, non publié lors du contrôle."
+    },
+    {
+      "id": "facebook:jeanhuguesrobert:2026-11-21-0940",
+      "platform": "facebook",
+      "url": "https://www.facebook.com/jeanhuguesrobert",
+      "canonical_url": null,
+      "platform_id": null,
+      "title": "Partage de « La Marche du Soleil : de la Corse à toute la République »",
+      "visibility": "public",
+      "status": "published",
+      "published_at": null,
+      "published_at_display": "Samedi 21 novembre 2026 à 09:40 (heure affichée par Facebook, fuseau non vérifié)",
+      "recorded_at": "2026-11-21",
+      "recorded_by": "Ubikia (publication réalisée par l'auteur)",
+      "evidence": {
+        "type": "authenticated_browser_page_observation",
+        "remote_verification": "Fil Facebook du compte Jean Hugues Noël : post de 09:40 du 21 novembre 2026, audience Public, première phrase concordante avec le commentaire préparé, aperçu Substack La Marche du Soleil. Observé dans l'onglet de navigateur connecté 94450948.",
+        "permalink_status": "not_captured",
+        "locator_kind": "author_profile_only",
+        "text_comparison": "beginning_of_caption_and_link_preview_only; rest collapsed"
+      },
+      "source": {
+        "repository": "JeanHuguesRobert/barons-Mariani",
+        "path": "publications/2026-11-21-marche-du-soleil-substack.md",
+        "commit": "ffb00c3275f344af18084c5b7d0c192fd86e7e70"
+      },
+      "product": {
+        "kind": "social_share",
+        "form": "facebook_link_share",
+        "platform_package": "publications/2026-11-21-marche-du-soleil-distribution.md",
+        "linked_publication_id": "substack:225903969"
+      },
+      "notes": "URL fournie = profil de l'auteur, PAS permalien du post. Remplacer lorsque l'URL exacte du partage est récupérée ; ne pas confondre locator et URL propre au post."
     }
   ]
 }
