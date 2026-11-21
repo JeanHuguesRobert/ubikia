@@ -235,7 +235,7 @@
         "platform_package": "publications/2026-11-21-marche-du-soleil-distribution.md"
       },
       "platform_as_backup": true,
-      "notes": "Article publié par l’auteur ; relais Facebook et X publiés et vérifiés le 21 novembre 2026. LinkedIn et Bluesky non établis à cette date."
+      "notes": "Article publié par l'auteur ; relais Facebook, X et Instagram publiés et vérifiés le 21 novembre 2026. LinkedIn et Bluesky non établis à cette date."
     },
     {
       "id": "facebook:pfbid02TacKoRpK4VgMbrbq2ibtCdUATz4YgQJdWCw2SzsoPF3EnRHeKfVwYV2bRqNcd6gal",
@@ -309,6 +309,43 @@
         "linked_publication_id": "substack:225903969"
       },
       "notes": "Version finale modifiée et publiée manuellement par l’auteur ; à conserver comme preuve d’apparition, sans la remplacer par le brouillon proposé."
+    },
+    {
+      "id": "instagram:Df_-wUUFXmK",
+      "platform": "instagram",
+      "url": "https://www.instagram.com/p/Df_-wUUFXmK/",
+      "canonical_url": "https://www.instagram.com/p/Df_-wUUFXmK/",
+      "platform_id": "Df_-wUUFXmK",
+      "media_id": "4035219790377613706_4003999066",
+      "author_username": "jeanhuguesnoelrobert",
+      "title": "La Marche du Soleil est ouverte",
+      "visibility": "public",
+      "status": "published",
+      "published_at": "2026-11-21",
+      "recorded_at": "2026-11-21",
+      "recorded_by": "Jean Hugues Noël Robert (publication manuelle et lien communiqué) ; Ubikia (vérification et enregistrement)",
+      "published_text": "LA MARCHE DU SOLEIL EST OUVERTE.\n\nLe 26 octobre 2026, le Sénat a rejeté le projet d’autonomie de la Corse.\n\nEt si cet échec nous offrait l’occasion d’ouvrir un chemin pour toute la République ?\n\nNotre idée : l’autonomie ne devrait pas être seulement un statut politique. Elle devrait être la capacité réelle des citoyens et des territoires à agir, choisir et coopérer.\n\nPassons de la parole aux actes.\n\nLa première mission de la Marche du Soleil est simple : aider TOUS les candidats potentiels à l’élection présidentielle de 2027 à recueillir des promesses de parrainage.\n\nChaque Marcheur choisit librement le candidat qu’il souhaite aider. Aucune adhésion politique n’est exigée.\n\nMarcher, c’est aller à la rencontre des autres, écouter, convaincre, transmettre et coopérer. Où que l’on soit.\n\nDe quoi sommes-nous capables, ensemble ?\n\nLiberté, Égalité, Fraternité. Pour de vrai.\n\nPour participer :\nhttps://capable.acorsica.org/marche/\n\nL'article intégral :\nhttps://jeanhugues.substack.com/p/la-marche-du-soleil-de-la-corse-a\n\n#MarcheDuSoleil #Capable #Corse #Suvranu #Democratie #Presidentielle2027",
+      "evidence": {
+        "type": "author_link_and_official_instagram_oembed",
+        "remote_verification": "API Instagram /api/v1/oembed : media_id 4035219790377613706_4003999066, auteur jeanhuguesnoelrobert, légende intégrale, aperçu et permalien associés vérifiés le 21 novembre 2026.",
+        "source_endpoint": "https://www.instagram.com/api/v1/oembed/?url=https%3A%2F%2Fwww.instagram.com%2Fp%2FDf_-wUUFXmK%2F",
+        "author_name": "jeanhuguesnoelrobert",
+        "author_url": "https://www.instagram.com/jeanhuguesnoelrobert",
+        "exact_post_time": "not_verified",
+        "media_visual_review": "image selected by author; thumbnail_url returned by oEmbed; image itself not inspected"
+      },
+      "source": {
+        "repository": "JeanHuguesRobert/barons-Mariani",
+        "path": "publications/2026-11-21-marche-du-soleil-substack.md",
+        "commit": "ffb00c3275f344af18084c5b7d0c192fd86e7e70"
+      },
+      "product": {
+        "kind": "social_share",
+        "form": "instagram_image_post",
+        "platform_package": "publications/2026-11-21-marche-du-soleil-distribution.md",
+        "linked_publication_id": "substack:225903969"
+      },
+      "notes": "Légende publiée reproduite intégralement à partir de l'API officielle Instagram. La date a été communiquée par l'auteur via le contexte de la conversation ; l'heure exacte n'a pas été vérifiée."
     }
   ]
 }
