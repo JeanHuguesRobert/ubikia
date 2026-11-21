@@ -2,7 +2,7 @@
 title: "La Marche du Soleil — paquet de diffusion sociale"
 date: "2026-11-21"
 last_modified_at: "2026-11-21"
-version: "0.4"
+version: "0.5"
 status: "substack-facebook-x-instagram-published-verified"
 document_role: derived
 document_kind: distribution-package
@@ -26,7 +26,7 @@ platforms:
   - x
   - instagram
   - bluesky
-publication_status: "substack-facebook-x-instagram-published; linkedin-and-bluesky-drafts-prepared"
+publication_status: "substack-facebook-x-instagram-published; linkedin-account-recovery-pending; bluesky-draft-prepared"
 ---
 
 # La Marche du Soleil — diffusion sociale préparée
@@ -35,11 +35,11 @@ publication_status: "substack-facebook-x-instagram-published; linkedin-and-blues
 - **Date et heure Substack (API) :** 21 novembre 2026, 09:33:57 UTC
 - **Identifiant Substack :** `225903969`
 - **Version source :** [Corpus Barons Mariani](https://github.com/JeanHuguesRobert/barons-Mariani/blob/main/publications/2026-11-21-marche-du-soleil-substack.md), commit `ffb00c3275f344af18084c5b7d0c192fd86e7e70`
-- **Diffusion sociale :** partages Facebook, X et Instagram publiés par l’auteur et vérifiés le 21 novembre 2026 ; adaptations LinkedIn et Bluesky préparées seulement.
+- **Diffusion sociale :** partages Facebook, X et Instagram publiés par l’auteur et vérifiés le 21 novembre 2026. **LinkedIn : diffusion différée**, l’auteur ayant perdu temporairement l’accès au compte et engagé sa récupération le 21 novembre 2026 ; il attend un courriel de LinkedIn, avec un délai annoncé d’environ 48 heures selon son souvenir, non assimilé à une échéance vérifiée. Le texte LinkedIn reste préparé. **Bluesky :** texte préparé, publication non constatée.
 - **Facebook :** [publication publique vérifiée](https://www.facebook.com/jeanhuguesrobert/posts/pfbid02TacKoRpK4VgMbrbq2ibtCdUATz4YgQJdWCw2SzsoPF3EnRHeKfVwYV2bRqNcd6gal) sur le profil « Jean Hugues Noël », le 21 novembre 2026. La date est établie ; l’interface a affiché des heures différentes selon la vue. Le texte complet correspond à l’adaptation Facebook préparée et reprend l’aperçu de l’article Substack.
 - **X :** [publication publique vérifiée](https://x.com/BaronsMariani/status/2124078342512972064) par @BaronsMariani, le 21 novembre 2026 à 09:51:54 UTC (heure déduite de l’identifiant du post, cohérente avec l’affichage X 9:51 AM). L’auteur a modifié le texte proposé : formulation plus brève, ajout des hashtags #corse, #capable et #suvranu. Texte final conservé plus bas.
 
-Les textes ci-dessous distinguent les **adaptations préparées** des publications effectivement observées. Les textes Facebook, X et Instagram ont été vérifiés, la légende Instagram intégrale étant récupérée par le service officiel Instagram oEmbed. LinkedIn et Bluesky restent des brouillons non publiés.
+Les textes ci-dessous distinguent les **adaptations préparées** des publications effectivement observées. Les textes Facebook, X et Instagram ont été vérifiés, la légende Instagram intégrale étant récupérée par le service officiel Instagram oEmbed. LinkedIn est un brouillon non publié, actuellement en attente de récupération du compte ; Bluesky reste un brouillon non publié.
 
 ## Facebook — commentaire pour le partage depuis Substack
 
@@ -178,5 +178,6 @@ Lire la note : https://jeanhugues.substack.com/p/la-marche-du-soleil-de-la-corse
 - Partage Facebook confirmé : https://www.facebook.com/jeanhuguesrobert/posts/pfbid02TacKoRpK4VgMbrbq2ibtCdUATz4YgQJdWCw2SzsoPF3EnRHeKfVwYV2bRqNcd6gal
 - Publication X confirmée : https://x.com/BaronsMariani/status/2124078342512972064
 - Publication Instagram confirmée : https://www.instagram.com/p/Df_-wUUFXmK/
-- LinkedIn et Bluesky : aucune publication observée à cette étape. Après chaque publication éventuelle, conserver le texte final et l’URL exacte.
+- LinkedIn : en attente de récupération de l’accès au compte (information déclarée par l’auteur le 21 novembre 2026). Réponse attendue par courriel de LinkedIn ; délai d’environ 48 heures rapporté comme une estimation. Ne pas tenter de publication LinkedIn tant que l’accès n’est pas restauré.
+- Bluesky : texte préparé, aucune publication observée à cette étape. Après chaque publication éventuelle, conserver le texte final et l’URL exacte.
 - Ne pas déduire une publication sociale du seul fait qu'un formulaire de partage a été ouvert.
