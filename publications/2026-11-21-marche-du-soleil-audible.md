@@ -1,8 +1,8 @@
 ---
 title: "La Marche du Soleil — version orale de travail"
 date: "2026-11-21"
-version: "0.1"
-status: "draft-unreviewed"
+version: "0.2"
+status: "audio-and-video-preview-rendered-unreviewed"
 document_role: derived
 document_kind: audio-script
 visibility: public
@@ -21,10 +21,15 @@ source:
   public_url: "https://jeanhugues.substack.com/p/la-marche-du-soleil-de-la-corse-a"
 derivation:
   toolchain: "Ubikia audible"
-  status: "draft_unreviewed"
+  status: "rendered_preview_unreviewed"
+  audio_duration_seconds: 760.032
+  audio_segment_count: 17
+  tts_provider: gradium
+  video_format: "H.264/AAC MP4 1280x720 at 24 fps"
+  video_sha256: "f08946fe4a679f35854c978626aaf88c715f7f906e2f695ecb4a3f3d1e873e9f"
   method: "faithful spoken adaptation with five narrated section transitions"
   human_review_required: true
-  youtube_status: "not_uploaded"
+  youtube_status: "prepared_not_uploaded"
 ---
 
 # La Marche du Soleil — version orale (brouillon pour relecture)
@@ -33,7 +38,9 @@ derivation:
 
 **Statut :** cette adaptation orale n'a pas encore été validée par l'auteur. Elle conserve le texte argumentatif et reformule les titres, les références bibliographiques et les indications de liens pour une lecture audio. Les cinq titres principaux sont annoncés par un ordinal oral. Les avertissements de numérotation mécanique (chiffres 1 à 5 des en-têtes écrits) sont attendus.
 
-La voix de synthèse utilisée pour les essais audio est Gradium ; le locuteur n'est pas présenté comme un enregistrement physique de l'auteur. Le montage YouTube reste soumis à la relecture de ce texte et à l'écoute de contrôle.
+La voix de synthèse utilisée pour le rendu audio est Gradium ; le locuteur n'est pas présenté comme un enregistrement physique de l'auteur. Les formats WAV, MP3 et Opus ont été produits à partir de 17 segments, puis une vidéo de prévisualisation a été montée avec le visuel Substack. **Durée : 12 minutes 40 secondes ; H.264/AAC, 1280 × 720, 24 images/s.** La vidéo a été copiée sur le ThinkPad de l'auteur et vérifiée par empreinte SHA-256. La relecture éditoriale et l'écoute de contrôle restent à faire ; le paquet YouTube reste **privé, non téléversé**, avec une dérogation de développement explicitement signalée pour permettre sa préparation malgré l'absence de revue finale.
+
+**Point de contrôle sonore :** une pause de 6,23 secondes a été détectée vers 6 min 50 ; il faut décider à l'écoute si cette pause est à raccourcir. Les sous-titres minutés n'ont pas été générés : le texte de la narration est conservé pour la synchronisation ultérieure.
 
 ---
 
