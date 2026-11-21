@@ -1,6 +1,6 @@
 {
   "schema": "ubikia.publication-ledger.v0.1",
-  "updated_at": "2026-11-02",
+  "updated_at": "2026-11-21",
   "notes": [
     "This ledger is the repository-visible memory of publication appearances.",
     "Detailed media binaries remain local under artifacts/ (gitignored).",
@@ -204,6 +204,38 @@
       },
       "platform_as_backup": true,
       "notes": "L'assistant a inséré 482 caractères dans le compositeur Facebook de l'onglet Fracta2 inactif, puis a confirmé le brouillon. L'auteur a ajouté deux hashtags et publié manuellement, puis communiqué ce lien permanent. Le contenu final et l'accessibilité distante n'ont pas encore été vérifiés. Documenté dans docs/hosted-browser-social-composition-reality-test-2026-11-02.md."
+    },
+    {
+      "id": "substack:225903969",
+      "platform": "substack",
+      "url": "https://jeanhugues.substack.com/p/la-marche-du-soleil-de-la-corse-a",
+      "canonical_url": "https://jeanhugues.substack.com/p/la-marche-du-soleil-de-la-corse-a",
+      "platform_id": "225903969",
+      "title": "La Marche du Soleil : de la Corse à toute la République",
+      "subtitle": "Liberté, Égalité, Fraternité. Pour de vrai.",
+      "visibility": "public",
+      "status": "published",
+      "published_at": "2026-11-21T09:33:57.922Z",
+      "recorded_at": "2026-11-21",
+      "recorded_by": "Ubikia (publication effectuée par l'auteur)",
+      "evidence": {
+        "type": "author_public_url_authenticated_api_and_public_http",
+        "remote_verification": "Auteur : URL communiquée ; Substack API : is_published=true, ID 225903969, canonical_url et post_date confirmés ; page publique HTTP 200 avec titre et texte le 21 novembre 2026",
+        "email_distribution": "not_verified"
+      },
+      "slug": "la-marche-du-soleil-de-la-corse-a",
+      "source": {
+        "repository": "JeanHuguesRobert/barons-Mariani",
+        "path": "publications/2026-11-21-marche-du-soleil-substack.md",
+        "commit": "ffb00c3275f344af18084c5b7d0c192fd86e7e70"
+      },
+      "product": {
+        "kind": "campaign_announcement",
+        "form": "blog_essay",
+        "platform_package": "publications/2026-11-21-marche-du-soleil-distribution.md"
+      },
+      "platform_as_backup": true,
+      "notes": "Réseaux sociaux : adaptations préparées seulement ; partage Facebook ouvert, non publié lors du contrôle."
     }
   ]
 }
