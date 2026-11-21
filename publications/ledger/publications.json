@@ -235,27 +235,27 @@
         "platform_package": "publications/2026-11-21-marche-du-soleil-distribution.md"
       },
       "platform_as_backup": true,
-      "notes": "Réseaux sociaux : adaptations préparées seulement ; partage Facebook ouvert, non publié lors du contrôle."
+      "notes": "Article publié par l’auteur ; relais Facebook et X publiés et vérifiés le 21 novembre 2026. LinkedIn et Bluesky non établis à cette date."
     },
     {
-      "id": "facebook:jeanhuguesrobert:2026-11-21-0940",
+      "id": "facebook:pfbid02TacKoRpK4VgMbrbq2ibtCdUATz4YgQJdWCw2SzsoPF3EnRHeKfVwYV2bRqNcd6gal",
       "platform": "facebook",
-      "url": "https://www.facebook.com/jeanhuguesrobert",
-      "canonical_url": null,
-      "platform_id": null,
+      "url": "https://www.facebook.com/jeanhuguesrobert/posts/pfbid02TacKoRpK4VgMbrbq2ibtCdUATz4YgQJdWCw2SzsoPF3EnRHeKfVwYV2bRqNcd6gal",
+      "canonical_url": "https://www.facebook.com/jeanhuguesrobert/posts/pfbid02TacKoRpK4VgMbrbq2ibtCdUATz4YgQJdWCw2SzsoPF3EnRHeKfVwYV2bRqNcd6gal",
+      "platform_id": "pfbid02TacKoRpK4VgMbrbq2ibtCdUATz4YgQJdWCw2SzsoPF3EnRHeKfVwYV2bRqNcd6gal",
       "title": "Partage de « La Marche du Soleil : de la Corse à toute la République »",
       "visibility": "public",
       "status": "published",
       "published_at": null,
-      "published_at_display": "Samedi 21 novembre 2026 à 09:40 (heure affichée par Facebook, fuseau non vérifié)",
+      "published_at_display": "21 novembre 2026, 09:40 dans le fil Facebook précédent ; la page du post a affiché 01:40 lors d’une lecture ultérieure ; fuseau de l’interface non établi",
       "recorded_at": "2026-11-21",
       "recorded_by": "Ubikia (publication réalisée par l'auteur)",
       "evidence": {
-        "type": "authenticated_browser_page_observation",
-        "remote_verification": "Fil Facebook du compte Jean Hugues Noël : post de 09:40 du 21 novembre 2026, audience Public, première phrase concordante avec le commentaire préparé, aperçu Substack La Marche du Soleil. Observé dans l'onglet de navigateur connecté 94450948.",
-        "permalink_status": "not_captured",
-        "locator_kind": "author_profile_only",
-        "text_comparison": "beginning_of_caption_and_link_preview_only; rest collapsed"
+        "type": "author_permalinks_and_authenticated_browser_full_post",
+        "remote_verification": "Navigateur connecté : lien permanent Facebook transmis par l’auteur, profil Jean Hugues Noël, audience Public, commentaire intégral concordant avec le texte préparé et aperçu du Substack vérifiés le 21 novembre 2026.",
+        "permalink_status": "verified",
+        "text_comparison": "full_caption_and_substack_preview_verified",
+        "published_at_display": "21 novembre 2026, 09:40 dans le fil Facebook précédent ; la page du post a affiché 01:40 lors d’une lecture ultérieure ; fuseau de l’interface non établi"
       },
       "source": {
         "repository": "JeanHuguesRobert/barons-Mariani",
@@ -268,7 +268,47 @@
         "platform_package": "publications/2026-11-21-marche-du-soleil-distribution.md",
         "linked_publication_id": "substack:225903969"
       },
-      "notes": "URL fournie = profil de l'auteur, PAS permalien du post. Remplacer lorsque l'URL exacte du partage est récupérée ; ne pas confondre locator et URL propre au post."
+      "notes": "Permalien exact fourni par l’auteur et vérifié dans l’onglet Facebook connecté. Texte intégral et aperçu Substack vérifiés. Publication par l’auteur.",
+      "published_text": "Le 26 octobre, le Sénat a rejeté le projet d’autonomie de la Corse. Et si cet échec nous offrait l’occasion d’ouvrir un chemin pour toute la République ?\n\nJe lance la Marche du Soleil, une expérience de coopération citoyenne dont la première mission est d’aider tous les candidats potentiels à la présidentielle 2027 à recueillir des promesses de parrainage.\n\nChaque Marcheur choisit librement le candidat qu’il souhaite aider. Il n’est nécessaire ni de rejoindre un parti, ni de partager nos convictions.\n\nEt si nous commencions dès maintenant à faire vivre la République que nous appelons de nos vœux ?\n\nLiberté, Égalité, Fraternité. Pour de vrai.\n\nPour participer : https://capable.acorsica.org/marche/"
+    },
+    {
+      "id": "x:2124078342512972064",
+      "platform": "x",
+      "url": "https://x.com/BaronsMariani/status/2124078342512972064",
+      "canonical_url": "https://x.com/BaronsMariani/status/2124078342512972064",
+      "platform_id": "2124078342512972064",
+      "title": "La Marche du Soleil — annonce sur X",
+      "visibility": "public",
+      "status": "published",
+      "published_at": "2026-11-21T09:51:54.979Z",
+      "published_at_display": "9:51 AM · 21 nov. 2026 (interface X)",
+      "recorded_at": "2026-11-21",
+      "recorded_by": "Jean Hugues Noël Robert (publication manuelle et lien fourni) ; Ubikia (vérification et inscription)",
+      "published_text": "Le Sénat a rejeté l'autonomie #corse. Et si cela ouvrait un chemin pour toute la République ?\n\nLa Marche du Soleil : aider les candidats en 2027 à recueillir des promesses de parrainage.\n\nLiberté, Égalité, Fraternité. Pour de vrai. https://t.co/dPaVNNjmt9 #capable #suvranu",
+      "evidence": {
+        "type": "author_permalink_and_authenticated_browser_full_post",
+        "remote_verification": "Page X ouverte dans l’onglet 94450959 : auteur Barons Mariani @BaronsMariani ; corps complet, lien https://t.co/dPaVNNjmt9, hashtags et heure affichée vérifiés.",
+        "timestamp_source": "Horodatage UTC déduit de l’identifiant Snowflake X, cohérent avec l’heure 9:51 AM affichée dans l’interface",
+        "link_destination": "https://jeanhugues.substack.com/p/la-marche-du-soleil-de-la-corse-a",
+        "verified_hashtags": [
+          "#corse",
+          "#capable",
+          "#suvranu"
+        ],
+        "text_relation": "author_modified_copy; not identical to Ubikia proposed X draft"
+      },
+      "source": {
+        "repository": "JeanHuguesRobert/barons-Mariani",
+        "path": "publications/2026-11-21-marche-du-soleil-substack.md",
+        "commit": "ffb00c3275f344af18084c5b7d0c192fd86e7e70"
+      },
+      "product": {
+        "kind": "social_share",
+        "form": "x_post",
+        "platform_package": "publications/2026-11-21-marche-du-soleil-distribution.md",
+        "linked_publication_id": "substack:225903969"
+      },
+      "notes": "Version finale modifiée et publiée manuellement par l’auteur ; à conserver comme preuve d’apparition, sans la remplacer par le brouillon proposé."
     }
   ]
 }
