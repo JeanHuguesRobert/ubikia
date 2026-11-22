@@ -1,6 +1,6 @@
 {
   "schema": "ubikia.publication-ledger.v0.1",
-  "updated_at": "2026-11-21",
+  "updated_at": "2026-11-22T14:58:37.295Z",
   "notes": [
     "This ledger is the repository-visible memory of publication appearances.",
     "Detailed media binaries remain local under artifacts/ (gitignored).",
@@ -346,6 +346,55 @@
         "linked_publication_id": "substack:225903969"
       },
       "notes": "Légende publiée reproduite intégralement à partir de l'API officielle Instagram. La date a été communiquée par l'auteur via le contexte de la conversation ; l'heure exacte n'a pas été vérifiée."
+    },
+    {
+      "id": "youtube:zWxGO7Vh1s4",
+      "platform": "youtube",
+      "url": "https://youtu.be/zWxGO7Vh1s4",
+      "canonical_url": "https://www.youtube.com/watch?v=zWxGO7Vh1s4",
+      "platform_id": "zWxGO7Vh1s4",
+      "title": "La Marche du Soleil : de la Corse à toute la République — Lecture audio",
+      "visibility": "public",
+      "status": "published",
+      "published_at": "2026-11-22T14:56:43Z",
+      "recorded_at": "2026-11-22T14:58:37.292Z",
+      "recorded_by": "Agent John / Ubikia pour Jean Hugues Noël Robert",
+      "evidence": {
+        "type": "youtube_studio_and_public_oembed_atom",
+        "remote_verification": "confirmed",
+        "channel_id": "UCkKakpGogpj5MvFjwbm8zEw",
+        "youtube_handle": "@JeanHuguesRobert",
+        "studio_confirmation": "Vidéo mise en ligne ; Publiée le 22 nov. 2026",
+        "public_oembed_http": 200,
+        "public_atom_published_at": "2026-11-22T14:56:43+00:00",
+        "public_atom_feed": "https://www.youtube.com/feeds/videos.xml?channel_id=UCkKakpGogpj5MvFjwbm8zEw",
+        "video_sha256": "f08946fe4a679f35854c978626aaf88c715f7f906e2f695ecb4a3f3d1e873e9f",
+        "video_meta": "H.264 1280x720, 24fps; AAC; 760.04 seconds",
+        "navigation_method": "Cogentia Navigation Assistant gateway; local CDP file input on hosted Fracta2 browser"
+      },
+      "authenticity": {
+        "authenticity_risk": "contextual",
+        "disclosure_required": true,
+        "disclosure_text": "Cette lecture emploie une voix de synthèse. Aucun enregistrement vocal physique de l'auteur n'est revendiqué.",
+        "human_editorial_review": "editorial_controlled",
+        "responsible_publisher": "Jean Hugues Noël Robert"
+      },
+      "slug": "marche-du-soleil-2026-11-21",
+      "source": {
+        "repository": "JeanHuguesRobert/barons-Mariani",
+        "path": "publications/2026-11-21-marche-du-soleil-substack.md",
+        "commit": "ffb00c3275f344af18084c5b7d0c192fd86e7e70",
+        "article_url": "https://jeanhugues.substack.com/p/la-marche-du-soleil-de-la-corse-a"
+      },
+      "product": {
+        "kind": "audiovisual_essay",
+        "form": "spoken_essay_script",
+        "platform_package": "publications/2026-11-21-marche-du-soleil-audible.md",
+        "linked_publication_id": "substack:225903969"
+      },
+      "platform_as_backup": true,
+      "local_artifact_directory": "artifacts/audible/marche-du-soleil-2026-11-21",
+      "notes": "Lecture audio volontairement amateur, approuvée sans retouche par son auteur le 22 novembre 2026. Publication sur la chaîne YouTube de l’auteur via navigateur hébergé et CDP local. Public, vérifié par YouTube Studio, oEmbed et flux Atom. Voix synthétique Gradium signalée dans la description."
     }
   ]
 }
