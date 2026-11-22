@@ -1,8 +1,8 @@
 ---
-title: "La Marche du Soleil — version orale de travail"
+title: "La Marche du Soleil — version orale approuvée"
 date: "2026-11-21"
-version: "0.2"
-status: "audio-and-video-preview-rendered-unreviewed"
+version: "0.3"
+status: "approved-for-youtube-publication-pending-upload"
 document_role: derived
 document_kind: audio-script
 visibility: public
@@ -12,8 +12,11 @@ license: CC BY-SA 4.0
 canonical_url: "https://github.com/JeanHuguesRobert/ubikia/blob/main/publications/2026-11-21-marche-du-soleil-audible.md"
 update_policy: UP-DEFAULT-REVIEWED
 review:
-  status: "pending-author-approval"
-  reviewed_by: []
+  status: "approved-by-author"
+  reviewed_by:
+    - "Jean Hugues Noël Robert"
+  reviewed_at: "2026-11-22T14:37:47.314Z"
+  decision: "publish-as-is; imperfections accepted"
 source:
   repository: "JeanHuguesRobert/barons-Mariani"
   path: "publications/2026-11-21-marche-du-soleil-substack.md"
@@ -21,7 +24,7 @@ source:
   public_url: "https://jeanhugues.substack.com/p/la-marche-du-soleil-de-la-corse-a"
 derivation:
   toolchain: "Ubikia audible"
-  status: "rendered_preview_unreviewed"
+  status: "author_approved_rendered_preview"
   audio_duration_seconds: 760.032
   audio_segment_count: 17
   tts_provider: gradium
@@ -29,18 +32,20 @@ derivation:
   video_sha256: "f08946fe4a679f35854c978626aaf88c715f7f906e2f695ecb4a3f3d1e873e9f"
   method: "faithful spoken adaptation with five narrated section transitions"
   human_review_required: true
-  youtube_status: "prepared_not_uploaded"
+  human_review_completed: true
+  publication_authorization: "approved-by-author-as-is-2026-11-22"
+  youtube_status: "approved_pending_manual_upload"
 ---
 
-# La Marche du Soleil — version orale (brouillon pour relecture)
+# La Marche du Soleil — version orale approuvée pour publication
 
 **Source souveraine :** [article publié dans le Corpus](https://github.com/JeanHuguesRobert/barons-Mariani/blob/main/publications/2026-11-21-marche-du-soleil-substack.md), commit `ffb00c3`.
 
-**Statut :** cette adaptation orale n'a pas encore été validée par l'auteur. Elle conserve le texte argumentatif et reformule les titres, les références bibliographiques et les indications de liens pour une lecture audio. Les cinq titres principaux sont annoncés par un ordinal oral. Les avertissements de numérotation mécanique (chiffres 1 à 5 des en-têtes écrits) sont attendus.
+**Statut : version orale explicitement approuvée par l'auteur pour publication telle quelle le 22 novembre 2026.** Elle conserve le texte argumentatif et reformule les titres, les références bibliographiques et les indications de liens pour une lecture audio. Les cinq titres principaux sont annoncés par un ordinal oral. Les avertissements de numérotation mécanique (chiffres 1 à 5 des en-têtes écrits) sont attendus et acceptés.
 
-La voix de synthèse utilisée pour le rendu audio est Gradium ; le locuteur n'est pas présenté comme un enregistrement physique de l'auteur. Les formats WAV, MP3 et Opus ont été produits à partir de 17 segments, puis une vidéo de prévisualisation a été montée avec le visuel Substack. **Durée : 12 minutes 40 secondes ; H.264/AAC, 1280 × 720, 24 images/s.** La vidéo a été copiée sur le ThinkPad de l'auteur et vérifiée par empreinte SHA-256. La relecture éditoriale et l'écoute de contrôle restent à faire ; le paquet YouTube reste **privé, non téléversé**, avec une dérogation de développement explicitement signalée pour permettre sa préparation malgré l'absence de revue finale.
+La voix de synthèse utilisée pour le rendu audio est Gradium ; le locuteur n'est pas présenté comme un enregistrement physique de l'auteur. Les formats WAV, MP3 et Opus ont été produits à partir de 17 segments, puis une vidéo de prévisualisation a été montée avec le visuel Substack. **Durée : 12 minutes 40 secondes ; H.264/AAC, 1280 × 720, 24 images/s.** La vidéo a été copiée sur le ThinkPad de l'auteur et vérifiée par empreinte SHA-256. La version a été approuvée avec ses aspérités : aucun retraitement supplémentaire n'est demandé. Le paquet YouTube est **préparé, non téléversé** ; son premier téléversement via YouTube Studio reste prévu en privé avant décision de visibilité publique. La dérogation de développement pour absence de revue a été supprimée après l'approbation et la régénération du paquet.
 
-**Point de contrôle sonore :** une pause de 6,23 secondes a été détectée vers 6 min 50 ; il faut décider à l'écoute si cette pause est à raccourcir. Les sous-titres minutés n'ont pas été générés : le texte de la narration est conservé pour la synchronisation ultérieure.
+**Choix éditorial :** l'auteur revendique le caractère amateur de la réalisation : il souhaite illustrer qu'il n'est pas nécessaire d'être expert pour participer à la vie démocratique. La démocratie est ouverte à tous. La pause de 6,23 secondes constatée vers 6 min 50 fait partie de la version acceptée, sans correction demandée. Les sous-titres minutés n'ont pas été générés : le texte de la narration reste disponible pour une synchronisation ultérieure.
 
 ---
 
