@@ -1,8 +1,8 @@
 ---
-title: "La Marche du Soleil — version orale approuvée"
+title: "La Marche du Soleil — version orale publiée sur YouTube"
 date: "2026-11-21"
-version: "0.3"
-status: "approved-for-youtube-publication-pending-upload"
+version: "0.4"
+status: "youtube-published-public-verified"
 document_role: derived
 document_kind: audio-script
 visibility: public
@@ -34,16 +34,20 @@ derivation:
   human_review_required: true
   human_review_completed: true
   publication_authorization: "approved-by-author-as-is-2026-11-22"
-  youtube_status: "approved_pending_manual_upload"
+  youtube_status: "published-public-verified"
+  youtube_url: "https://youtu.be/zWxGO7Vh1s4"
+  youtube_channel: "UCkKakpGogpj5MvFjwbm8zEw"
+  youtube_published_at: "2026-11-22T14:56:43Z"
+  youtube_remote_verification: "YouTube Studio + public oEmbed + official Atom feed"
 ---
 
-# La Marche du Soleil — version orale approuvée pour publication
+# La Marche du Soleil — version orale publiée sur YouTube
 
 **Source souveraine :** [article publié dans le Corpus](https://github.com/JeanHuguesRobert/barons-Mariani/blob/main/publications/2026-11-21-marche-du-soleil-substack.md), commit `ffb00c3`.
 
 **Statut : version orale explicitement approuvée par l'auteur pour publication telle quelle le 22 novembre 2026.** Elle conserve le texte argumentatif et reformule les titres, les références bibliographiques et les indications de liens pour une lecture audio. Les cinq titres principaux sont annoncés par un ordinal oral. Les avertissements de numérotation mécanique (chiffres 1 à 5 des en-têtes écrits) sont attendus et acceptés.
 
-La voix de synthèse utilisée pour le rendu audio est Gradium ; le locuteur n'est pas présenté comme un enregistrement physique de l'auteur. Les formats WAV, MP3 et Opus ont été produits à partir de 17 segments, puis une vidéo de prévisualisation a été montée avec le visuel Substack. **Durée : 12 minutes 40 secondes ; H.264/AAC, 1280 × 720, 24 images/s.** La vidéo a été copiée sur le ThinkPad de l'auteur et vérifiée par empreinte SHA-256. La version a été approuvée avec ses aspérités : aucun retraitement supplémentaire n'est demandé. Le paquet YouTube est **préparé, non téléversé** ; son premier téléversement via YouTube Studio reste prévu en privé avant décision de visibilité publique. La dérogation de développement pour absence de revue a été supprimée après l'approbation et la régénération du paquet.
+La voix de synthèse utilisée pour le rendu audio est Gradium ; le locuteur n'est pas présenté comme un enregistrement physique de l'auteur. Les formats WAV, MP3 et Opus ont été produits à partir de 17 segments, puis une vidéo de prévisualisation a été montée avec le visuel Substack. **Durée : 12 minutes 40 secondes ; H.264/AAC, 1280 × 720, 24 images/s.** La vidéo a été copiée sur le ThinkPad de l'auteur et vérifiée par empreinte SHA-256. La version a été approuvée avec ses aspérités et **publiée publiquement sur [YouTube](https://youtu.be/zWxGO7Vh1s4) le 22 novembre 2026 à 14 h 56 min 43 s UTC**, sans retouche sonore ni changement du texte. Après téléversement initial privé via le navigateur hébergé de Fracta2, le statut « Publique » a été sélectionné et la commande « Publier » exécutée. YouTube Studio a confirmé « Vidéo mise en ligne » ; le service oEmbed public et le flux Atom officiel de la chaîne ont indépendamment confirmé le titre, la chaîne et la date. L’identifiant de la vidéo est `zWxGO7Vh1s4`.
 
 **Choix éditorial :** l'auteur revendique le caractère amateur de la réalisation : il souhaite illustrer qu'il n'est pas nécessaire d'être expert pour participer à la vie démocratique. La démocratie est ouverte à tous. La pause de 6,23 secondes constatée vers 6 min 50 fait partie de la version acceptée, sans correction demandée. Les sous-titres minutés n'ont pas été générés : le texte de la narration reste disponible pour une synchronisation ultérieure.
 
