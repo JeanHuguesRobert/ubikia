@@ -2,8 +2,8 @@
 title: "La Marche du Soleil — paquet de diffusion sociale"
 date: "2026-11-21"
 last_modified_at: "2026-11-22"
-version: "0.7"
-status: "substack-facebook-x-instagram-published-verified"
+version: "0.8"
+status: "substack-facebook-x-instagram-youtube-published-verified"
 document_role: derived
 document_kind: distribution-package
 visibility: public
@@ -27,7 +27,7 @@ platforms:
   - instagram
   - youtube
   - bluesky
-publication_status: "substack-facebook-x-instagram-published; youtube-video-approved-pending-upload; linkedin-account-recovery-pending; bluesky-draft-prepared"
+publication_status: "substack-facebook-x-instagram-published; youtube-published-public-verified; linkedin-account-recovery-pending; bluesky-draft-prepared"
 ---
 
 # La Marche du Soleil — diffusion sociale préparée
@@ -36,7 +36,7 @@ publication_status: "substack-facebook-x-instagram-published; youtube-video-appr
 - **Date et heure Substack (API) :** 21 novembre 2026, 09:33:57 UTC
 - **Identifiant Substack :** `225903969`
 - **Version source :** [Corpus Barons Mariani](https://github.com/JeanHuguesRobert/barons-Mariani/blob/main/publications/2026-11-21-marche-du-soleil-substack.md), commit `ffb00c3275f344af18084c5b7d0c192fd86e7e70`
-- **Diffusion sociale :** partages Facebook, X et Instagram publiés par l’auteur et vérifiés le 21 novembre 2026. **YouTube :** [adaptation orale approuvée par l’auteur le 22 novembre 2026](https://github.com/JeanHuguesRobert/ubikia/blob/main/publications/2026-11-21-marche-du-soleil-audible.md) ; rendu audio Gradium de 12 min 40 s et vidéo MP4 générés et copiés sur le ThinkPad. L’auteur accepte explicitement les imperfections et revendique la fabrication amateur comme illustration de l’ouverture de la démocratie à tous. Paquet YouTube prêt à téléverser, **non encore mis en ligne**. **LinkedIn : diffusion différée**, l’auteur ayant perdu temporairement l’accès au compte et engagé sa récupération le 21 novembre 2026 ; il attend un courriel de LinkedIn, avec un délai annoncé d’environ 48 heures selon son souvenir, non assimilé à une échéance vérifiée. Le texte LinkedIn reste préparé. **Bluesky :** texte préparé, publication non constatée.
+- **Diffusion sociale :** partages Facebook, X et Instagram publiés par l’auteur et vérifiés le 21 novembre 2026. **YouTube :** [édition audio de la Marche du Soleil publiée](https://youtu.be/zWxGO7Vh1s4), le **22 novembre 2026 à 14:56:43 UTC**, sur la chaîne @JeanHuguesRobert ; [transcription approuvée et provenance](https://github.com/JeanHuguesRobert/ubikia/blob/main/publications/2026-11-21-marche-du-soleil-audible.md). L’auteur accepte explicitement les imperfections et revendique la fabrication amateur comme illustration de l’ouverture de la démocratie à tous. Publication publique effectuée depuis le navigateur Fracta2 grâce au Navigation Assistant et à l’importation de fichiers par CDP ; confirmée par YouTube Studio, oEmbed et le flux Atom officiel. **LinkedIn : diffusion différée**, l’auteur ayant perdu temporairement l’accès au compte et engagé sa récupération le 21 novembre 2026 ; il attend un courriel de LinkedIn, avec un délai annoncé d’environ 48 heures selon son souvenir, non assimilé à une échéance vérifiée. Le texte LinkedIn reste préparé. **Bluesky :** texte préparé, publication non constatée.
 - **Facebook :** [publication publique vérifiée](https://www.facebook.com/jeanhuguesrobert/posts/pfbid02TacKoRpK4VgMbrbq2ibtCdUATz4YgQJdWCw2SzsoPF3EnRHeKfVwYV2bRqNcd6gal) sur le profil « Jean Hugues Noël », le 21 novembre 2026. La date est établie ; l’interface a affiché des heures différentes selon la vue. Le texte complet correspond à l’adaptation Facebook préparée et reprend l’aperçu de l’article Substack.
 - **X :** [publication publique vérifiée](https://x.com/BaronsMariani/status/2124078342512972064) par @BaronsMariani, le 21 novembre 2026 à 09:51:54 UTC (heure déduite de l’identifiant du post, cohérente avec l’affichage X 9:51 AM). L’auteur a modifié le texte proposé : formulation plus brève, ajout des hashtags #corse, #capable et #suvranu. Texte final conservé plus bas.
 
@@ -179,7 +179,7 @@ Lire la note : https://jeanhugues.substack.com/p/la-marche-du-soleil-de-la-corse
 - Partage Facebook confirmé : https://www.facebook.com/jeanhuguesrobert/posts/pfbid02TacKoRpK4VgMbrbq2ibtCdUATz4YgQJdWCw2SzsoPF3EnRHeKfVwYV2bRqNcd6gal
 - Publication X confirmée : https://x.com/BaronsMariani/status/2124078342512972064
 - Publication Instagram confirmée : https://www.instagram.com/p/Df_-wUUFXmK/
-- YouTube : lecture audio et MP4 approuvés sans modifications par l’auteur le 22 novembre 2026. Paquet validé, descriptif présentant la réalisation amateur et la participation de tous. Téléversement sur sa chaîne et vérification de la publication restent à effectuer ; aucune URL YouTube n’existe à ce stade.
+- YouTube : publication publique vérifiée : https://youtu.be/zWxGO7Vh1s4 (YouTube Studio, oEmbed HTTP 200 et flux Atom officiel ; 22 novembre 2026 à 14:56:43 UTC). Titre, description et miniature chargés, public sélectionné ; le MP4 et la narration ont été conservés sans retouches. Article source lié dans la description.
 - LinkedIn : en attente de récupération de l’accès au compte (information déclarée par l’auteur le 21 novembre 2026). Réponse attendue par courriel de LinkedIn ; délai d’environ 48 heures rapporté comme une estimation. Ne pas tenter de publication LinkedIn tant que l’accès n’est pas restauré.
 - Bluesky : texte préparé, aucune publication observée à cette étape. Après chaque publication éventuelle, conserver le texte final et l’URL exacte.
 - Ne pas déduire une publication sociale du seul fait qu'un formulaire de partage a été ouvert.
