@@ -108,7 +108,7 @@ No upload is performed. Package defaults remain private unless metadata override
 
 When segment timings are missing, captions are omitted rather than faked; the reviewed transcript remains available for YouTube Studio. Sentence-level timing is deferred to issue #2 / the Media MVP.
 
-## 3. Publish manually (human only)
+See also [Browser-assisted publication handoff](browser-assisted-publication-handoff.md) for the read-only integrity preflight and the subsequently governed Navigation Assistant route. It does not publish automatically.\n\n## 3. Publish manually (human only)
 
 Upload the generated video through YouTube Studio, apply the reviewed title and description, attach captions or transcript as needed, keep the first upload **private**, preview, then choose any later visibility change yourself.
 

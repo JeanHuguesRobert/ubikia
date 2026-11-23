@@ -217,6 +217,7 @@ test("a cover requires a relative PNG and explicit image-preservation invariant"
   assert.equal(validateContract({ ...exampleContract, cover }).cover.image, "../assets/cover.png");
   assert.throws(() => validateContract({ ...exampleContract, cover: { ...cover, preserve_source_image: false } }), /preserve_source_image/);
   assert.throws(() => validateContract({ ...exampleContract, cover: { ...cover, image: "C:\\cover.png" } }), /must be relative/);
+  assert.throws(() => validateContract({ ...exampleContract, cover: { ...cover, image: "\\\\server\\share\\cover.png" } }), /must be relative/);
   const specialIssueCover = { ...cover, issue: "No. 3", edition: "Senatorial special" };
   delete specialIssueCover.anniversary;
   assert.equal(validateContract({ ...exampleContract, cover: specialIssueCover }).cover.anniversary, undefined);

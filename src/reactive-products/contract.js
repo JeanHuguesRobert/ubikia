@@ -74,14 +74,14 @@ export function validateContract(value) {
     if (cover.print_pdf !== undefined) {
       nonempty(cover.print_pdf, "projection.cover.print_pdf");
       if (!outputs.includes("pdf")) throw new Error("projection.cover.print_pdf requires a PDF output");
-      if (path.isAbsolute(cover.print_pdf)) {
+      if (path.isAbsolute(cover.print_pdf) || path.win32.isAbsolute(cover.print_pdf)) {
         throw new Error("projection.cover.print_pdf must be relative to the projection");
       }
       if (!/^[A-Za-z0-9][A-Za-z0-9._-]*\.pdf$/i.test(path.basename(cover.print_pdf))) {
         throw new Error("projection.cover.print_pdf filename must be a simple PDF basename");
       }
     }
-    if (path.isAbsolute(cover.image)) {
+    if (path.isAbsolute(cover.image) || path.win32.isAbsolute(cover.image)) {
       throw new Error("projection.cover.image must be relative to the projection");
     }
     if (cover.preserve_source_image !== true) {
